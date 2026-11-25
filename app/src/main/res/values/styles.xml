@@ -115,7 +115,6 @@
     <!-- Alert Dialog Overlay -->
     <style name="ThemeOverlay.CaroXO.AlertDialog" parent="ThemeOverlay.Material3.MaterialAlertDialog">
         <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.CaroXO.Dialog</item>
-        <item name="colorSurface">?attr/colorSurface</item>
     </style>
 
     <style name="ShapeAppearanceOverlay.CaroXO.Dialog" parent="">

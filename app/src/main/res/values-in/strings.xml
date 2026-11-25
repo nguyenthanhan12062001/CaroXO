@@ -102,6 +102,7 @@
     <string name="result_online_finished">Pertandingan online telah berakhir.</string>
     <string name="result_offline_play_again_prompt">Apakah Anda ingin memulai pertandingan baru?</string>
     <string name="action_play_again">Main Lagi</string>
+    <string name="action_continue">Lanjutkan</string>
     <string name="action_back_home">Ke Beranda</string>
 
     <string name="menu_quick_settings">Setelan Cepat</string>
@@ -301,6 +302,7 @@
     <string name="match_duration_sec">%1$dd</string>
 
     <!-- Onboarding & Feature Discovery -->
+    <string name="onboarding_tour_header">Tur CaroXO</string>
     <string name="onboarding_skip">Lewati</string>
     <string name="onboarding_next">Lanjut</string>
     <string name="onboarding_start_discovery">Mulai Jelajah</string>
@@ -308,18 +310,37 @@
     <string name="onboarding_slide1_title">Selamat Datang di CaroXO</string>
     <string name="onboarding_slide1_subtitle">Mesin Papan Canvas Mulus</string>
     <string name="onboarding_slide1_desc">Nikmati serunya catur Caro 5-sejajar dengan sentuhan halus, geser lancar, dan cubit zoom 1x–3x pada beragam ukuran papan.</string>
+    <string name="onboarding_s1_h1">10×10 / 15×15 / 20×20</string>
+    <string name="onboarding_s1_h2">Cubit Zoom 1x–3x</string>
+    <string name="onboarding_s1_h3">Blok 2 Ujung</string>
 
     <string name="onboarding_slide2_title">Pilihan Mode Beragam</string>
-    <string name="onboarding_slide2_subtitle">Pass &amp; Play, AI Cerdas &amp; Online</string>
-    <string name="onboarding_slide2_desc">Ajak teman main berdua di satu HP, asah taktik melawan 3 tingkat AI (Mudah hingga Minimax Alpha-Beta), atau buat ruang 6 digit online real-time.</string>
+    <string name="onboarding_slide2_subtitle">Pass &amp; Play, AI &amp; Tanding Ulang</string>
+    <string name="onboarding_slide2_desc">Duel berdua di satu HP, lawan 3 level AI (Mudah hingga Minimax Alpha-Beta), atau buat ruang online 6 digit dengan opsi Lanjutkan tanding ulang atau Ke Beranda.</string>
+    <string name="onboarding_s2_h1">Pass &amp; Play (1 HP)</string>
+    <string name="onboarding_s2_h2">Minimax Alpha-Beta</string>
+    <string name="onboarding_s2_h3">Tanding Ulang 1 Tap</string>
+
+    <string name="onboarding_slide_social_title">Teman &amp; Undangan Instan</string>
+    <string name="onboarding_slide_social_subtitle">Status Online &amp; Popup Duel</string>
+    <string name="onboarding_slide_social_desc">Tambah teman lewat nama atau ID Pemain, pantau teman aktif lewat titik hijau, dan balas ajakan duel atau tanding ulang lewat popup Terima (✓) / Tolak (✕) instan.</string>
+    <string name="onboarding_s_social_h1">Titik Hijau Online</string>
+    <string name="onboarding_s_social_h2">Popup Undangan</string>
+    <string name="onboarding_s_social_h3">Cari ID Pemain</string>
 
     <string name="onboarding_slide3_title">Peringkat &amp; Gaya Bidak VIP</string>
     <string name="onboarding_slide3_subtitle">Raih Posisi Top 20</string>
-    <string name="onboarding_slide3_desc">Kumpulkan poin kemenangan, raih Lencana Khusus Raja, dan buka 3 gaya bidak VIP bercahaya yang keren.</string>
+    <string name="onboarding_slide3_desc">Kumpulkan poin kemenangan, cek ID Pemain langsung di Papan Peringkat, raih Lencana Raja, dan buka 3 gaya bidak VIP bercahaya.</string>
+    <string name="onboarding_s3_h1">Menang +10 / Kalah -5</string>
+    <string name="onboarding_s3_h2">ID di Peringkat</string>
+    <string name="onboarding_s3_h3">3 Gaya VIP Bercahaya</string>
 
     <string name="onboarding_slide4_title">Interaksi &amp; Personalisasi</string>
     <string name="onboarding_slide4_subtitle">Obrolan Global &amp; Riwayat Laga</string>
-    <string name="onboarding_slide4_desc">Mengobrol langsung dengan pemain dunia, pantau 10 laga terakhir, dan pilih Avatar favorit dengan sinkronisasi awan.</string>
+    <string name="onboarding_slide4_desc">Mengobrol real-time di Obrolan Global &amp; Ruang, lihat profil dengan lencana Admin terverifikasi, pantau 10 laga terakhir, dan sinkronkan 10 Avatar.</string>
+    <string name="onboarding_s4_h1">Obrolan Global &amp; Ruang</string>
+    <string name="onboarding_s4_h2">10 Avatar Unik</string>
+    <string name="onboarding_s4_h3">10 Laga Terakhir</string>
 
     <string name="discovery_step_fmt">Panduan Fitur (%1$d/%2$d)</string>
     <string name="discovery_btn_got_it">Mengerti</string>
@@ -333,24 +354,134 @@
     <string name="discovery_home_rules_desc">Ganti ukuran papan 10×10, 15×15, 20×20 dan aktifkan \'Aturan Blokir 2 Ujung\' untuk taktik lebih mendalam.</string>
     <string name="discovery_home_modes_title">Mode Permainan</string>
     <string name="discovery_home_modes_desc">Pilih Pass &amp; Play untuk duel 2 pemain di satu HP, atau tantang AI dengan 3 tingkat termasuk Minimax Alpha-Beta.</string>
-    <string name="discovery_home_online_title">Ruang Online Real-time</string>
-    <string name="discovery_home_online_desc">Masuk untuk membuat kode ruang 6 digit atau bergabung dengan teman untuk duel seru berbatas waktu 30 detik.</string>
+    <string name="discovery_home_online_title">Ruang Online &amp; Tanding Ulang</string>
+    <string name="discovery_home_online_desc">Masuk untuk membuat atau gabung ruang 6 digit berbatas waktu 30 detik. Setelah selesai, ketuk Lanjutkan untuk tanding ulang cepat atau Ke Beranda.</string>
+    <string name="discovery_home_friends_title">Teman &amp; Undangan Instan</string>
+    <string name="discovery_home_friends_desc">Ketuk ikon Teman di atas untuk melihat teman online (titik hijau), cari via ID Pemain, dan kirim/terima popup ajakan duel maupun tanding ulang.</string>
+    <string name="discovery_friends_title">Teman Online &amp; Popup Duel</string>
+    <string name="discovery_friends_desc">Titik hijau menandakan teman sedang online. Undang teman bermain — mereka akan menerima popup mencolok dengan tombol Terima (✓) dan Tolak (✕).</string>
 
     <string name="discovery_game_controls_title">Kontrol Papan Canvas</string>
     <string name="discovery_game_controls_desc">Sentuh kotak untuk meletakkan bidak • Geser 1 jari untuk geser • Cubit 2 jari untuk zoom (1x–3x) • Gunakan Saran, Urung &amp; Setelan Cepat.</string>
 
-    <string name="discovery_lb_title">Papan Peringkat &amp; Poin</string>
-    <string name="discovery_lb_desc">Menang +10 poin, kalah -5 poin. Masuk Top 1–3 untuk membuka Lencana Khusus dan 3 gaya bidak VIP spesial.</string>
+    <string name="discovery_lb_title">Papan Peringkat &amp; ID</string>
+    <string name="discovery_lb_desc">Menang +10 poin, kalah -5 poin. Cek ID unik di bawah nama pemain, ketuk untuk melihat profil, dan masuk Top 1–3 untuk membuka gaya bidak VIP.</string>
 
     <string name="discovery_chat_title">Obrolan Lobi &amp; Ruang</string>
-    <string name="discovery_chat_desc">Kirim pesan real-time di Obrolan Global atau obrolan privat selama pertandingan online berlangsung.</string>
+    <string name="discovery_chat_desc">Kirim pesan real-time di Obrolan Global atau obrolan ruang privat, ketuk avatar untuk melihat profil dan lencana Admin terverifikasi.</string>
 
     <string name="discovery_profile_title">Profil &amp; Riwayat Laga</string>
     <string name="discovery_profile_desc">Pilih Avatar dan Gaya Bidak favorit, pantau Lencana Puncak Anda, dan tinjau 10 pertandingan terakhir.</string>
 
     <string name="settings_section_discovery">Panduan &amp; Penjelajahan</string>
     <string name="settings_replay_onboarding_title">Tonton Ulang Tur Onboarding</string>
-    <string name="settings_replay_onboarding_desc">Lihat kembali ringkasan pengenalan 4 langkah aplikasi</string>
+    <string name="settings_replay_onboarding_desc">Lihat kembali ringkasan pengenalan 5 langkah aplikasi</string>
     <string name="settings_reset_discovery_title">Atur Ulang Panduan Fitur</string>
     <string name="settings_reset_discovery_desc">Tampilkan kembali kartu panduan interaktif saat menjelajah</string>
+
+    <!-- Friends, Invites & Player Profile -->
+    <string name="friends_title">Teman &amp; Undangan</string>
+    <string name="friends_subtitle">Tambah teman, kelola permintaan, lihat profil, dan undang bermain</string>
+    <string name="cd_friends">Buka daftar teman dan undangan</string>
+    <string name="btn_play_with_friends">Undang Teman Bermain</string>
+    <string name="profile_friends_title">Teman &amp; Permintaan</string>
+    <string name="profile_friends_desc">Lihat daftar teman, undangan masuk, dan cari pemain</string>
+    <string name="profile_friends_badge_fmt">%1$d baru</string>
+
+    <string name="friends_tab_list">Teman</string>
+    <string name="friends_tab_requests">Permintaan</string>
+    <string name="friends_tab_find">Cari Pemain</string>
+    <string name="friends_my_id_label">ID Pemain Anda</string>
+    <string name="friends_id_copied">ID Pemain disalin: %1$s</string>
+    <string name="cd_copy_player_id">Salin ID Pemain</string>
+
+    <string name="friends_section_game_invites">Undangan Pertandingan</string>
+    <string name="friends_section_incoming_requests">Permintaan Pertemanan Masuk</string>
+    <string name="friends_section_outgoing_requests">Permintaan Terkirim</string>
+    <string name="friends_section_accepted">Daftar Teman</string>
+
+    <string name="friends_empty_list">Belum ada teman. Cari berdasarkan nama atau ID Pemain untuk menambah teman!</string>
+    <string name="friends_empty_requests">Tidak ada permintaan pertemanan atau undangan pertandingan.</string>
+    <string name="friends_search_hint">Cari dengan Nama atau ID Pemain</string>
+    <string name="friends_search_btn">Cari</string>
+    <string name="friends_search_empty">Tidak ditemukan pemain yang cocok.</string>
+    <string name="friends_search_error">Gagal mencari pemain. Silakan coba lagi.</string>
+    <string name="friends_error_load">Gagal memuat daftar teman.</string>
+
+    <string name="action_invite_play">Undang</string>
+    <string name="action_view_profile">Profil</string>
+    <string name="action_add_friend">Tambah Teman</string>
+    <string name="action_accept">Terima</string>
+    <string name="action_decline">Tolak</string>
+    <string name="action_cancel_request">Batalkan</string>
+    <string name="action_remove_friend">Hapus Teman</string>
+    <string name="status_request_sent">Terkirim</string>
+    <string name="status_already_friends">Teman</string>
+
+    <string name="confirm_remove_friend_title">Hapus teman?</string>
+    <string name="confirm_remove_friend_message">Hapus %1$s dari daftar teman Anda?</string>
+
+    <string name="friend_request_sent_toast">Permintaan pertemanan dikirim ke %1$s!</string>
+    <string name="friend_request_accepted_toast">Permintaan pertemanan diterima!</string>
+    <string name="friend_request_declined_toast">Permintaan pertemanan ditolak.</string>
+    <string name="friend_request_cancelled_toast">Permintaan pertemanan dibatalkan.</string>
+    <string name="friend_removed_toast">Dihapus dari daftar teman.</string>
+    <string name="friend_error_already_friends">Anda sudah berteman dengan pemain ini.</string>
+    <string name="friend_error_request_already_sent">Permintaan pertemanan sudah dikirim.</string>
+    <string name="friend_error_add_self">Anda tidak dapat menambahkan diri sendiri sebagai teman.</string>
+    <string name="friend_error_generic">Gagal memperbarui pertemanan. Silakan coba lagi.</string>
+
+    <string name="invite_card_desc_fmt">Ruang #%1$s · %2$d×%2$d · %3$s</string>
+    <string name="invite_rule_block_on">Blok 2 ujung</string>
+    <string name="invite_rule_block_off">Bebas 5 sejajar</string>
+    <string name="invite_sent_toast">Undangan pertandingan dikirim ke %1$s!</string>
+    <string name="invite_error_send">Gagal mengirim undangan pertandingan.</string>
+    <string name="invite_room_expired">Ruang pertandingan ini sudah tidak tersedia.</string>
+    <string name="invite_dialog_title">Undangan Pertandingan!</string>
+    <string name="invite_dialog_message_fmt">%1$s mengundang Anda bermain CaroXO (%2$d×%2$d · %3$s).</string>
+
+    <string name="player_profile_title">Profil Pemain</string>
+    <string name="player_profile_loading">Memuat profil pemain…</string>
+    <string name="player_profile_not_found">Profil pemain tidak ditemukan.</string>
+    <string name="player_profile_id_fmt">ID: %1$s</string>
+    <string name="player_profile_rank_fmt">Peringkat #%1$d</string>
+    <string name="player_profile_draws_label">Seri</string>
+    <string name="player_profile_winrate_label">Rasio Menang</string>
+    <string name="player_profile_style_label">Gaya Bidak Terpasang</string>
+    <string name="leaderboard_player_id_fmt">ID: %1$s</string>
+    <string name="cd_friend_online">Teman sedang online</string>
+    <string name="admin_badge_label">Admin</string>
+    <string name="cd_admin_verified">Admin Terverifikasi</string>
+    <string name="cd_admin_clear_chat">Hapus riwayat obrolan global</string>
+    <string name="admin_clear_chat_title">Hapus obrolan global?</string>
+    <string name="admin_clear_chat_message">Hapus semua pesan di Obrolan Global? Tindakan ini tidak dapat dibatalkan.</string>
+    <string name="admin_clear_chat_action">Hapus Semua</string>
+    <string name="admin_chat_cleared_toast">%1$d pesan obrolan global telah dihapus.</string>
+    <string name="admin_chat_already_empty_toast">Obrolan global sudah kosong.</string>
+    <string name="admin_chat_clear_error">Gagal menghapus riwayat obrolan global.</string>
+    <string name="invite_popup_badge_match">Undangan Duel</string>
+    <string name="invite_popup_badge_rematch">Ajakan Tanding Ulang</string>
+    <string name="invite_popup_headline_match">%1$s ingin mengajak Anda bertanding!</string>
+    <string name="invite_popup_headline_rematch">%1$s mengajak Anda tanding ulang!</string>
+    <string name="rematch_invite_sent_toast">Ajakan tanding ulang dikirim ke %1$s!</string>
+    <string name="rematch_declined_toast">%1$s menolak ajakan tanding ulang.</string>
+    <string name="cd_invite_accept">Terima undangan pertandingan</string>
+    <string name="cd_invite_decline">Tolak undangan pertandingan</string>
+    <string name="setting_impact_fx_title">Efek Dampak Penempatan</string>
+    <string name="setting_impact_fx_desc">Getaran papan, cincin gelombang kejut, dan ledakan partikel</string>
+    <string name="setting_ad_privacy_title">Pilihan Iklan &amp; Privasi (GDPR)</string>
+    <string name="setting_ad_privacy_desc">Kelola persetujuan iklan personalisasi dan privasi</string>
+    <string name="style_ad_storm_volt">Storm Volt (Lôi Đình)</string>
+    <string name="style_ad_frost_crystal">Frost Crystal (Băng Tinh)</string>
+    <string name="style_ad_void_singularity">Void Singularity (Hắc Tinh)</string>
+    <string name="style_ad_ink_gold">Ink &amp; Gold (Thủy Mặc Kim Long)</string>
+    <string name="ad_badge_timed">AD · 2H</string>
+    <string name="ad_style_unlock_title">Buka Gaya Selama 2 Jam</string>
+    <string name="ad_style_unlock_message">Tonton iklan video pendek untuk membuka gaya %1$s selama 2 jam!</string>
+    <string name="btn_watch_ad">Tonton Iklan</string>
+    <string name="ad_loading_try_again">Iklan sedang dimuat, coba lagi sebentar.</string>
+    <string name="ad_reward_hints_title">Kehabisan Petunjuk!</string>
+    <string name="ad_reward_hints_message">Anda telah menggunakan 2 petunjuk gratis. Tonton iklan singkat untuk mendapatkan +3 petunjuk?</string>
+    <string name="ad_reward_undos_title">Kehabisan Undo!</string>
+    <string name="ad_reward_undos_message">Anda telah menggunakan 2 undo gratis. Tonton iklan singkat untuk mendapatkan +3 undo?</string>
 </resources>

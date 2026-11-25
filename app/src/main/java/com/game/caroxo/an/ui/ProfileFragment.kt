@@ -17,6 +17,7 @@ import com.game.caroxo.an.MainActivity
 import com.game.caroxo.an.R
 import com.game.caroxo.an.data.PreferencesManager
 import com.game.caroxo.an.databinding.FragmentProfileBinding
+import com.game.caroxo.an.model.AdminConfig
 import com.game.caroxo.an.model.AvatarCatalog
 import com.game.caroxo.an.model.PieceStyle
 import com.game.caroxo.an.model.PlayerProfile
@@ -60,9 +61,11 @@ class ProfileFragment : Fragment() {
 
         val initial = prefs.settings.value
         selectedAvatarId = initial.localAvatarId
-        val signedInInitially = mainViewModel.currentUser.value != null
+        val initialUser = mainViewModel.currentUser.value
+        val signedInInitially = initialUser != null
+        val isAdminInitially = AdminConfig.isAdmin(initialUser?.uid)
         val rankInitially = mainViewModel.myCurrentRank.value
-        selectedPieceStyle = if (initial.pieceStyle.isUnlockedFor(signedInInitially, rankInitially)) {
+        selectedPieceStyle = if (initial.pieceStyle.isUnlockedFor(signedInInitially, rankInitially, isAdminInitially)) {
             initial.pieceStyle
         } else {
             PieceStyle.CLASSIC
@@ -83,24 +86,51 @@ class ProfileFragment : Fragment() {
             selectedStyle = selectedPieceStyle,
             isSignedIn = signedInInitially,
             currentRank = rankInitially,
+            isAdmin = isAdminInitially,
             onSelect = { chosen ->
                 sound.playUiClick()
                 selectedPieceStyle = chosen
+                val currentUser = mainViewModel.currentUser.value
                 pieceStyleAdapter.updateState(
                     chosen,
-                    mainViewModel.currentUser.value != null,
-                    mainViewModel.myCurrentRank.value
+                    currentUser != null,
+                    mainViewModel.myCurrentRank.value,
+                    AdminConfig.isAdmin(currentUser?.uid)
                 )
             },
             onLockedClick = { lockedStyle ->
-                sound.playError()
-                val isSignedIn = mainViewModel.currentUser.value != null
-                val msg = if (!isSignedIn) {
-                    getString(R.string.vip_style_locked_sign_in)
+                sound.playUiClick()
+                if (lockedStyle.isAdRewarded) {
+                    com.google.android.material.dialog.MaterialAlertDialogBuilder(requireContext())
+                        .setTitle(R.string.ad_style_unlock_title)
+                        .setMessage(getString(R.string.ad_style_unlock_message, getString(RankUiHelper.resolvePieceStyleLabelRes(lockedStyle))))
+                        .setPositiveButton(R.string.btn_watch_ad) { _, _ ->
+                            app.adManager.showRewardedAd(requireActivity(), {
+                                prefs.grantTimedStyleUnlock(lockedStyle, com.game.caroxo.an.ads.AdConfig.STYLE_UNLOCK_DURATION_MS)
+                                selectedPieceStyle = lockedStyle
+                                prefs.setPieceStyle(lockedStyle)
+                                val currentUser = mainViewModel.currentUser.value
+                                pieceStyleAdapter.updateState(
+                                    lockedStyle,
+                                    currentUser != null,
+                                    mainViewModel.myCurrentRank.value,
+                                    AdminConfig.isAdmin(currentUser?.uid)
+                                )
+                                Toast.makeText(requireContext(), R.string.profile_saved, Toast.LENGTH_SHORT).show()
+                            })
+                        }
+                        .setNegativeButton(R.string.action_cancel, null)
+                        .show()
                 } else {
-                    getString(R.string.vip_style_locked_rank_fmt, lockedStyle.requiredMaxRank ?: 3)
+                    sound.playError()
+                    val isSignedIn = mainViewModel.currentUser.value != null
+                    val msg = if (!isSignedIn) {
+                        getString(R.string.vip_style_locked_sign_in)
+                    } else {
+                        getString(R.string.vip_style_locked_rank_fmt, lockedStyle.requiredMaxRank ?: 3)
+                    }
+                    Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
                 }
-                Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
             }
         )
         binding.rvPieceStyles.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -137,6 +167,11 @@ class ProfileFragment : Fragment() {
             (activity as? MainActivity)?.triggerSignOut()
         }
 
+        binding.cardProfileFriends.setOnClickListener {
+            sound.playUiClick()
+            (activity as? MainActivity)?.openFriendsScreen()
+        }
+
         binding.btnSaveProfile.setOnClickListener {
             sound.playUiClick()
             val nick = binding.etNickname.text?.toString().orEmpty()
@@ -148,12 +183,21 @@ class ProfileFragment : Fragment() {
                 launch {
                     mainViewModel.currentUser.collect { user ->
                         val signedIn = user != null
+                        val isAdmin = AdminConfig.isAdmin(user?.uid)
                         binding.btnProfileGoogleSignIn.visibility = if (signedIn) View.GONE else View.VISIBLE
                         binding.btnProfileEmailSignIn.visibility = if (signedIn) View.GONE else View.VISIBLE
                         binding.btnProfileSignOut.visibility = if (signedIn) View.VISIBLE else View.GONE
                         binding.layoutProfileStats.visibility = if (signedIn) View.VISIBLE else View.GONE
                         binding.layoutProfileLegacy.visibility = if (signedIn) View.VISIBLE else View.GONE
+                        binding.cardProfileFriends.visibility = if (signedIn) View.VISIBLE else View.GONE
                         binding.tvProfileTitleBadge.visibility = if (signedIn) View.VISIBLE else View.GONE
+                        binding.layoutProfileAdminBadge.visibility = if (isAdmin) View.VISIBLE else View.GONE
+                        binding.tvProfileAccountStatus.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                            0,
+                            0,
+                            if (isAdmin) R.drawable.ic_verified_tiktok else 0,
+                            0
+                        )
                         if (user != null) {
                             binding.tvProfileAccountStatus.text = getString(
                                 R.string.auth_signed_in_as,
@@ -180,9 +224,11 @@ class ProfileFragment : Fragment() {
                                 binding.etNickname.setText(profile.nickname)
                                 selectedAvatarId = profile.avatarId
                                 val loadedStyle = PieceStyle.fromKey(profile.pieceStyle)
+                                val currentUser = mainViewModel.currentUser.value
                                 selectedPieceStyle = if (loadedStyle.isUnlockedFor(
-                                        mainViewModel.currentUser.value != null,
-                                        mainViewModel.myCurrentRank.value
+                                        currentUser != null,
+                                        mainViewModel.myCurrentRank.value,
+                                        AdminConfig.isAdmin(currentUser?.uid)
                                     )
                                 ) {
                                     loadedStyle
@@ -211,13 +257,12 @@ class ProfileFragment : Fragment() {
                     }
                 }
                 launch {
-                    mainViewModel.events.collect { event ->
-                        if (event is LobbyEvent.ShowMessage) {
-                            Toast.makeText(
-                                requireContext(),
-                                event.message.asString(requireContext()),
-                                Toast.LENGTH_SHORT
-                            ).show()
+                    mainViewModel.pendingSocialCount.collect { count ->
+                        if (count > 0) {
+                            binding.tvProfileFriendsBadge.visibility = View.VISIBLE
+                            binding.tvProfileFriendsBadge.text = getString(R.string.profile_friends_badge_fmt, count)
+                        } else {
+                            binding.tvProfileFriendsBadge.visibility = View.GONE
                         }
                     }
                 }
@@ -248,12 +293,14 @@ class ProfileFragment : Fragment() {
     }
 
     private fun refreshPieceStyleLockState() {
-        val signedIn = mainViewModel.currentUser.value != null
+        val currentUser = mainViewModel.currentUser.value
+        val signedIn = currentUser != null
+        val isAdmin = AdminConfig.isAdmin(currentUser?.uid)
         val rank = mainViewModel.myCurrentRank.value
-        if (!selectedPieceStyle.isUnlockedFor(signedIn, rank)) {
+        if (!selectedPieceStyle.isUnlockedFor(signedIn, rank, isAdmin)) {
             selectedPieceStyle = PieceStyle.CLASSIC
         }
-        pieceStyleAdapter.updateState(selectedPieceStyle, signedIn, rank)
+        pieceStyleAdapter.updateState(selectedPieceStyle, signedIn, rank, isAdmin)
     }
 
     private fun refreshLegacyAndTitle(profile: PlayerProfile?, currentRank: Int?) {

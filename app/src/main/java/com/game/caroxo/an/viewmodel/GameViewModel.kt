@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.game.caroxo.an.R
 import com.game.caroxo.an.audio.SoundAndHapticsManager
 import com.game.caroxo.an.data.FirebaseGameRepository
+import com.game.caroxo.an.data.FirebaseSocialRepository
 import com.game.caroxo.an.data.PreferencesManager
 import com.game.caroxo.an.engine.CaroAiEngine
 import com.game.caroxo.an.engine.CaroRulesEngine
@@ -65,7 +66,9 @@ data class GameUiState(
     val myOnlinePiece: Piece = Piece.X,
     val remainingSeconds: Int = 30,
     val pointsDeltaText: UiText? = null,
-    val timeoutWinnerName: String? = null
+    val timeoutWinnerName: String? = null,
+    val canRematch: Boolean = false,
+    val isStartingRematch: Boolean = false
 ) {
     override fun equals(other: Any?): Boolean = false
     override fun hashCode(): Int = System.identityHashCode(this)
@@ -73,10 +76,12 @@ data class GameUiState(
 
 sealed interface GameEffect {
     data class ToastMessage(val text: UiText) : GameEffect
+    data object RematchDeclinedExit : GameEffect
 }
 
 class GameViewModel(
     private val repository: FirebaseGameRepository,
+    private val socialRepository: FirebaseSocialRepository,
     private val preferencesManager: PreferencesManager,
     private val soundManager: SoundAndHapticsManager
 ) : ViewModel() {
@@ -101,6 +106,7 @@ class GameViewModel(
     private var roomJob: Job? = null
     private var roomChatJob: Job? = null
     private var timerJob: Job? = null
+    private var rematchInviteJob: Job? = null
     private var recordedRoomOutcome: String? = null
     private var lastSubmittedMoveCount = -1
     private var isRoomChatOpen = false
@@ -108,6 +114,9 @@ class GameViewModel(
     private var currentRoomMembers: List<String> = emptyList()
     private var gameStartedAtMs = System.currentTimeMillis()
     private var recordedMatchHistory = false
+    private var lastFinishedOpponentUid: String? = null
+    private var lastFinishedOpponentNickname: String = ""
+    private var lastFinishedAtMs: Long = 0L
 
     private fun recordOfflineMatchOutcome(won: Boolean, draw: Boolean, opponentName: String, mode: GameMode) {
         val user = FirebaseAuth.getInstance().currentUser ?: return
@@ -194,6 +203,7 @@ class GameViewModel(
         recordedRoomOutcome = null
         gameStartedAtMs = System.currentTimeMillis()
         recordedMatchHistory = false
+        clearRematchContext()
 
         val settings = preferencesManager.settings.value
         val validSize = if (boardSize == 10 || boardSize == 15 || boardSize == 20) boardSize else 15
@@ -367,6 +377,20 @@ class GameViewModel(
             if (room.winnerUid == room.hostUid) room.hostNickname else room.guestNickname
         } else null
 
+        val opponentUid = if (room.hostUid == myUid) room.guestUid else room.hostUid
+        val opponentNick = if (room.hostUid == myUid) room.guestNickname else room.hostNickname
+        val rematchAllowed = (status == GameStatus.X_WON || status == GameStatus.O_WON || status == GameStatus.DRAW) &&
+            room.winnerUid != "CANCELLED" &&
+            opponentUid.isNotBlank() &&
+            opponentUid != myUid
+        if (rematchAllowed) {
+            lastFinishedOpponentUid = opponentUid
+            lastFinishedOpponentNickname = opponentNick.ifBlank { "Opponent" }
+            lastFinishedAtMs = System.currentTimeMillis()
+        } else if (status == GameStatus.PLAYING && opponentUid.isNotBlank() && opponentUid != lastFinishedOpponentUid) {
+            clearRematchContext()
+        }
+
         _uiState.value = prevState.copy(
             mode = GameMode.ONLINE,
             boardSize = size,
@@ -389,7 +413,9 @@ class GameViewModel(
             isMyTurn = isMyTurnNow,
             onlineRoomCode = room.roomCode,
             myOnlinePiece = myPiece,
-            timeoutWinnerName = timeoutWinner
+            timeoutWinnerName = timeoutWinner,
+            canRematch = rematchAllowed,
+            isStartingRematch = false
         )
 
         if (status == GameStatus.PLAYING) {
@@ -719,6 +745,7 @@ class GameViewModel(
         if (state.status == GameStatus.WAITING) {
             viewModelScope.launch {
                 repository.finishRoom(roomCode, "CANCELLED")
+                socialRepository.cancelRoomInvites(roomCode)
                 cancelOnlineJobs()
                 onDone()
             }
@@ -800,7 +827,115 @@ class GameViewModel(
         }
     }
 
+    fun isRematchFrom(senderUid: String): Boolean {
+        val lastUid = lastFinishedOpponentUid ?: return false
+        if (senderUid.isBlank() || senderUid != lastUid) return false
+        return (System.currentTimeMillis() - lastFinishedAtMs) <= REMATCH_WINDOW_MS
+    }
+
+    fun clearRematchContext(onlyForUid: String? = null) {
+        if (onlyForUid == null || lastFinishedOpponentUid == onlyForUid) {
+            lastFinishedOpponentUid = null
+            lastFinishedOpponentNickname = ""
+            lastFinishedAtMs = 0L
+        }
+    }
+
+    fun requestOnlineRematch() {
+        val state = _uiState.value
+        if (state.mode != GameMode.ONLINE || state.isStartingRematch) return
+        val user = FirebaseAuth.getInstance().currentUser ?: return
+        val opponentUid = currentOpponentUid?.takeIf { it.isNotBlank() } ?: lastFinishedOpponentUid
+        if (opponentUid.isNullOrBlank() || opponentUid == user.uid) {
+            viewModelScope.launch {
+                _effects.emit(GameEffect.ToastMessage(UiText.Resource(R.string.invite_error_send)))
+            }
+            return
+        }
+        val opponentNick = lastFinishedOpponentNickname.ifBlank { "Opponent" }
+        val boardSize = state.boardSize
+        val blockTwoEnds = state.blockTwoEnds
+
+        viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(isStartingRematch = true)
+            val settings = preferencesManager.settings.value
+            val senderProfile = PlayerProfile(
+                userId = user.uid,
+                nickname = settings.localNickname.ifBlank { user.displayName ?: "Player" },
+                avatarId = settings.localAvatarId,
+                pieceStyle = settings.pieceStyle.key
+            )
+            val roomRes = repository.createRoom(boardSize, blockTwoEnds, senderProfile)
+            roomRes.onSuccess { newRoomCode ->
+                val inviteRes = socialRepository.sendGameInvite(
+                    senderProfile = senderProfile,
+                    recipientUid = opponentUid,
+                    recipientNickname = opponentNick,
+                    roomCode = newRoomCode,
+                    boardSize = boardSize,
+                    blockTwoEnds = blockTwoEnds
+                )
+                inviteRes.onSuccess { inviteId ->
+                    startOnlineGame(newRoomCode)
+                    _effects.emit(
+                        GameEffect.ToastMessage(
+                            UiText.Resource(R.string.rematch_invite_sent_toast, opponentNick)
+                        )
+                    )
+                    rematchInviteJob = viewModelScope.launch {
+                        socialRepository.observeGameInvite(inviteId).collect { invite ->
+                            if (invite == null) return@collect
+                            when (invite.status) {
+                                "DECLINED" -> {
+                                    if (_uiState.value.onlineRoomCode == newRoomCode &&
+                                        _uiState.value.status == GameStatus.WAITING
+                                    ) {
+                                        repository.finishRoom(newRoomCode, "CANCELLED")
+                                        cancelOnlineJobs()
+                                        _effects.emit(
+                                            GameEffect.ToastMessage(
+                                                UiText.Resource(R.string.rematch_declined_toast, opponentNick)
+                                            )
+                                        )
+                                        _effects.emit(GameEffect.RematchDeclinedExit)
+                                    }
+                                    rematchInviteJob?.cancel()
+                                }
+                                "ACCEPTED", "CANCELLED" -> {
+                                    rematchInviteJob?.cancel()
+                                }
+                            }
+                        }
+                    }
+                }.onFailure {
+                    repository.finishRoom(newRoomCode, "CANCELLED")
+                    _uiState.value = _uiState.value.copy(isStartingRematch = false)
+                    _effects.emit(GameEffect.ToastMessage(UiText.Resource(R.string.invite_error_send)))
+                }
+            }.onFailure { err ->
+                _uiState.value = _uiState.value.copy(isStartingRematch = false)
+                val msg = err.localizedMessage?.takeIf { it.isNotBlank() }?.let { UiText.Dynamic(it) }
+                    ?: UiText.Resource(R.string.error_create_room)
+                _effects.emit(GameEffect.ToastMessage(msg))
+            }
+        }
+    }
+
+    fun cancelPendingWaitingRoomIfNeeded() {
+        val state = _uiState.value
+        val roomCode = state.onlineRoomCode
+        if (state.mode == GameMode.ONLINE && state.status == GameStatus.WAITING && !roomCode.isNullOrBlank()) {
+            cancelOnlineJobs()
+            viewModelScope.launch {
+                repository.finishRoom(roomCode, "CANCELLED")
+                socialRepository.cancelRoomInvites(roomCode)
+            }
+        }
+    }
+
     fun cancelOnlineJobs() {
+        rematchInviteJob?.cancel()
+        rematchInviteJob = null
         roomJob?.cancel()
         roomJob = null
         roomChatJob?.cancel()
@@ -825,16 +960,18 @@ class GameViewModel(
 
     class Factory(
         private val repository: FirebaseGameRepository,
+        private val socialRepository: FirebaseSocialRepository,
         private val preferencesManager: PreferencesManager,
         private val soundManager: SoundAndHapticsManager
     ) : ViewModelProvider.Factory {
         @Suppress("UNCHECKED_CAST")
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
-            return GameViewModel(repository, preferencesManager, soundManager) as T
+            return GameViewModel(repository, socialRepository, preferencesManager, soundManager) as T
         }
     }
 
     private companion object {
         const val TAG = "GameVM"
+        const val REMATCH_WINDOW_MS = 180_000L
     }
 }

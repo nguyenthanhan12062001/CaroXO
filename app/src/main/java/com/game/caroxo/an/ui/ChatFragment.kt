@@ -17,10 +17,12 @@ import com.game.caroxo.an.MainActivity
 import com.game.caroxo.an.R
 import com.game.caroxo.an.data.PreferencesManager
 import com.game.caroxo.an.databinding.FragmentChatBinding
+import com.game.caroxo.an.model.AdminConfig
 import com.game.caroxo.an.ui.FeatureDiscoveryHelper
 import com.game.caroxo.an.viewmodel.LobbyEvent
 import com.game.caroxo.an.viewmodel.MainViewModel
 import com.game.caroxo.an.viewmodel.UiState
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import kotlinx.coroutines.launch
 
 class ChatFragment : Fragment() {
@@ -49,7 +51,17 @@ class ChatFragment : Fragment() {
         val sound = app.soundManager
         val prefs = app.preferencesManager
 
-        adapter = ChatAdapter(mainViewModel.currentUser.value?.uid)
+        adapter = ChatAdapter(mainViewModel.currentUser.value?.uid) { msg ->
+            sound.playUiClick()
+            PlayerProfileSheetHelper.show(
+                fragment = this,
+                mainViewModel = mainViewModel,
+                preferencesManager = prefs,
+                targetUid = msg.senderUid,
+                fallbackNickname = msg.senderNickname,
+                fallbackAvatarId = msg.senderAvatarId
+            )
+        }
         val layoutManager = LinearLayoutManager(requireContext()).apply {
             stackFromEnd = true
         }
@@ -95,12 +107,27 @@ class ChatFragment : Fragment() {
             } else false
         }
 
+        binding.btnAdminClearChat.setOnClickListener {
+            sound.playUiClick()
+            if (!AdminConfig.isAdmin(mainViewModel.currentUser.value?.uid)) return@setOnClickListener
+            MaterialAlertDialogBuilder(requireContext(), R.style.ThemeOverlay_CaroXO_AlertDialog)
+                .setTitle(R.string.admin_clear_chat_title)
+                .setMessage(R.string.admin_clear_chat_message)
+                .setPositiveButton(R.string.admin_clear_chat_action) { _, _ ->
+                    mainViewModel.clearGlobalChatHistory()
+                }
+                .setNegativeButton(R.string.action_cancel, null)
+                .show()
+        }
+
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 launch {
                     mainViewModel.currentUser.collect { user ->
                         val signedIn = user != null
+                        val isAdmin = AdminConfig.isAdmin(user?.uid)
                         adapter.setCurrentUserId(user?.uid)
+                        binding.btnAdminClearChat.visibility = if (isAdmin) View.VISIBLE else View.GONE
                         binding.cardChatAuthGate.visibility = if (signedIn) View.GONE else View.VISIBLE
                         binding.cardChatComposer.visibility = if (signedIn) View.VISIBLE else View.GONE
                         if (!signedIn) {
@@ -166,14 +193,9 @@ class ChatFragment : Fragment() {
                 }
 
                 launch {
-                    mainViewModel.events.collect { event ->
-                        if (event is LobbyEvent.ShowMessage) {
-                            Toast.makeText(
-                                requireContext(),
-                                event.message.asString(requireContext()),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+                    mainViewModel.isBusy.collect { busy ->
+                        binding.btnAdminClearChat.isEnabled = !busy
+                        binding.btnAdminClearChat.alpha = if (busy) 0.5f else 1f
                     }
                 }
             }

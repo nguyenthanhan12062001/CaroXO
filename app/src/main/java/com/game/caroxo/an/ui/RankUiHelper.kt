@@ -66,6 +66,10 @@ object RankUiHelper {
         PieceStyle.NEON_CYBER -> R.string.style_neon_cyber
         PieceStyle.WOOD_CLASSIC -> R.string.style_wood_classic
         PieceStyle.SYMBOL -> R.string.style_symbol
+        PieceStyle.AD_STORM_VOLT -> R.string.style_ad_storm_volt
+        PieceStyle.AD_FROST_CRYSTAL -> R.string.style_ad_frost_crystal
+        PieceStyle.AD_VOID_SINGULARITY -> R.string.style_ad_void_singularity
+        PieceStyle.AD_INK_GOLD -> R.string.style_ad_ink_gold
         PieceStyle.VIP_CRIMSON_EMBER -> R.string.style_vip_crimson_ember
         PieceStyle.VIP_PLASMA_VORTEX -> R.string.style_vip_plasma_vortex
         PieceStyle.VIP_CELESTIAL_MONARCH -> R.string.style_vip_celestial_monarch
@@ -73,6 +77,10 @@ object RankUiHelper {
 
     @StringRes
     fun resolveVipBadgeRes(style: PieceStyle): Int? = when (style) {
+        PieceStyle.AD_STORM_VOLT,
+        PieceStyle.AD_FROST_CRYSTAL,
+        PieceStyle.AD_VOID_SINGULARITY,
+        PieceStyle.AD_INK_GOLD -> R.string.ad_badge_timed
         PieceStyle.VIP_CRIMSON_EMBER -> R.string.vip_badge_top3
         PieceStyle.VIP_PLASMA_VORTEX -> R.string.vip_badge_top2
         PieceStyle.VIP_CELESTIAL_MONARCH -> R.string.vip_badge_top1

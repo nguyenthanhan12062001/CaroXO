@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/card_invite_popup"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="?attr/colorSurface"
+    app:cardCornerRadius="24dp"
+    app:cardElevation="10dp"
+    app:strokeColor="?attr/colorPrimary"
+    app:strokeWidth="1.5dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Gradient Accent Top Bar -->
+        <View
+            android:id="@+id/view_popup_top_accent"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:background="@drawable/bg_hero_gradient" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingHorizontal="22dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="18dp">
+
+            <!-- Mode Badge Pill -->
+            <LinearLayout
+                android:id="@+id/layout_popup_badge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_pill"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="5dp">
+
+                <ImageView
+                    android:id="@+id/iv_popup_badge_icon"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_nav_play"
+                    app:tint="?attr/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/tv_popup_badge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="6dp"
+                    android:letterSpacing="0.06"
+                    android:textAllCaps="true"
+                    android:textColor="?attr/colorPrimary"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    tools:text="MATCH INVITATION" />
+            </LinearLayout>
+
+            <!-- Sender Avatar with Glow Ring -->
+            <FrameLayout
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_marginTop="16dp">
+
+                <View
+                    android:id="@+id/view_popup_avatar_glow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:alpha="0.22"
+                    android:background="@drawable/bg_avatar_ring" />
+
+                <ImageView
+                    android:id="@+id/iv_popup_avatar"
+                    android:layout_width="76dp"
+                    android:layout_height="76dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/bg_avatar_ring"
+                    android:contentDescription="@string/cd_player_avatar"
+                    android:padding="8dp"
+                    android:src="@drawable/ic_avatar_ninja" />
+            </FrameLayout>
+
+            <!-- Optional Admin Verified Tag -->
+            <LinearLayout
+                android:id="@+id/layout_popup_admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_admin_pill"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:visibility="gone"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:contentDescription="@string/cd_admin_verified"
+                    android:src="@drawable/ic_verified_tiktok" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/admin_badge_label"
+                    android:textColor="@color/caroxo_secondary"
+                    android:textSize="11sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- Invite / Rematch Headline -->
+            <TextView
+                android:id="@+id/tv_popup_headline"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:lineSpacingExtra="2dp"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="19sp"
+                android:textStyle="bold"
+                tools:text="CaroMaster muốn mời bạn đấu!" />
+
+            <!-- Room & Board Spec Pill -->
+            <TextView
+                android:id="@+id/tv_popup_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/bg_icon_badge_surface"
+                android:fontFamily="@font/jetbrains_mono"
+                android:gravity="center"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="6dp"
+                android:textColor="?attr/colorOnSurfaceVariant"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                tools:text="Room #482910 · 15×15 · Block 2 ends" />
+
+            <!-- Prominent Accept & Decline Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_popup_decline"
+                    style="@style/Widget.CaroXO.Button.Outlined"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/cd_invite_decline"
+                    android:text="@string/action_decline"
+                    android:textColor="?attr/colorOnErrorContainer"
+                    android:textSize="15sp"
+                    app:backgroundTint="?attr/colorErrorContainer"
+                    app:cornerRadius="16dp"
+                    app:icon="@drawable/ic_close"
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp"
+                    app:iconSize="20dp"
+                    app:iconTint="?attr/colorOnErrorContainer"
+                    app:strokeColor="?attr/colorError"
+                    app:strokeWidth="1.5dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_popup_accept"
+                    style="@style/Widget.CaroXO.Button.Primary"
+                    android:layout_width="0dp"
+                    android:layout_height="54dp"
+                    android:layout_marginStart="6dp"
+                    android:layout_weight="1"
+                    android:contentDescription="@string/cd_invite_accept"
+                    android:elevation="4dp"
+                    android:text="@string/action_accept"
+                    android:textColor="@color/caroxo_invite_accept_fg"
+                    android:textSize="15sp"
+                    app:backgroundTint="@color/caroxo_invite_accept_bg"
+                    app:cornerRadius="16dp"
+                    app:icon="@drawable/ic_check"
+                    app:iconGravity="textStart"
+                    app:iconPadding="8dp"
+                    app:iconSize="20dp"
+                    app:iconTint="@color/caroxo_invite_accept_fg" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

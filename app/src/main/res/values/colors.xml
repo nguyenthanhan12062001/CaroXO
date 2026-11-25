@@ -38,6 +38,9 @@
     <color name="caroxo_x_accent">#E11D48</color>
     <color name="caroxo_o_accent">#2563EB</color>
     <color name="caroxo_win_green">#059669</color>
+    <color name="caroxo_invite_accept_bg">#047857</color>
+    <color name="caroxo_invite_accept_fg">#FFFFFF</color>
+    <color name="caroxo_online_green">#22C55E</color>
     <color name="caroxo_rank_gold">#F59E0B</color>
     <color name="caroxo_rank_silver">#94A3B8</color>
     <color name="caroxo_rank_bronze">#D97706</color>

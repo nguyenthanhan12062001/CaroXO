@@ -55,6 +55,17 @@
                     android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="13sp" />
             </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/btn_admin_clear_chat"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="@drawable/bg_icon_badge_surface"
+                android:contentDescription="@string/cd_admin_clear_chat"
+                android:padding="12dp"
+                android:src="@drawable/ic_delete"
+                android:visibility="gone"
+                app:tint="?attr/colorError" />
         </LinearLayout>
 
         <!-- Feature Discovery Banner Container -->

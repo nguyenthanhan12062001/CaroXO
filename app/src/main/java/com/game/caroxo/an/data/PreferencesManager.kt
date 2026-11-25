@@ -16,6 +16,7 @@ data class SettingsState(
     val sfxEnabled: Boolean = true,
     val musicEnabled: Boolean = false,
     val hapticsEnabled: Boolean = true,
+    val impactEffectsEnabled: Boolean = true,
     val boardSurface: BoardSurface = BoardSurface.MINIMAL_CREAM,
     val pieceStyle: PieceStyle = PieceStyle.CLASSIC,
     val themeMode: ThemeMode = ThemeMode.SYSTEM,
@@ -23,7 +24,8 @@ data class SettingsState(
     val defaultBoardSize: Int = 15,
     val defaultBlockTwoEnds: Boolean = true,
     val localNickname: String = "CaroPlayer",
-    val localAvatarId: String = "ninja"
+    val localAvatarId: String = "ninja",
+    val adStyleUnlocks: Map<String, Long> = emptyMap()
 )
 
 class PreferencesManager(context: Context) {
@@ -42,6 +44,7 @@ class PreferencesManager(context: Context) {
             sfxEnabled = prefs.getBoolean(KEY_SFX, true),
             musicEnabled = prefs.getBoolean(KEY_MUSIC, false),
             hapticsEnabled = prefs.getBoolean(KEY_HAPTICS, true),
+            impactEffectsEnabled = prefs.getBoolean(KEY_IMPACT_FX, true),
             boardSurface = BoardSurface.fromKey(prefs.getString(KEY_BOARD_SURFACE, BoardSurface.MINIMAL_CREAM.key)),
             pieceStyle = PieceStyle.fromKey(prefs.getString(KEY_PIECE_STYLE, PieceStyle.CLASSIC.key)),
             themeMode = ThemeMode.fromKey(prefs.getString(KEY_THEME_MODE, ThemeMode.SYSTEM.key)),
@@ -49,8 +52,22 @@ class PreferencesManager(context: Context) {
             defaultBoardSize = boardSize,
             defaultBlockTwoEnds = prefs.getBoolean(KEY_BLOCK_TWO_ENDS, true),
             localNickname = prefs.getString(KEY_LOCAL_NICKNAME, "CaroPlayer").orEmpty().ifBlank { "CaroPlayer" },
-            localAvatarId = prefs.getString(KEY_LOCAL_AVATAR, "ninja").orEmpty().ifBlank { "ninja" }
+            localAvatarId = prefs.getString(KEY_LOCAL_AVATAR, "ninja").orEmpty().ifBlank { "ninja" },
+            adStyleUnlocks = loadAdStyleUnlocksMap()
         )
+    }
+
+    private fun loadAdStyleUnlocksMap(): Map<String, Long> {
+        val now = System.currentTimeMillis()
+        val result = mutableMapOf<String, Long>()
+        for (style in PieceStyle.entries) {
+            if (!style.isAdRewarded) continue
+            val expiresAt = prefs.getLong("$KEY_AD_STYLE_PREFIX${style.key}", 0L)
+            if (expiresAt > now) {
+                result[style.key] = expiresAt
+            }
+        }
+        return result
     }
 
     fun applySavedTheme() {
@@ -74,6 +91,11 @@ class PreferencesManager(context: Context) {
     fun setHapticsEnabled(enabled: Boolean) {
         prefs.edit().putBoolean(KEY_HAPTICS, enabled).apply()
         _settings.value = _settings.value.copy(hapticsEnabled = enabled)
+    }
+
+    fun setImpactEffectsEnabled(enabled: Boolean) {
+        prefs.edit().putBoolean(KEY_IMPACT_FX, enabled).apply()
+        _settings.value = _settings.value.copy(impactEffectsEnabled = enabled)
     }
 
     fun setBoardSurface(surface: BoardSurface) {
@@ -185,11 +207,76 @@ class PreferencesManager(context: Context) {
             .apply()
     }
 
+    fun grantTimedStyleUnlock(style: PieceStyle, durationMs: Long) {
+        if (!style.isAdRewarded) return
+        val now = System.currentTimeMillis()
+        val currentExpiry = prefs.getLong("$KEY_AD_STYLE_PREFIX${style.key}", 0L)
+        val base = maxOf(now, currentExpiry)
+        val nextExpiry = base + durationMs
+        prefs.edit().putLong("$KEY_AD_STYLE_PREFIX${style.key}", nextExpiry).apply()
+        _settings.value = _settings.value.copy(adStyleUnlocks = loadAdStyleUnlocksMap())
+    }
+
+    fun getActiveAdUnlocks(): Map<String, Long> {
+        val active = loadAdStyleUnlocksMap()
+        if (active != _settings.value.adStyleUnlocks) {
+            _settings.value = _settings.value.copy(adStyleUnlocks = active)
+        }
+        return active
+    }
+
+    fun getStyleRemainingUnlockMs(style: PieceStyle, nowMs: Long = System.currentTimeMillis()): Long {
+        if (!style.isAdRewarded) return 0L
+        val expiresAt = _settings.value.adStyleUnlocks[style.key]
+            ?: prefs.getLong("$KEY_AD_STYLE_PREFIX${style.key}", 0L)
+        return (expiresAt - nowMs).coerceAtLeast(0L)
+    }
+
+    fun recordMatchCompleted() {
+        val total = prefs.getInt(KEY_TOTAL_MATCHES_COMPLETED, 0) + 1
+        val sinceAd = prefs.getInt(KEY_MATCHES_SINCE_INTERSTITIAL, 0) + 1
+        prefs.edit()
+            .putInt(KEY_TOTAL_MATCHES_COMPLETED, total)
+            .putInt(KEY_MATCHES_SINCE_INTERSTITIAL, sinceAd)
+            .apply()
+    }
+
+    fun recordInterstitialShown(nowMs: Long = System.currentTimeMillis()) {
+        prefs.edit()
+            .putInt(KEY_MATCHES_SINCE_INTERSTITIAL, 0)
+            .putLong(KEY_LAST_INTERSTITIAL_AT, nowMs)
+            .apply()
+    }
+
+    fun recordRewardedAdWatched(nowMs: Long = System.currentTimeMillis()) {
+        // Reset interstitial pacing so a user who voluntarily watched a rewarded ad
+        // is never hit by a forced interstitial shortly after.
+        prefs.edit()
+            .putInt(KEY_MATCHES_SINCE_INTERSTITIAL, 0)
+            .putLong(KEY_LAST_INTERSTITIAL_AT, nowMs)
+            .apply()
+    }
+
+    fun canShowInterstitial(
+        graceMatches: Int,
+        minMatchInterval: Int,
+        cooldownMs: Long,
+        nowMs: Long = System.currentTimeMillis()
+    ): Boolean {
+        val total = prefs.getInt(KEY_TOTAL_MATCHES_COMPLETED, 0)
+        if (total <= graceMatches) return false
+        val since = prefs.getInt(KEY_MATCHES_SINCE_INTERSTITIAL, 0)
+        if (since < minMatchInterval) return false
+        val lastAt = prefs.getLong(KEY_LAST_INTERSTITIAL_AT, 0L)
+        return (nowMs - lastAt) >= cooldownMs
+    }
+
     companion object {
         private const val PREFS_NAME = "caroxo_preferences"
         private const val KEY_SFX = "sfx_enabled"
         private const val KEY_MUSIC = "music_enabled"
         private const val KEY_HAPTICS = "haptics_enabled"
+        private const val KEY_IMPACT_FX = "impact_effects_enabled"
         private const val KEY_BOARD_SURFACE = "board_surface"
         private const val KEY_PIECE_STYLE = "piece_style"
         private const val KEY_THEME_MODE = "theme_mode"
@@ -198,6 +285,10 @@ class PreferencesManager(context: Context) {
         private const val KEY_BLOCK_TWO_ENDS = "default_block_two_ends"
         private const val KEY_LOCAL_NICKNAME = "local_nickname"
         private const val KEY_LOCAL_AVATAR = "local_avatar_id"
+        private const val KEY_AD_STYLE_PREFIX = "ad_style_unlock_"
+        private const val KEY_TOTAL_MATCHES_COMPLETED = "total_matches_completed"
+        private const val KEY_MATCHES_SINCE_INTERSTITIAL = "matches_since_interstitial"
+        private const val KEY_LAST_INTERSTITIAL_AT = "last_interstitial_at_ms"
         private const val KEY_ONBOARDING_COMPLETED = "onboarding_completed"
         private const val KEY_DISCOVERED_FEATURES = "discovered_features"
         private const val KEY_SKIP_ALL_DISCOVERY = "skip_all_discovery"
@@ -205,6 +296,8 @@ class PreferencesManager(context: Context) {
         const val FEATURE_BOARD_RULES = "feat_board_rules"
         const val FEATURE_AI_MODES = "feat_ai_modes"
         const val FEATURE_ONLINE_ROOM = "feat_online_room"
+        const val FEATURE_HOME_FRIENDS = "feat_home_friends"
+        const val FEATURE_FRIENDS_SOCIAL = "feat_friends_social"
         const val FEATURE_GAME_GESTURES = "feat_game_gestures"
         const val FEATURE_LEADERBOARD_VIP = "feat_leaderboard_vip"
         const val FEATURE_GLOBAL_CHAT = "feat_global_chat"

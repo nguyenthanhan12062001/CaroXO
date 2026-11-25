@@ -102,6 +102,7 @@
     <string name="result_online_finished">オンライン対局が終了しました。</string>
     <string name="result_offline_play_again_prompt">新しい対局を始めますか？</string>
     <string name="action_play_again">もう一局</string>
+    <string name="action_continue">続ける</string>
     <string name="action_back_home">ホームへ</string>
 
     <string name="menu_quick_settings">クイック設定</string>
@@ -301,6 +302,7 @@
     <string name="match_duration_sec">%1$d秒</string>
 
     <!-- Onboarding & Feature Discovery -->
+    <string name="onboarding_tour_header">CaroXO ツアー</string>
     <string name="onboarding_skip">スキップ</string>
     <string name="onboarding_next">次へ</string>
     <string name="onboarding_start_discovery">探索を開始</string>
@@ -308,18 +310,37 @@
     <string name="onboarding_slide1_title">CaroXO へようこそ</string>
     <string name="onboarding_slide1_subtitle">超滑らかな Canvas 盤面エンジン</string>
     <string name="onboarding_slide1_desc">快適なタッチ、滑らかなパン操作、1x〜3xのピンチズームで多様な盤面サイズの五目並べを楽しめます。</string>
+    <string name="onboarding_s1_h1">10×10 / 15×15 / 20×20</string>
+    <string name="onboarding_s1_h2">ピンチズーム 1x–3x</string>
+    <string name="onboarding_s1_h3">両端ブロック</string>
 
     <string name="onboarding_slide2_title">多彩な対局モード</string>
-    <string name="onboarding_slide2_subtitle">2人対戦、スマートAI、オンライン</string>
-    <string name="onboarding_slide2_desc">1台の端末での対面2人対戦、3段階のAI（初級からMinimax Alpha-Betaまで）、6桁コードによるリアルタイムオンライン対戦に対応。</string>
+    <string name="onboarding_slide2_subtitle">2人対戦・AI・再戦機能</string>
+    <string name="onboarding_slide2_desc">1台で対面対戦、3段階AI（初級〜Minimax Alpha-Beta）、6桁ルームでのオンライン対戦に対応。終局後は「続ける」ですぐ再戦または「ホームへ」を選べます。</string>
+    <string name="onboarding_s2_h1">対面対戦 (1台)</string>
+    <string name="onboarding_s2_h2">Minimax Alpha-Beta</string>
+    <string name="onboarding_s2_h3">ワンタップ再戦</string>
+
+    <string name="onboarding_slide_social_title">フレンド＆即時招待</string>
+    <string name="onboarding_slide_social_subtitle">オンライン状態＆招待ポップアップ</string>
+    <string name="onboarding_slide_social_desc">ニックネームやプレイヤー ID でフレンドを追加し、緑のオンラインランプで接続を確認。目立つ承諾 (✓) / 拒否 (✕) ポップアップで即対局・再戦できます。</string>
+    <string name="onboarding_s_social_h1">緑のオンライン表示</string>
+    <string name="onboarding_s_social_h2">招待ポップアップ</string>
+    <string name="onboarding_s_social_h3">ID 検索対応</string>
 
     <string name="onboarding_slide3_title">ランキング＆VIP駒スタイル</string>
     <string name="onboarding_slide3_subtitle">Top 20 ランキングへの挑戦</string>
-    <string name="onboarding_slide3_desc">対局に勝利してポイントを獲得し、Top 1〜3位に入賞して栄誉の覇王バッジと光り輝く3種のVIP駒スタイルを解放しましょう。</string>
+    <string name="onboarding_slide3_desc">勝利でポイントを獲得し、ランキングに表示されるプレイヤー ID で同名の相手を区別。Top 1〜3位で栄誉バッジと光る3種のVIP駒スタイルを解放できます。</string>
+    <string name="onboarding_s3_h1">勝利 +10 / 敗北 -5</string>
+    <string name="onboarding_s3_h2">ランキング ID 表示</string>
+    <string name="onboarding_s3_h3">輝くVIPスタイル3種</string>
 
     <string name="onboarding_slide4_title">交流＆カスタム設定</string>
     <string name="onboarding_slide4_subtitle">全体チャット＆対局履歴</string>
-    <string name="onboarding_slide4_desc">全体ロビーチャットで世界中の棋友と交流し、直近10試合の対局履歴を確認し、クラウド同期でアバターを自在に設定できます。</string>
+    <string name="onboarding_slide4_desc">全体＆ルームチャットでリアルタイム交流、認証済み Admin バッジ付きのプロフィール閲覧、直近10試合の記録や10種のアバター同期が可能です。</string>
+    <string name="onboarding_s4_h1">全体＆ルームチャット</string>
+    <string name="onboarding_s4_h2">10種のアバター</string>
+    <string name="onboarding_s4_h3">直近10試合の記録</string>
 
     <string name="discovery_step_fmt">機能ガイド (%1$d/%2$d)</string>
     <string name="discovery_btn_got_it">了解</string>
@@ -333,24 +354,134 @@
     <string name="discovery_home_rules_desc">10×10、15×15、20×20 の盤面サイズを選択し、「両端ブロックルール」のオン/オフで戦略を深めましょう。</string>
     <string name="discovery_home_modes_title">対局モード選択</string>
     <string name="discovery_home_modes_desc">1台で2人で指す Pass &amp; Play、または Minimax Alpha-Beta 搭載の3段階AIに対局を挑めます。</string>
-    <string name="discovery_home_online_title">オンライン対戦ルーム</string>
-    <string name="discovery_home_online_desc">ログインして6桁のルームコードを作成するか、コードを入力して参加し、30秒カウントダウンの対戦を楽しめます。</string>
+    <string name="discovery_home_online_title">オンライン対戦＆再戦</string>
+    <string name="discovery_home_online_desc">ログインして6桁ルームを作成・参加し、30秒タイマーで対局。終局後は「続ける」で相手に再戦を申し込むかホームへ戻れます。</string>
+    <string name="discovery_home_friends_title">フレンド＆即時招待</string>
+    <string name="discovery_home_friends_desc">上のフレンドアイコンからオンライン仲間（緑の点）を確認し、プレイヤー ID で検索して招待や再戦ポップアップを送受信できます。</string>
+    <string name="discovery_friends_title">オンラインフレンド＆招待ポップアップ</string>
+    <string name="discovery_friends_desc">緑の点は現在オンラインのフレンドです。対戦に招待すると、相手に承諾 (✓) と拒否 (✕) の目立つポップアップが届きます。</string>
 
     <string name="discovery_game_controls_title">Canvas 盤面の操作方法</string>
     <string name="discovery_game_controls_desc">マスをタップして着手 • 1本指ドラッグで移動 • 2本指ピンチで拡大縮小 (1x–3x) • ヒント、待った、クイック設定を活用しましょう。</string>
 
-    <string name="discovery_lb_title">ランキングとポイント獲得</string>
-    <string name="discovery_lb_desc">勝利で +10 pt、敗北で -5 pt。Top 1〜3位に到達すると特別栄誉バッジと VIP 駒スタイル 3 種がアンロックされます。</string>
+    <string name="discovery_lb_title">ランキングとプレイヤー ID</string>
+    <string name="discovery_lb_desc">勝利で +10 pt、敗北で -5 pt。名前の下に表示される固有 ID でプレイヤーを識別し、タップで詳細確認、Top 1〜3位で VIP スタイルを解放できます。</string>
 
     <string name="discovery_chat_title">ロビー＆ルームチャット</string>
-    <string name="discovery_chat_desc">全体ロビーチャットで発言したり、対戦中に専用のルームチャットで相手とメッセージを交わせます。</string>
+    <string name="discovery_chat_desc">全体チャットや対局中のルームチャットで交流し、アバターをタップしてプロフィールや認証済み Admin バッジを確認できます。</string>
 
     <string name="discovery_profile_title">プロフィール＆対局履歴</string>
     <string name="discovery_profile_desc">アバターや駒スタイルを選び、最高位の栄誉バッジと直近10試合の対局戦績を確認できます。</string>
 
     <string name="settings_section_discovery">チュートリアルと機能ガイド</string>
     <string name="settings_replay_onboarding_title">オンボーディング紹介を再確認</string>
-    <string name="settings_replay_onboarding_desc">アプリの4ステップの全景紹介をもう一度表示します</string>
+    <string name="settings_replay_onboarding_desc">アプリの5ステップの全景紹介をもう一度表示します</string>
     <string name="settings_reset_discovery_title">機能ガイドをリセット</string>
     <string name="settings_reset_discovery_desc">画面を移動する際にインタラクティブな機能ヒントを再度表示します</string>
+
+    <!-- Friends, Invites & Player Profile -->
+    <string name="friends_title">フレンド＆招待</string>
+    <string name="friends_subtitle">フレンド追加、申請管理、プロフィール閲覧、対戦招待</string>
+    <string name="cd_friends">フレンドと招待を開く</string>
+    <string name="btn_play_with_friends">フレンドを対戦に招待</string>
+    <string name="profile_friends_title">フレンド＆申請</string>
+    <string name="profile_friends_desc">フレンド一覧、届いた招待の確認、プレイヤー検索</string>
+    <string name="profile_friends_badge_fmt">%1$d 件の新着</string>
+
+    <string name="friends_tab_list">フレンド</string>
+    <string name="friends_tab_requests">申請・招待</string>
+    <string name="friends_tab_find">プレイヤー検索</string>
+    <string name="friends_my_id_label">あなたのプレイヤー ID</string>
+    <string name="friends_id_copied">プレイヤー ID をコピーしました: %1$s</string>
+    <string name="cd_copy_player_id">プレイヤー ID をコピー</string>
+
+    <string name="friends_section_game_invites">対戦の招待</string>
+    <string name="friends_section_incoming_requests">届いたフレンド申請</string>
+    <string name="friends_section_outgoing_requests">送信した申請</string>
+    <string name="friends_section_accepted">フレンド一覧</string>
+
+    <string name="friends_empty_list">まだフレンドがいません。ニックネームやプレイヤー ID で検索して追加しましょう！</string>
+    <string name="friends_empty_requests">保留中のフレンド申請や対戦招待はありません。</string>
+    <string name="friends_search_hint">ニックネームまたはプレイヤー ID で検索</string>
+    <string name="friends_search_btn">検索</string>
+    <string name="friends_search_empty">一致するプレイヤーが見つかりませんでした。</string>
+    <string name="friends_search_error">プレイヤーを検索できませんでした。もう一度お試しください。</string>
+    <string name="friends_error_load">フレンド一覧を読み込めませんでした。</string>
+
+    <string name="action_invite_play">招待</string>
+    <string name="action_view_profile">プロフィール</string>
+    <string name="action_add_friend">フレンド追加</string>
+    <string name="action_accept">承認</string>
+    <string name="action_decline">拒否</string>
+    <string name="action_cancel_request">申請取消</string>
+    <string name="action_remove_friend">削除</string>
+    <string name="status_request_sent">申請済み</string>
+    <string name="status_already_friends">フレンド</string>
+
+    <string name="confirm_remove_friend_title">フレンドを削除しますか？</string>
+    <string name="confirm_remove_friend_message">%1$s さんをフレンド一覧から削除しますか？</string>
+
+    <string name="friend_request_sent_toast">%1$s さんにフレンド申請を送りました！</string>
+    <string name="friend_request_accepted_toast">フレンド申請を承認しました！</string>
+    <string name="friend_request_declined_toast">フレンド申請を拒否しました。</string>
+    <string name="friend_request_cancelled_toast">フレンド申請を取り消しました。</string>
+    <string name="friend_removed_toast">フレンド一覧から削除しました。</string>
+    <string name="friend_error_already_friends">すでにこのプレイヤーとフレンドです。</string>
+    <string name="friend_error_request_already_sent">すでにフレンド申請を送信しています。</string>
+    <string name="friend_error_add_self">自分自身をフレンドに追加することはできません。</string>
+    <string name="friend_error_generic">フレンド状態を更新できませんでした。もう一度お試しください。</string>
+
+    <string name="invite_card_desc_fmt">ルーム #%1$s · %2$d×%2$d · %3$s</string>
+    <string name="invite_rule_block_on">両端ブロック</string>
+    <string name="invite_rule_block_off">自由5目</string>
+    <string name="invite_sent_toast">%1$s さんに対戦招待を送りました！</string>
+    <string name="invite_error_send">対戦招待を送信できませんでした。</string>
+    <string name="invite_room_expired">この対戦ルームはすでに利用できません。</string>
+    <string name="invite_dialog_title">対戦の招待！</string>
+    <string name="invite_dialog_message_fmt">%1$s さんが CaroXO (%2$d×%2$d · %3$s) に招待しています。</string>
+
+    <string name="player_profile_title">プレイヤープロフィール</string>
+    <string name="player_profile_loading">プロフィールを読み込み中…</string>
+    <string name="player_profile_not_found">プレイヤープロフィールが見つかりません。</string>
+    <string name="player_profile_id_fmt">ID: %1$s</string>
+    <string name="player_profile_rank_fmt">順位 #%1$d</string>
+    <string name="player_profile_draws_label">引分</string>
+    <string name="player_profile_winrate_label">勝率</string>
+    <string name="player_profile_style_label">装備中の駒スタイル</string>
+    <string name="leaderboard_player_id_fmt">ID: %1$s</string>
+    <string name="cd_friend_online">フレンドはオンラインです</string>
+    <string name="admin_badge_label">Admin</string>
+    <string name="cd_admin_verified">認証済み管理者</string>
+    <string name="cd_admin_clear_chat">全体チャット履歴を削除</string>
+    <string name="admin_clear_chat_title">全体チャットを削除しますか？</string>
+    <string name="admin_clear_chat_message">全体チャットのメッセージをすべて削除しますか？この操作は取り消せません。</string>
+    <string name="admin_clear_chat_action">すべて削除</string>
+    <string name="admin_chat_cleared_toast">全体チャットのメッセージを %1$d 件削除しました。</string>
+    <string name="admin_chat_already_empty_toast">全体チャットはすでに空です。</string>
+    <string name="admin_chat_clear_error">全体チャット履歴を削除できませんでした。</string>
+    <string name="invite_popup_badge_match">対局の招待</string>
+    <string name="invite_popup_badge_rematch">再戦の招待</string>
+    <string name="invite_popup_headline_match">%1$s さんがあなたに対戦を申し込みました！</string>
+    <string name="invite_popup_headline_rematch">%1$s さんが再戦に誘っています！</string>
+    <string name="rematch_invite_sent_toast">%1$s さんに再戦の招待を送りました！</string>
+    <string name="rematch_declined_toast">%1$s さんが再戦を辞退しました。</string>
+    <string name="cd_invite_accept">対局招待を承諾</string>
+    <string name="cd_invite_decline">対局招待を拒否</string>
+    <string name="setting_impact_fx_title">配置衝撃エフェクト</string>
+    <string name="setting_impact_fx_desc">石の配置時のボード反動、衝撃波リング、パーティクル効果</string>
+    <string name="setting_ad_privacy_title">広告とプライバシーの選択 (GDPR)</string>
+    <string name="setting_ad_privacy_desc">パーソナライズ広告の同意とプライバシー設定の管理</string>
+    <string name="style_ad_storm_volt">Storm Volt (Lôi Đình)</string>
+    <string name="style_ad_frost_crystal">Frost Crystal (Băng Tinh)</string>
+    <string name="style_ad_void_singularity">Void Singularity (Hắc Tinh)</string>
+    <string name="style_ad_ink_gold">Ink &amp; Gold (Thủy Mặc Kim Long)</string>
+    <string name="ad_badge_timed">AD · 2H</string>
+    <string name="ad_style_unlock_title">2時間スタイルを解放</string>
+    <string name="ad_style_unlock_message">短い動画広告を視聴して、%1$s スタイルを2時間解放しましょう！</string>
+    <string name="btn_watch_ad">広告を見る</string>
+    <string name="ad_loading_try_again">広告を読み込んでいます。しばらくしてからもう一度お試しください。</string>
+    <string name="ad_reward_hints_title">ヒントがありません！</string>
+    <string name="ad_reward_hints_message">無料ヒントを2回使い切りました。広告を見てヒントを +3 回追加しますか？</string>
+    <string name="ad_reward_undos_title">アンドゥがありません！</string>
+    <string name="ad_reward_undos_message">無料アンドゥを2回使い切りました。広告を見てアンドゥを +3 回追加しますか？</string>
 </resources>

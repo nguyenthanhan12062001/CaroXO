@@ -15,6 +15,8 @@ class PieceStyleAdapter(
     private var selectedStyle: PieceStyle,
     private var isSignedIn: Boolean = false,
     private var currentRank: Int? = null,
+    private var isAdmin: Boolean = false,
+    private var adStyleUnlocks: Map<String, Long> = emptyMap(),
     private val onSelect: (PieceStyle) -> Unit,
     private val onLockedClick: (PieceStyle) -> Unit = {}
 ) : RecyclerView.Adapter<PieceStyleAdapter.ViewHolder>() {
@@ -26,10 +28,12 @@ class PieceStyleAdapter(
         notifyDataSetChanged()
     }
 
-    fun updateState(style: PieceStyle, signedIn: Boolean, rank: Int?) {
+    fun updateState(style: PieceStyle, signedIn: Boolean, rank: Int?, admin: Boolean = false, unlocks: Map<String, Long> = emptyMap()) {
         selectedStyle = style
         isSignedIn = signedIn
         currentRank = rank
+        isAdmin = admin
+        adStyleUnlocks = unlocks
         notifyDataSetChanged()
     }
 
@@ -42,12 +46,14 @@ class PieceStyleAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val style = styles[position]
-        val unlocked = style.isUnlockedFor(isSignedIn, currentRank)
+        val now = System.currentTimeMillis()
+        val unlocked = style.isUnlockedFor(isSignedIn, currentRank, isAdmin, adStyleUnlocks, now)
         holder.bind(
             style = style,
             selected = style == selectedStyle && unlocked,
             unlocked = unlocked,
             isSignedIn = isSignedIn,
+            adStyleUnlocks = adStyleUnlocks,
             onSelect = onSelect,
             onLockedClick = onLockedClick
         )
@@ -64,6 +70,7 @@ class PieceStyleAdapter(
             selected: Boolean,
             unlocked: Boolean,
             isSignedIn: Boolean,
+            adStyleUnlocks: Map<String, Long>,
             onSelect: (PieceStyle) -> Unit,
             onLockedClick: (PieceStyle) -> Unit
         ) {
@@ -80,24 +87,37 @@ class PieceStyleAdapter(
                     PieceStyle.VIP_CELESTIAL_MONARCH -> R.color.caroxo_vip_gold
                     PieceStyle.VIP_PLASMA_VORTEX -> R.color.caroxo_vip_plasma
                     PieceStyle.VIP_CRIMSON_EMBER -> R.color.caroxo_vip_crimson
-                    else -> R.color.caroxo_vip_gold
+                    else -> R.color.caroxo_rank_gold
                 }
                 binding.tvVipBadge.setTextColor(ContextCompat.getColor(ctx, badgeColorRes))
             } else {
                 binding.tvVipBadge.visibility = View.GONE
             }
 
-            if (style.isVip) {
+            if (style.isVip || style.isAdRewarded) {
                 binding.tvStyleStatus.visibility = View.VISIBLE
                 if (unlocked) {
                     binding.layoutStyleLock.visibility = View.GONE
                     binding.previewPieceStyle.alpha = 1.0f
-                    binding.tvStyleStatus.setText(R.string.vip_style_status_unlocked)
+                    if (style.isAdRewarded) {
+                        val remainingMs = (adStyleUnlocks[style.key] ?: 0L) - System.currentTimeMillis()
+                        val hours = remainingMs / 3600000L
+                        val mins = (remainingMs % 3600000L) / 60000L
+                        binding.tvStyleStatus.text = if (hours > 0) {
+                            "Unlocked · ${hours}h ${mins}m left"
+                        } else {
+                            "Unlocked · ${maxOf(0L, mins)}m left"
+                        }
+                    } else {
+                        binding.tvStyleStatus.setText(R.string.vip_style_status_unlocked)
+                    }
                     binding.tvStyleStatus.setTextColor(ContextCompat.getColor(ctx, R.color.caroxo_win_green))
                 } else {
                     binding.layoutStyleLock.visibility = View.VISIBLE
                     binding.previewPieceStyle.alpha = 0.72f
-                    if (!isSignedIn) {
+                    if (style.isAdRewarded) {
+                        binding.tvStyleStatus.text = "Watch Ad to Unlock (2H)"
+                    } else if (!isSignedIn) {
                         binding.tvStyleStatus.setText(R.string.vip_style_status_sign_in)
                     } else {
                         binding.tvStyleStatus.text = ctx.getString(

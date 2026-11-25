@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.game.caroxo.an.R
 import com.game.caroxo.an.databinding.ItemLeaderboardBinding
+import com.game.caroxo.an.model.AdminConfig
 import com.game.caroxo.an.model.AvatarCatalog
 import com.game.caroxo.an.model.LeaderboardEntry
 import com.game.caroxo.an.model.RankTier
@@ -16,7 +17,8 @@ import com.google.android.material.color.MaterialColors
 import kotlin.math.roundToInt
 
 class LeaderboardAdapter(
-    private var currentUserId: String?
+    private var currentUserId: String?,
+    private val onPlayerClick: ((LeaderboardEntry) -> Unit)? = null
 ) : ListAdapter<LeaderboardEntry, LeaderboardAdapter.ViewHolder>(DiffCallback) {
 
     fun setCurrentUserId(uid: String?) {
@@ -32,14 +34,19 @@ class LeaderboardAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position), position + 1, currentUserId)
+        holder.bind(getItem(position), position + 1, currentUserId, onPlayerClick)
     }
 
     class ViewHolder(
         private val binding: ItemLeaderboardBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(entry: LeaderboardEntry, rank: Int, currentUserId: String?) {
+        fun bind(
+            entry: LeaderboardEntry,
+            rank: Int,
+            currentUserId: String?,
+            onPlayerClick: ((LeaderboardEntry) -> Unit)?
+        ) {
             val ctx = binding.root.context
             val density = ctx.resources.displayMetrics.density
             binding.tvLbRank.text = "#$rank"
@@ -65,6 +72,14 @@ class LeaderboardAdapter(
 
             binding.ivLbAvatar.setImageResource(AvatarCatalog.resolveDrawable(entry.avatarId))
             binding.tvLbNickname.text = entry.nickname
+            binding.tvLbNickname.compoundDrawablePadding = (5f * density).roundToInt()
+            binding.tvLbNickname.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                0,
+                0,
+                if (AdminConfig.isAdmin(entry.userId)) R.drawable.ic_verified_tiktok else 0,
+                0
+            )
+            binding.tvLbPlayerId.text = ctx.getString(R.string.leaderboard_player_id_fmt, entry.userId)
             binding.tvLbRecord.text = ctx.getString(
                 R.string.leaderboard_record_format,
                 entry.wins.toInt(),
@@ -92,6 +107,16 @@ class LeaderboardAdapter(
                 }
                 binding.cardLbRow.strokeWidth = (if (rank in 1..3) 1.3f else 1f)
                     .let { (it * density).roundToInt().coerceAtLeast(1) }
+            }
+
+            if (!isMe && onPlayerClick != null) {
+                binding.cardLbRow.isClickable = true
+                binding.cardLbRow.isFocusable = true
+                binding.cardLbRow.setOnClickListener { onPlayerClick(entry) }
+            } else {
+                binding.cardLbRow.setOnClickListener(null)
+                binding.cardLbRow.isClickable = false
+                binding.cardLbRow.isFocusable = false
             }
         }
     }

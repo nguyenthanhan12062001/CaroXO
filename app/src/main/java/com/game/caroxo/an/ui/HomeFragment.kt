@@ -68,6 +68,15 @@ class HomeFragment : Fragment() {
             prefs.setDefaultBlockTwoEnds(isChecked)
         }
 
+        binding.btnFriendsHome.setOnClickListener {
+            sound.playUiClick()
+            if (mainViewModel.currentUser.value == null) {
+                (activity as? MainActivity)?.promptSignInForOnline()
+            } else {
+                (activity as? MainActivity)?.openFriendsScreen()
+            }
+        }
+
         binding.btnAboutHome.setOnClickListener {
             sound.playUiClick()
             AboutDialogHelper.show(requireContext())
@@ -116,6 +125,15 @@ class HomeFragment : Fragment() {
             mainViewModel.createOnlineRoom(size, block)
         }
 
+        binding.btnPlayWithFriends.setOnClickListener {
+            sound.playUiClick()
+            if (mainViewModel.currentUser.value == null) {
+                (activity as? MainActivity)?.promptSignInForOnline()
+                return@setOnClickListener
+            }
+            (activity as? MainActivity)?.openFriendsScreen()
+        }
+
         binding.btnJoinRoom.setOnClickListener {
             sound.playUiClick()
             if (mainViewModel.currentUser.value == null) {
@@ -128,6 +146,9 @@ class HomeFragment : Fragment() {
 
         observeState()
         checkAndShowFeatureDiscovery()
+
+        val isAdmin = com.game.caroxo.an.model.AdminConfig.isAdmin(mainViewModel.currentUser.value?.uid)
+        app.adManager.attachAdaptiveBanner(binding.adBannerContainer, viewLifecycleOwner, isAdmin)
     }
 
     override fun onResume() {
@@ -148,7 +169,7 @@ class HomeFragment : Fragment() {
                     container = binding.layoutDiscoveryContainer,
                     featureKey = PreferencesManager.FEATURE_BOARD_RULES,
                     iconRes = R.drawable.ic_tune,
-                    stepText = getString(R.string.discovery_step_fmt, 1, 3),
+                    stepText = getString(R.string.discovery_step_fmt, 1, 4),
                     titleRes = R.string.discovery_home_rules_title,
                     descRes = R.string.discovery_home_rules_desc,
                     prefs = prefs
@@ -161,7 +182,7 @@ class HomeFragment : Fragment() {
                     container = binding.layoutDiscoveryContainer,
                     featureKey = PreferencesManager.FEATURE_AI_MODES,
                     iconRes = R.drawable.ic_cpu,
-                    stepText = getString(R.string.discovery_step_fmt, 2, 3),
+                    stepText = getString(R.string.discovery_step_fmt, 2, 4),
                     titleRes = R.string.discovery_home_modes_title,
                     descRes = R.string.discovery_home_modes_desc,
                     prefs = prefs
@@ -174,9 +195,22 @@ class HomeFragment : Fragment() {
                     container = binding.layoutDiscoveryContainer,
                     featureKey = PreferencesManager.FEATURE_ONLINE_ROOM,
                     iconRes = R.drawable.ic_globe,
-                    stepText = getString(R.string.discovery_step_fmt, 3, 3),
+                    stepText = getString(R.string.discovery_step_fmt, 3, 4),
                     titleRes = R.string.discovery_home_online_title,
                     descRes = R.string.discovery_home_online_desc,
+                    prefs = prefs
+                ) {
+                    checkAndShowFeatureDiscovery()
+                }
+            }
+            !prefs.isFeatureDiscovered(PreferencesManager.FEATURE_HOME_FRIENDS) -> {
+                FeatureDiscoveryHelper.showTip(
+                    container = binding.layoutDiscoveryContainer,
+                    featureKey = PreferencesManager.FEATURE_HOME_FRIENDS,
+                    iconRes = R.drawable.ic_people,
+                    stepText = getString(R.string.discovery_step_fmt, 4, 4),
+                    titleRes = R.string.discovery_home_friends_title,
+                    descRes = R.string.discovery_home_friends_desc,
                     prefs = prefs
                 )
             }
@@ -233,18 +267,12 @@ class HomeFragment : Fragment() {
                     }
                 }
                 launch {
-                    mainViewModel.events.collect { event ->
-                        when (event) {
-                            is LobbyEvent.OpenOnlineRoom -> {
-                                (activity as? MainActivity)?.openOnlineGame(event.roomCode)
-                            }
-                            is LobbyEvent.ShowMessage -> {
-                                Toast.makeText(
-                                    requireContext(),
-                                    event.message.asString(requireContext()),
-                                    Toast.LENGTH_SHORT
-                                ).show()
-                            }
+                    mainViewModel.pendingSocialCount.collect { count ->
+                        if (count > 0) {
+                            binding.tvFriendsBadgeHome.visibility = View.VISIBLE
+                            binding.tvFriendsBadgeHome.text = if (count > 9) "9+" else count.toString()
+                        } else {
+                            binding.tvFriendsBadgeHome.visibility = View.GONE
                         }
                     }
                 }

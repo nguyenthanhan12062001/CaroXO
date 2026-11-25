@@ -50,7 +50,7 @@ class PieceStylePreviewView @JvmOverloads constructor(
     private val path = Path()
 
     private fun syncAnimation() {
-        val shouldAnimate = pieceStyle.isVip && isAttachedToWindow
+        val shouldAnimate = pieceStyle.isAnimated && isAttachedToWindow
         if (shouldAnimate) {
             if (animator == null) {
                 animator = ValueAnimator.ofFloat(0f, 1f).apply {
@@ -93,6 +93,54 @@ class PieceStylePreviewView @JvmOverloads constructor(
             PieceStyle.NEON_CYBER -> {
                 bgPaint.shader = null
                 bgPaint.color = Color.parseColor("#111827")
+            }
+            PieceStyle.AD_STORM_VOLT -> {
+                if (cachedWidth != w || cachedShader == null) {
+                    cachedWidth = w
+                    cachedShader = LinearGradient(
+                        0f, 0f, w, h,
+                        Color.parseColor("#0B192E"),
+                        Color.parseColor("#102A43"),
+                        Shader.TileMode.CLAMP
+                    )
+                }
+                bgPaint.shader = cachedShader
+            }
+            PieceStyle.AD_FROST_CRYSTAL -> {
+                if (cachedWidth != w || cachedShader == null) {
+                    cachedWidth = w
+                    cachedShader = LinearGradient(
+                        0f, 0f, w, h,
+                        Color.parseColor("#0F233A"),
+                        Color.parseColor("#164E63"),
+                        Shader.TileMode.CLAMP
+                    )
+                }
+                bgPaint.shader = cachedShader
+            }
+            PieceStyle.AD_VOID_SINGULARITY -> {
+                if (cachedWidth != w || cachedShader == null) {
+                    cachedWidth = w
+                    cachedShader = LinearGradient(
+                        0f, 0f, w, h,
+                        Color.parseColor("#120926"),
+                        Color.parseColor("#271147"),
+                        Shader.TileMode.CLAMP
+                    )
+                }
+                bgPaint.shader = cachedShader
+            }
+            PieceStyle.AD_INK_GOLD -> {
+                if (cachedWidth != w || cachedShader == null) {
+                    cachedWidth = w
+                    cachedShader = LinearGradient(
+                        0f, 0f, w, h,
+                        Color.parseColor("#F5EFE6"),
+                        Color.parseColor("#EADBC8"),
+                        Shader.TileMode.CLAMP
+                    )
+                }
+                bgPaint.shader = cachedShader
             }
             PieceStyle.VIP_CRIMSON_EMBER -> {
                 if (cachedWidth != w || cachedShader == null) {

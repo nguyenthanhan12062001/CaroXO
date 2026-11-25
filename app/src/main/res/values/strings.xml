@@ -102,6 +102,7 @@
     <string name="result_online_finished">Online match finished.</string>
     <string name="result_offline_play_again_prompt">Would you like to start a new match?</string>
     <string name="action_play_again">New Match</string>
+    <string name="action_continue">Continue</string>
     <string name="action_back_home">Back Home</string>
 
     <string name="menu_quick_settings">Quick Settings</string>
@@ -301,6 +302,7 @@
     <string name="match_duration_sec">%1$ds</string>
 
     <!-- Onboarding & Feature Discovery -->
+    <string name="onboarding_tour_header">CaroXO Tour</string>
     <string name="onboarding_skip">Skip</string>
     <string name="onboarding_next">Next</string>
     <string name="onboarding_start_discovery">Start Discovery</string>
@@ -308,18 +310,37 @@
     <string name="onboarding_slide1_title">Welcome to CaroXO</string>
     <string name="onboarding_slide1_subtitle">Smooth Canvas Engine</string>
     <string name="onboarding_slide1_desc">Experience five-in-a-row Caro with intuitive touch, smooth panning, and 1x–3x pinch-to-zoom gestures on customizable grid sizes.</string>
+    <string name="onboarding_s1_h1">10×10 / 15×15 / 20×20</string>
+    <string name="onboarding_s1_h2">Pinch Zoom 1x–3x</string>
+    <string name="onboarding_s1_h3">Block 2 Ends</string>
 
     <string name="onboarding_slide2_title">Rich Game Modes</string>
-    <string name="onboarding_slide2_subtitle">Pass &amp; Play, AI &amp; Online</string>
-    <string name="onboarding_slide2_desc">Challenge friends locally on one device, sharpen tactics against 3 AI levels (Easy to Minimax Alpha-Beta), or battle friends in real-time 6-digit rooms.</string>
+    <string name="onboarding_slide2_subtitle">Pass &amp; Play, AI &amp; Rematch</string>
+    <string name="onboarding_slide2_desc">Battle locally on one device, challenge 3 AI levels (Easy to Minimax Alpha-Beta), or create 6-digit online rooms with instant Continue &amp; Rematch after every match.</string>
+    <string name="onboarding_s2_h1">Pass &amp; Play (1 device)</string>
+    <string name="onboarding_s2_h2">Minimax Alpha-Beta</string>
+    <string name="onboarding_s2_h3">1-Tap Rematch</string>
+
+    <string name="onboarding_slide_social_title">Friends &amp; Instant Invites</string>
+    <string name="onboarding_slide_social_subtitle">Live Online Status &amp; Popups</string>
+    <string name="onboarding_slide_social_desc">Add friends by name or Player ID, spot active friends with live green dots, and jump into battles or rematches via instant Accept (✓) / Decline (✕) popups.</string>
+    <string name="onboarding_s_social_h1">Live Online Dot</string>
+    <string name="onboarding_s_social_h2">Instant Invite Popup</string>
+    <string name="onboarding_s_social_h3">Player ID Search</string>
 
     <string name="onboarding_slide3_title">Rankings &amp; VIP Styles</string>
     <string name="onboarding_slide3_subtitle">Climb the Top 20 Leaderboard</string>
-    <string name="onboarding_slide3_desc">Earn points for victories, unlock prestigious Sovereign Hallmarks, and gain exclusive access to glowing animated VIP piece styles.</string>
+    <string name="onboarding_slide3_desc">Earn points for victories, view Player IDs right on the Leaderboard, collect Sovereign Hallmarks, and unlock glowing animated VIP piece styles.</string>
+    <string name="onboarding_s3_h1">Win +10 / Loss -5</string>
+    <string name="onboarding_s3_h2">Leaderboard IDs</string>
+    <string name="onboarding_s3_h3">3 VIP Glowing Styles</string>
 
     <string name="onboarding_slide4_title">Connect &amp; Customize</string>
     <string name="onboarding_slide4_subtitle">Global Chat &amp; Match History</string>
-    <string name="onboarding_slide4_desc">Chat in real-time with global players, track your last 10 games, and personalize your player avatar with seamless cloud sync.</string>
+    <string name="onboarding_slide4_desc">Chat in real time in Global &amp; Room channels, inspect player profiles with Admin verification badges, track your last 10 games, and sync 10 avatars.</string>
+    <string name="onboarding_s4_h1">Global &amp; Room Chat</string>
+    <string name="onboarding_s4_h2">10 Unique Avatars</string>
+    <string name="onboarding_s4_h3">Last 10 Match History</string>
 
     <string name="discovery_step_fmt">Feature Tip (%1$d/%2$d)</string>
     <string name="discovery_btn_got_it">Got it</string>
@@ -333,24 +354,134 @@
     <string name="discovery_home_rules_desc">Switch between 10×10, 15×15, or 20×20 boards and toggle the \'Block Both Ends\' rule for extra tactical depth.</string>
     <string name="discovery_home_modes_title">Game Modes</string>
     <string name="discovery_home_modes_desc">Choose Pass &amp; Play for 2 players on one phone, or challenge AI with 3 tiers including Minimax Alpha-Beta.</string>
-    <string name="discovery_home_online_title">Online Rooms</string>
-    <string name="discovery_home_online_desc">Sign in to generate a 6-digit room code or join an opponent\'s room for fast-paced online battles with 30s timers.</string>
+    <string name="discovery_home_online_title">Online Rooms &amp; Rematch</string>
+    <string name="discovery_home_online_desc">Sign in to create 6-digit rooms with 30s turn timers. After a match ends, tap Continue to invite your opponent for an instant rematch or go Back Home.</string>
+    <string name="discovery_home_friends_title">Friends &amp; Instant Invites</string>
+    <string name="discovery_home_friends_desc">Tap the Friends icon above to see who is online (green dot), add friends by Player ID, and send or respond to instant match &amp; rematch popups.</string>
+    <string name="discovery_friends_title">Online Friends &amp; Battle Popups</string>
+    <string name="discovery_friends_desc">Green dots show friends currently online. Invite friends straight to a room — they will receive a prominent popup with Accept (✓) and Decline (✕) buttons.</string>
 
     <string name="discovery_game_controls_title">Canvas Board Controls</string>
     <string name="discovery_game_controls_desc">Tap cells to place pieces • Drag with 1 finger to pan • Pinch with 2 fingers to zoom (1x–3x) • Use Hint, Undo &amp; Quick Settings.</string>
 
     <string name="discovery_lb_title">Climb the Leaderboard</string>
-    <string name="discovery_lb_desc">Win matches to earn +10 points (loss -5). Reach Top 1–3 to earn Sovereign Hallmarks and unlock 3 VIP piece styles.</string>
+    <string name="discovery_lb_desc">Win matches for +10 pts (loss -5). Check each player\'s unique ID below their name, tap rows for full profiles, and reach Top 1–3 for VIP piece styles.</string>
 
     <string name="discovery_chat_title">Lobby &amp; Room Chat</string>
-    <string name="discovery_chat_desc">Send real-time messages in Global Lobby Chat or private room chat during an active battle.</string>
+    <string name="discovery_chat_desc">Send real-time messages in Global Lobby Chat or private Room Chat, tap avatars to view profiles, and spot verified Admin badges.</string>
 
     <string name="discovery_profile_title">Profile &amp; Match History</string>
     <string name="discovery_profile_desc">Choose your favorite Avatar and Piece Style, check your Peak Rank Hallmark, and review your last 10 games.</string>
 
     <string name="settings_section_discovery">Tutorial &amp; Discovery</string>
     <string name="settings_replay_onboarding_title">Replay Onboarding Tour</string>
-    <string name="settings_replay_onboarding_desc">View the 4-step overview introduction again</string>
+    <string name="settings_replay_onboarding_desc">View the 5-step overview introduction again</string>
     <string name="settings_reset_discovery_title">Reset Feature Tips</string>
     <string name="settings_reset_discovery_desc">Show interactive feature discovery tips again when navigating</string>
+
+    <!-- Friends, Invites & Player Profile -->
+    <string name="friends_title">Friends &amp; Invites</string>
+    <string name="friends_subtitle">Add friends, manage requests, view profiles, and invite to play</string>
+    <string name="cd_friends">Open friends and invites</string>
+    <string name="btn_play_with_friends">Invite a Friend to Play</string>
+    <string name="profile_friends_title">Friends &amp; Requests</string>
+    <string name="profile_friends_desc">View your friends list, incoming invites, and search players</string>
+    <string name="profile_friends_badge_fmt">%1$d new</string>
+
+    <string name="friends_tab_list">Friends</string>
+    <string name="friends_tab_requests">Requests</string>
+    <string name="friends_tab_find">Find Players</string>
+    <string name="friends_my_id_label">Your Player ID</string>
+    <string name="friends_id_copied">Copied Player ID: %1$s</string>
+    <string name="cd_copy_player_id">Copy Player ID</string>
+
+    <string name="friends_section_game_invites">Match Invitations</string>
+    <string name="friends_section_incoming_requests">Incoming Friend Requests</string>
+    <string name="friends_section_outgoing_requests">Sent Requests</string>
+    <string name="friends_section_accepted">Friends List</string>
+
+    <string name="friends_empty_list">No friends yet. Search by nickname or Player ID to add friends!</string>
+    <string name="friends_empty_requests">No pending friend requests or match invitations.</string>
+    <string name="friends_search_hint">Search by nickname or Player ID</string>
+    <string name="friends_search_btn">Search</string>
+    <string name="friends_search_empty">No matching players found.</string>
+    <string name="friends_search_error">Unable to search players. Please try again.</string>
+    <string name="friends_error_load">Unable to load friends list.</string>
+
+    <string name="action_invite_play">Invite</string>
+    <string name="action_view_profile">Profile</string>
+    <string name="action_add_friend">Add Friend</string>
+    <string name="action_accept">Accept</string>
+    <string name="action_decline">Decline</string>
+    <string name="action_cancel_request">Cancel Request</string>
+    <string name="action_remove_friend">Remove Friend</string>
+    <string name="status_request_sent">Requested</string>
+    <string name="status_already_friends">Friends</string>
+
+    <string name="confirm_remove_friend_title">Remove friend?</string>
+    <string name="confirm_remove_friend_message">Remove %1$s from your friends list?</string>
+
+    <string name="friend_request_sent_toast">Friend request sent to %1$s!</string>
+    <string name="friend_request_accepted_toast">Friend request accepted!</string>
+    <string name="friend_request_declined_toast">Friend request declined.</string>
+    <string name="friend_request_cancelled_toast">Friend request cancelled.</string>
+    <string name="friend_removed_toast">Removed from friends list.</string>
+    <string name="friend_error_already_friends">You are already friends with this player.</string>
+    <string name="friend_error_request_already_sent">Friend request already sent.</string>
+    <string name="friend_error_add_self">You cannot add yourself as a friend.</string>
+    <string name="friend_error_generic">Unable to update friendship. Please try again.</string>
+
+    <string name="invite_card_desc_fmt">Room #%1$s · %2$d×%2$d · %3$s</string>
+    <string name="invite_rule_block_on">Block 2 ends</string>
+    <string name="invite_rule_block_off">Free 5-in-a-row</string>
+    <string name="invite_sent_toast">Match invitation sent to %1$s!</string>
+    <string name="invite_error_send">Unable to send match invitation.</string>
+    <string name="invite_room_expired">This match room is no longer available.</string>
+    <string name="invite_dialog_title">Match Invitation!</string>
+    <string name="invite_dialog_message_fmt">%1$s invited you to play CaroXO (%2$d×%2$d · %3$s).</string>
+
+    <string name="player_profile_title">Player Profile</string>
+    <string name="player_profile_loading">Loading player profile…</string>
+    <string name="player_profile_not_found">Player profile not found.</string>
+    <string name="player_profile_id_fmt">ID: %1$s</string>
+    <string name="player_profile_rank_fmt">Rank #%1$d</string>
+    <string name="player_profile_draws_label">Draws</string>
+    <string name="player_profile_winrate_label">Win Rate</string>
+    <string name="player_profile_style_label">Equipped Piece Style</string>
+    <string name="leaderboard_player_id_fmt">ID: %1$s</string>
+    <string name="cd_friend_online">Friend is online</string>
+    <string name="admin_badge_label">Admin</string>
+    <string name="cd_admin_verified">Verified Admin</string>
+    <string name="cd_admin_clear_chat">Clear global chat history</string>
+    <string name="admin_clear_chat_title">Clear global chat?</string>
+    <string name="admin_clear_chat_message">Delete all messages in Global Chat? This action cannot be undone.</string>
+    <string name="admin_clear_chat_action">Clear All</string>
+    <string name="admin_chat_cleared_toast">Cleared %1$d global chat messages.</string>
+    <string name="admin_chat_already_empty_toast">Global chat is already empty.</string>
+    <string name="admin_chat_clear_error">Unable to clear global chat history.</string>
+    <string name="invite_popup_badge_match">Match Invitation</string>
+    <string name="invite_popup_badge_rematch">Rematch Invitation</string>
+    <string name="invite_popup_headline_match">%1$s wants to challenge you!</string>
+    <string name="invite_popup_headline_rematch">%1$s invites you to a rematch!</string>
+    <string name="rematch_invite_sent_toast">Rematch invitation sent to %1$s!</string>
+    <string name="rematch_declined_toast">%1$s declined the rematch.</string>
+    <string name="cd_invite_accept">Accept match invitation</string>
+    <string name="cd_invite_decline">Decline match invitation</string>
+    <string name="setting_impact_fx_title">Placement Impact Effects</string>
+    <string name="setting_impact_fx_desc">Board recoil, shockwave rings and particle bursts on piece placement</string>
+    <string name="setting_ad_privacy_title">Ad &amp; Privacy Choices (GDPR)</string>
+    <string name="setting_ad_privacy_desc">Manage personalized ad consent and privacy preferences</string>
+    <string name="style_ad_storm_volt">Storm Volt (Lôi Đình)</string>
+    <string name="style_ad_frost_crystal">Frost Crystal (Băng Tinh)</string>
+    <string name="style_ad_void_singularity">Void Singularity (Hắc Tinh)</string>
+    <string name="style_ad_ink_gold">Ink &amp; Gold (Thủy Mặc Kim Long)</string>
+    <string name="ad_badge_timed">AD · 2H</string>
+    <string name="ad_style_unlock_title">Unlock Style for 2 Hours</string>
+    <string name="ad_style_unlock_message">Watch a short video ad to unlock %1$s piece style for 2 hours!</string>
+    <string name="btn_watch_ad">Watch Ad</string>
+    <string name="ad_loading_try_again">Ad is loading, please try again in a moment.</string>
+    <string name="ad_reward_hints_title">Out of Hints!</string>
+    <string name="ad_reward_hints_message">You have used your 2 free hints. Watch a short ad to get +3 hints for this match?</string>
+    <string name="ad_reward_undos_title">Out of Undos!</string>
+    <string name="ad_reward_undos_message">You have used your 2 free undos. Watch a short ad to get +3 undos for this match?</string>
 </resources>

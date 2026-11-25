@@ -102,6 +102,7 @@
     <string name="result_online_finished">在线对局已结束。</string>
     <string name="result_offline_play_again_prompt">是否开始新的一局？</string>
     <string name="action_play_again">再来一局</string>
+    <string name="action_continue">继续</string>
     <string name="action_back_home">返回主页</string>
 
     <string name="menu_quick_settings">快捷设置</string>
@@ -301,6 +302,7 @@
     <string name="match_duration_sec">%1$d秒</string>
 
     <!-- Onboarding & Feature Discovery -->
+    <string name="onboarding_tour_header">CaroXO 导览</string>
     <string name="onboarding_skip">跳过</string>
     <string name="onboarding_next">下一步</string>
     <string name="onboarding_start_discovery">开始探索</string>
@@ -308,18 +310,37 @@
     <string name="onboarding_slide1_title">欢迎来到 CaroXO</string>
     <string name="onboarding_slide1_subtitle">超流畅 Canvas 棋盘引擎</string>
     <string name="onboarding_slide1_desc">畅享纯原生五子棋对战，支持触控落子、单指平移、1x–3x 双指缩放，支持多种棋盘尺寸。</string>
+    <string name="onboarding_s1_h1">10×10 / 15×15 / 20×20</string>
+    <string name="onboarding_s1_h2">双指缩放 1x–3x</string>
+    <string name="onboarding_s1_h3">两端阻挡规则</string>
 
     <string name="onboarding_slide2_title">丰富的对战模式</string>
-    <string name="onboarding_slide2_subtitle">双人同屏、智能 AI 与联机</string>
-    <string name="onboarding_slide2_desc">可在单台设备上双人同屏切磋，挑战 3 级 AI（简单至 Minimax Alpha-Beta 剪枝算法），或创建 6 位数房间实时联机。</string>
+    <string name="onboarding_slide2_subtitle">同屏双人、智能 AI 与再战</string>
+    <string name="onboarding_slide2_desc">支持同屏切磋、挑战 3 级 AI（至 Minimax Alpha-Beta 算法）或创建 6 位数在线房间。对局结束后可一键点击继续邀请再战或返回主页。</string>
+    <string name="onboarding_s2_h1">双人同屏 (单机)</string>
+    <string name="onboarding_s2_h2">Minimax Alpha-Beta</string>
+    <string name="onboarding_s2_h3">一键邀请再战</string>
+
+    <string name="onboarding_slide_social_title">好友互动与即时对战弹窗</string>
+    <string name="onboarding_slide_social_subtitle">在线状态绿点与邀战弹窗</string>
+    <string name="onboarding_slide_social_desc">通过昵称或玩家 ID 添加好友，绿色圆点实时提示好友在线状态，收到对战或再战邀请时将弹出醒目的同意 (✓) / 拒绝 (✕) 弹窗。</string>
+    <string name="onboarding_s_social_h1">在线绿点提示</string>
+    <string name="onboarding_s_social_h2">即时邀战弹窗</string>
+    <string name="onboarding_s_social_h3">玩家 ID 搜索</string>
 
     <string name="onboarding_slide3_title">排位与 VIP 特效棋子</string>
     <string name="onboarding_slide3_subtitle">冲击前 20 名排行榜</string>
-    <string name="onboarding_slide3_desc">胜场赢取排位积分，冲入前 3 名即可获得专属帝皇印记，并解锁 3 款炫酷 VIP 特效棋子。</string>
+    <string name="onboarding_slide3_desc">胜场赢取排位积分，在天梯榜中通过唯一玩家 ID 区分同名玩家，获取帝皇印记并解锁 3 款发光 VIP 特效棋子。</string>
+    <string name="onboarding_s3_h1">胜 +10 / 负 -5</string>
+    <string name="onboarding_s3_h2">榜单玩家 ID</string>
+    <string name="onboarding_s3_h3">3 款发光 VIP 棋子</string>
 
     <string name="onboarding_slide4_title">交流互动与个性定制</string>
     <string name="onboarding_slide4_subtitle">世界聊天与对局历史</string>
-    <string name="onboarding_slide4_desc">在世界大厅与全球棋友实时交流，查看最近 10 场对局记录，自选个性头像与云端数据同步。</string>
+    <string name="onboarding_slide4_desc">在世界大厅与房间聊天中实时发言，查看带官方管理员认证徽章的个人资料，回顾最近 10 场对局记录并云端同步 10 款头像。</string>
+    <string name="onboarding_s4_h1">世界与房间聊天</string>
+    <string name="onboarding_s4_h2">10 款个性头像</string>
+    <string name="onboarding_s4_h3">最近 10 场战绩</string>
 
     <string name="discovery_step_fmt">功能指南 (%1$d/%2$d)</string>
     <string name="discovery_btn_got_it">我知道了</string>
@@ -333,24 +354,134 @@
     <string name="discovery_home_rules_desc">可在 10×10、15×15、20×20 棋盘之间切换，并开关“两端阻挡规则”以增加博弈深度。</string>
     <string name="discovery_home_modes_title">对局模式选择</string>
     <string name="discovery_home_modes_desc">支持同屏双人对战，或与 3 级 AI（包含 Minimax Alpha-Beta 搜索）一较高下。</string>
-    <string name="discovery_home_online_title">实时在线联机房间</string>
-    <string name="discovery_home_online_desc">登录后即可一键创建 6 位数房间或输入房间号加入好友，包含 30 秒超时落子倒计时。</string>
+    <string name="discovery_home_online_title">在线联机与局后重赛</string>
+    <string name="discovery_home_online_desc">登录后创建或加入 6 位数联机房间，享 30 秒倒计时对弈。对局结束点击“继续”即可直接向对手发起再战！</string>
+    <string name="discovery_home_friends_title">好友列表与即时弹窗</string>
+    <string name="discovery_home_friends_desc">点击顶部好友图标，查看好友绿点在线状态、通过玩家 ID 加好友，并即时收发对局与再战邀请弹窗。</string>
+    <string name="discovery_friends_title">在线好友与对战弹窗</string>
+    <string name="discovery_friends_desc">绿色圆点表示好友当前在线。发起邀战后，对方将收到配有醒目同意 (✓) 与拒绝 (✕) 按钮的即时对战弹窗。</string>
 
     <string name="discovery_game_controls_title">Canvas 棋盘操作技巧</string>
     <string name="discovery_game_controls_desc">点击单元格落子 • 单指拖拽平移 • 双指捏合缩放 (1x–3x) • 支持提示 (Hint)、悔棋 (Undo) 和快捷设置。</string>
 
-    <string name="discovery_lb_title">天梯榜与积分机制</string>
-    <string name="discovery_lb_desc">胜局 +10 分，败局 -5 分。跻身前 3 名可解锁帝皇荣耀印记及 3 款专属 VIP 棋子样式。</string>
+    <string name="discovery_lb_title">天梯榜与唯一玩家 ID</string>
+    <string name="discovery_lb_desc">胜局 +10 分，败局 -5 分。名字下方显示唯一玩家 ID 防止重名，点击可查看档案，跻身前三名还可解锁 VIP 棋子。</string>
 
     <string name="discovery_chat_title">大厅与对局聊天</string>
-    <string name="discovery_chat_desc">支持在世界公屏实时发言交流，亦可在联机对局中进行房间私聊。</string>
+    <string name="discovery_chat_desc">在世界公屏或房间私聊实时发言，点击头像查看资料及官方管理员认证徽章。</string>
 
     <string name="discovery_profile_title">个人档案与对局回溯</string>
     <string name="discovery_profile_desc">自由更换头像与棋子风格，查阅历史巅峰段位印记与最近 10 场对局详情。</string>
 
     <string name="settings_section_discovery">教程与探索指引</string>
     <string name="settings_replay_onboarding_title">重新观看引导介绍</string>
-    <string name="settings_replay_onboarding_desc">再次浏览 4 步全景介绍</string>
+    <string name="settings_replay_onboarding_desc">再次浏览 5 步全景介绍</string>
     <string name="settings_reset_discovery_title">重置功能探索指引</string>
     <string name="settings_reset_discovery_desc">重新在各界面中显示交互式功能提示卡片</string>
+
+    <!-- Friends, Invites & Player Profile -->
+    <string name="friends_title">好友与邀请</string>
+    <string name="friends_subtitle">添加好友、管理申请、查看资料并邀请对战</string>
+    <string name="cd_friends">打开好友与邀请</string>
+    <string name="btn_play_with_friends">邀请好友对战</string>
+    <string name="profile_friends_title">好友与申请</string>
+    <string name="profile_friends_desc">查看好友列表、收到的邀请并搜索玩家</string>
+    <string name="profile_friends_badge_fmt">%1$d 条新消息</string>
+
+    <string name="friends_tab_list">好友</string>
+    <string name="friends_tab_requests">申请</string>
+    <string name="friends_tab_find">查找玩家</string>
+    <string name="friends_my_id_label">您的玩家 ID</string>
+    <string name="friends_id_copied">已复制玩家 ID：%1$s</string>
+    <string name="cd_copy_player_id">复制玩家 ID</string>
+
+    <string name="friends_section_game_invites">对战邀请</string>
+    <string name="friends_section_incoming_requests">收到的好友申请</string>
+    <string name="friends_section_outgoing_requests">已发送的申请</string>
+    <string name="friends_section_accepted">好友列表</string>
+
+    <string name="friends_empty_list">暂无好友，可通过昵称或玩家 ID 搜索添加！</string>
+    <string name="friends_empty_requests">暂无待处理的好友申请或对战邀请。</string>
+    <string name="friends_search_hint">通过昵称或玩家 ID 搜索</string>
+    <string name="friends_search_btn">搜索</string>
+    <string name="friends_search_empty">未找到匹配的玩家。</string>
+    <string name="friends_search_error">无法搜索玩家，请重试。</string>
+    <string name="friends_error_load">无法加载好友列表。</string>
+
+    <string name="action_invite_play">邀请</string>
+    <string name="action_view_profile">资料</string>
+    <string name="action_add_friend">加好友</string>
+    <string name="action_accept">同意</string>
+    <string name="action_decline">拒绝</string>
+    <string name="action_cancel_request">取消申请</string>
+    <string name="action_remove_friend">删除好友</string>
+    <string name="status_request_sent">已发送</string>
+    <string name="status_already_friends">已是好友</string>
+
+    <string name="confirm_remove_friend_title">删除好友？</string>
+    <string name="confirm_remove_friend_message">确定要将 %1$s 从好友列表中移除吗？</string>
+
+    <string name="friend_request_sent_toast">已向 %1$s 发送好友申请！</string>
+    <string name="friend_request_accepted_toast">已同意好友申请！</string>
+    <string name="friend_request_declined_toast">已拒绝好友申请。</string>
+    <string name="friend_request_cancelled_toast">已取消好友申请。</string>
+    <string name="friend_removed_toast">已从好友列表中移除。</string>
+    <string name="friend_error_already_friends">你们已经是好友了。</string>
+    <string name="friend_error_request_already_sent">已经发送过好友申请。</string>
+    <string name="friend_error_add_self">不能添加自己为好友。</string>
+    <string name="friend_error_generic">无法更新好友状态，请重试。</string>
+
+    <string name="invite_card_desc_fmt">房间 #%1$s · %2$d×%2$d · %3$s</string>
+    <string name="invite_rule_block_on">两端阻挡</string>
+    <string name="invite_rule_block_off">自由五连</string>
+    <string name="invite_sent_toast">已向 %1$s 发送对战邀请！</string>
+    <string name="invite_error_send">无法发送对战邀请。</string>
+    <string name="invite_room_expired">该对战房间已失效。</string>
+    <string name="invite_dialog_title">对战邀请！</string>
+    <string name="invite_dialog_message_fmt">%1$s 邀请您加入 CaroXO 对局（%2$d×%2$d · %3$s）。</string>
+
+    <string name="player_profile_title">玩家资料</string>
+    <string name="player_profile_loading">正在加载玩家资料…</string>
+    <string name="player_profile_not_found">未找到玩家资料。</string>
+    <string name="player_profile_id_fmt">ID: %1$s</string>
+    <string name="player_profile_rank_fmt">排名 #%1$d</string>
+    <string name="player_profile_draws_label">平局</string>
+    <string name="player_profile_winrate_label">胜率</string>
+    <string name="player_profile_style_label">当前棋子风格</string>
+    <string name="leaderboard_player_id_fmt">ID: %1$s</string>
+    <string name="cd_friend_online">好友在线</string>
+    <string name="admin_badge_label">Admin</string>
+    <string name="cd_admin_verified">已认证管理员</string>
+    <string name="cd_admin_clear_chat">清空世界聊天记录</string>
+    <string name="admin_clear_chat_title">清空世界聊天？</string>
+    <string name="admin_clear_chat_message">确定删除世界聊天中的全部消息吗？此操作无法撤销。</string>
+    <string name="admin_clear_chat_action">全部清空</string>
+    <string name="admin_chat_cleared_toast">已清空 %1$d 条世界聊天消息。</string>
+    <string name="admin_chat_already_empty_toast">世界聊天记录已为空。</string>
+    <string name="admin_chat_clear_error">无法清空世界聊天记录。</string>
+    <string name="invite_popup_badge_match">对战邀请</string>
+    <string name="invite_popup_badge_rematch">再战邀请</string>
+    <string name="invite_popup_headline_match">%1$s 想邀请您对战！</string>
+    <string name="invite_popup_headline_rematch">%1$s 邀请您再来一局！</string>
+    <string name="rematch_invite_sent_toast">已向 %1$s 发送再战邀请！</string>
+    <string name="rematch_declined_toast">%1$s 拒绝了再战。</string>
+    <string name="cd_invite_accept">同意对战邀请</string>
+    <string name="cd_invite_decline">拒绝对战邀请</string>
+    <string name="setting_impact_fx_title">落子打击特效</string>
+    <string name="setting_impact_fx_desc">落子时的棋盘震动、冲击波圆环与粒子特效</string>
+    <string name="setting_ad_privacy_title">广告与隐私选项 (GDPR)</string>
+    <string name="setting_ad_privacy_desc">管理个性化广告授权与隐私偏好设置</string>
+    <string name="style_ad_storm_volt">Storm Volt (Lôi Đình)</string>
+    <string name="style_ad_frost_crystal">Frost Crystal (Băng Tinh)</string>
+    <string name="style_ad_void_singularity">Void Singularity (Hắc Tinh)</string>
+    <string name="style_ad_ink_gold">Ink &amp; Gold (Thủy Mặc Kim Long)</string>
+    <string name="ad_badge_timed">AD · 2H</string>
+    <string name="ad_style_unlock_title">限时解锁棋子皮肤 (2小时)</string>
+    <string name="ad_style_unlock_message">观看简短视频广告即可免费解锁 %1$s 皮肤 2 小时！</string>
+    <string name="btn_watch_ad">观看广告</string>
+    <string name="ad_loading_try_again">广告正在加载中，请稍后再试。</string>
+    <string name="ad_reward_hints_title">提示次数已用完！</string>
+    <string name="ad_reward_hints_message">您的 2 次免费提示已用完。观看短视频广告即可获得 +3 次本局提示？</string>
+    <string name="ad_reward_undos_title">悔棋次数已用完！</string>
+    <string name="ad_reward_undos_message">您的 2 次免费悔棋已用完。观看短视频广告即可获得 +3 次本局悔棋？</string>
 </resources>

@@ -45,7 +45,17 @@ class LeaderboardFragment : Fragment() {
         val sound = app.soundManager
         val prefs = app.preferencesManager
 
-        adapter = LeaderboardAdapter(mainViewModel.currentUser.value?.uid)
+        adapter = LeaderboardAdapter(mainViewModel.currentUser.value?.uid) { entry ->
+            sound.playUiClick()
+            PlayerProfileSheetHelper.show(
+                fragment = this,
+                mainViewModel = mainViewModel,
+                preferencesManager = prefs,
+                targetUid = entry.userId,
+                fallbackNickname = entry.nickname,
+                fallbackAvatarId = entry.avatarId
+            )
+        }
         binding.rvLeaderboard.layoutManager = LinearLayoutManager(requireContext())
         binding.rvLeaderboard.adapter = adapter
 
@@ -70,6 +80,9 @@ class LeaderboardFragment : Fragment() {
             sound.playUiClick()
             (activity as? MainActivity)?.openEmailAuthSheet()
         }
+
+        val isAdmin = com.game.caroxo.an.model.AdminConfig.isAdmin(mainViewModel.currentUser.value?.uid)
+        app.adManager.attachAdaptiveBanner(binding.adBannerContainer, viewLifecycleOwner, isAdmin)
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {

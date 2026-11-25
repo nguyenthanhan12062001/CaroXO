@@ -45,6 +45,7 @@ class SettingsFragment : Fragment() {
         binding.switchSfx.isChecked = current.sfxEnabled
         binding.switchMusic.isChecked = current.musicEnabled
         binding.switchHaptics.isChecked = current.hapticsEnabled
+        binding.switchImpactFx.isChecked = current.impactEffectsEnabled
 
         binding.switchSfx.setOnCheckedChangeListener { _, isChecked ->
             prefs.setSfxEnabled(isChecked)
@@ -61,6 +62,11 @@ class SettingsFragment : Fragment() {
             sound.playUiClick()
             prefs.setHapticsEnabled(isChecked)
             if (isChecked) sound.vibrateTap()
+        }
+
+        binding.switchImpactFx.setOnCheckedChangeListener { _, isChecked ->
+            sound.playUiClick()
+            prefs.setImpactEffectsEnabled(isChecked)
         }
 
         updateSurfaceCards(current.boardSurface)
@@ -133,6 +139,17 @@ class SettingsFragment : Fragment() {
             sound.playUiClick()
             AboutDialogHelper.show(requireContext())
         }
+
+        val showPrivacy = app.adManager.isPrivacyOptionsRequired(requireContext())
+        binding.cardAdPrivacy.visibility = if (showPrivacy) View.VISIBLE else View.GONE
+        binding.cardAdPrivacy.setOnClickListener {
+            sound.playUiClick()
+            app.adManager.showPrivacyOptionsForm(requireActivity()) {}
+        }
+
+        val mainVm = (activity as? MainActivity)?.mainViewModel
+        val isAdmin = com.game.caroxo.an.model.AdminConfig.isAdmin(mainVm?.currentUser?.value?.uid)
+        app.adManager.attachAdaptiveBanner(binding.adBannerContainer, viewLifecycleOwner, isAdmin)
     }
 
     private fun resolveEffectiveLanguage(saved: AppLanguage): AppLanguage {

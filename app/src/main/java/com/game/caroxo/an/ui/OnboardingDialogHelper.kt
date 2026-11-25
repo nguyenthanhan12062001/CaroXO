@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -15,16 +17,15 @@ import com.game.caroxo.an.R
 import com.game.caroxo.an.data.PreferencesManager
 import com.game.caroxo.an.databinding.DialogOnboardingBinding
 import com.game.caroxo.an.databinding.ItemOnboardingSlideBinding
-import com.google.android.material.color.MaterialColors
 
 data class OnboardingSlideItem(
-    val iconRes: Int,
-    val tagRes: Int,
-    val titleRes: Int,
-    val descRes: Int,
-    val highlight1: String,
-    val highlight2: String,
-    val highlight3: String
+    @DrawableRes val iconRes: Int,
+    @StringRes val tagRes: Int,
+    @StringRes val titleRes: Int,
+    @StringRes val descRes: Int,
+    @StringRes val highlight1Res: Int,
+    @StringRes val highlight2Res: Int,
+    @StringRes val highlight3Res: Int
 )
 
 class OnboardingAdapter(private val slides: List<OnboardingSlideItem>) :
@@ -49,14 +50,13 @@ class OnboardingAdapter(private val slides: List<OnboardingSlideItem>) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(slide: OnboardingSlideItem) {
-            val ctx = binding.root.context
             binding.ivOnboardingIcon.setImageResource(slide.iconRes)
             binding.tvOnboardingTag.setText(slide.tagRes)
             binding.tvOnboardingTitle.setText(slide.titleRes)
             binding.tvOnboardingDesc.setText(slide.descRes)
-            binding.tvHighlight1.text = slide.highlight1
-            binding.tvHighlight2.text = slide.highlight2
-            binding.tvHighlight3.text = slide.highlight3
+            binding.tvHighlight1.setText(slide.highlight1Res)
+            binding.tvHighlight2.setText(slide.highlight2Res)
+            binding.tvHighlight3.setText(slide.highlight3Res)
         }
     }
 }
@@ -84,36 +84,45 @@ object OnboardingDialogHelper {
                 tagRes = R.string.onboarding_slide1_subtitle,
                 titleRes = R.string.onboarding_slide1_title,
                 descRes = R.string.onboarding_slide1_desc,
-                highlight1 = "10×10 / 15×15 / 20×20",
-                highlight2 = "Pinch Zoom 1x–3x",
-                highlight3 = "Block 2 Ends"
+                highlight1Res = R.string.onboarding_s1_h1,
+                highlight2Res = R.string.onboarding_s1_h2,
+                highlight3Res = R.string.onboarding_s1_h3
             ),
             OnboardingSlideItem(
                 iconRes = R.drawable.ic_cpu,
                 tagRes = R.string.onboarding_slide2_subtitle,
                 titleRes = R.string.onboarding_slide2_title,
                 descRes = R.string.onboarding_slide2_desc,
-                highlight1 = "Pass & Play (1 device)",
-                highlight2 = "Minimax Alpha-Beta",
-                highlight3 = "Real-time 6-digit Room"
+                highlight1Res = R.string.onboarding_s2_h1,
+                highlight2Res = R.string.onboarding_s2_h2,
+                highlight3Res = R.string.onboarding_s2_h3
+            ),
+            OnboardingSlideItem(
+                iconRes = R.drawable.ic_people,
+                tagRes = R.string.onboarding_slide_social_subtitle,
+                titleRes = R.string.onboarding_slide_social_title,
+                descRes = R.string.onboarding_slide_social_desc,
+                highlight1Res = R.string.onboarding_s_social_h1,
+                highlight2Res = R.string.onboarding_s_social_h2,
+                highlight3Res = R.string.onboarding_s_social_h3
             ),
             OnboardingSlideItem(
                 iconRes = R.drawable.ic_crown,
                 tagRes = R.string.onboarding_slide3_subtitle,
                 titleRes = R.string.onboarding_slide3_title,
                 descRes = R.string.onboarding_slide3_desc,
-                highlight1 = "Win +10 / Loss -5",
-                highlight2 = "Top 1–3 Hallmarks",
-                highlight3 = "3 VIP Glowing Styles"
+                highlight1Res = R.string.onboarding_s3_h1,
+                highlight2Res = R.string.onboarding_s3_h2,
+                highlight3Res = R.string.onboarding_s3_h3
             ),
             OnboardingSlideItem(
                 iconRes = R.drawable.ic_globe,
                 tagRes = R.string.onboarding_slide4_subtitle,
                 titleRes = R.string.onboarding_slide4_title,
                 descRes = R.string.onboarding_slide4_desc,
-                highlight1 = "Global & Room Chat",
-                highlight2 = "10 Unique Avatars",
-                highlight3 = "Last 10 Match History"
+                highlight1Res = R.string.onboarding_s4_h1,
+                highlight2Res = R.string.onboarding_s4_h2,
+                highlight3Res = R.string.onboarding_s4_h3
             )
         )
 
@@ -124,11 +133,9 @@ object OnboardingDialogHelper {
             binding.indicator0,
             binding.indicator1,
             binding.indicator2,
-            binding.indicator3
+            binding.indicator3,
+            binding.indicator4
         )
-
-        val activeColor = MaterialColors.getColor(binding.root, com.google.android.material.R.attr.colorPrimary)
-        val inactiveColor = MaterialColors.getColor(binding.root, com.google.android.material.R.attr.colorOutline)
 
         fun updateIndicators(position: Int) {
             val density = context.resources.displayMetrics.density

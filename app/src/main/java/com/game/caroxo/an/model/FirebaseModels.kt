@@ -9,6 +9,12 @@ import com.google.firebase.firestore.DocumentId
 import com.google.firebase.firestore.IgnoreExtraProperties
 import com.google.firebase.firestore.ServerTimestamp
 
+object AdminConfig {
+    const val ADMIN_UID = "cF1Caz5ksNUm67L6oNs3VbcEvDD2"
+
+    fun isAdmin(uid: String?): Boolean = uid == ADMIN_UID
+}
+
 @Keep
 @IgnoreExtraProperties
 data class PlayerProfile(
@@ -96,6 +102,75 @@ data class MatchRecord(
     val durationSeconds: Long = 0L,
     @ServerTimestamp val createdAt: Timestamp? = null
 )
+
+@Keep
+@IgnoreExtraProperties
+data class Friendship(
+    @DocumentId val id: String = "",
+    val userIds: List<String> = emptyList(),
+    val requesterUid: String = "",
+    val recipientUid: String = "",
+    val status: String = "PENDING", // "PENDING", "ACCEPTED"
+    val user1Uid: String = "",
+    val user1Nickname: String = "",
+    val user1AvatarId: String = "ninja",
+    val user1Points: Long = 100L,
+    val user2Uid: String = "",
+    val user2Nickname: String = "",
+    val user2AvatarId: String = "ninja",
+    val user2Points: Long = 100L,
+    @ServerTimestamp val createdAt: Timestamp? = null,
+    @ServerTimestamp val updatedAt: Timestamp? = null
+)
+
+fun Friendship.otherUserUid(myUid: String): String =
+    if (user1Uid == myUid) user2Uid else user1Uid
+
+fun Friendship.otherUserNickname(myUid: String): String =
+    if (user1Uid == myUid) user2Nickname else user1Nickname
+
+fun Friendship.otherUserAvatarId(myUid: String): String =
+    if (user1Uid == myUid) user2AvatarId else user1AvatarId
+
+fun Friendship.otherUserPoints(myUid: String): Long =
+    if (user1Uid == myUid) user2Points else user1Points
+
+@Keep
+@IgnoreExtraProperties
+data class GameInvite(
+    @DocumentId val id: String = "",
+    val senderUid: String = "",
+    val senderNickname: String = "CaroPlayer",
+    val senderAvatarId: String = "ninja",
+    val recipientUid: String = "",
+    val recipientNickname: String = "",
+    val memberUids: List<String> = emptyList(),
+    val roomCode: String = "",
+    val boardSize: Int = 15,
+    val blockTwoEnds: Boolean = true,
+    val status: String = "PENDING", // "PENDING", "ACCEPTED", "DECLINED", "CANCELLED"
+    @ServerTimestamp val createdAt: Timestamp? = null,
+    @ServerTimestamp val updatedAt: Timestamp? = null
+)
+
+@Keep
+@IgnoreExtraProperties
+data class PlayerPresence(
+    @DocumentId val id: String = "",
+    val userId: String = "",
+    val online: Boolean = false,
+    @ServerTimestamp val lastActiveAt: Timestamp? = null
+) {
+    fun isCurrentlyOnline(nowMillis: Long = System.currentTimeMillis()): Boolean {
+        if (!online) return false
+        val lastMs = lastActiveAt?.toDate()?.time ?: return false
+        return (nowMillis - lastMs) <= ONLINE_TTL_MS
+    }
+
+    companion object {
+        const val ONLINE_TTL_MS = 90_000L
+    }
+}
 
 data class AvatarOption(
     val id: String,

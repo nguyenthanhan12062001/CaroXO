@@ -128,6 +128,69 @@
         "createdAt": { "type": "string", "format": "date-time" }
       },
       "required": ["userId", "opponentNickname", "result", "mode", "durationSeconds", "createdAt"]
+    },
+    "Friendship": {
+      "title": "Friendship",
+      "description": "Bidirectional friendship or pending friend request keyed by sorted '{minUid}_{maxUid}'.",
+      "type": "object",
+      "properties": {
+        "userIds": { "type": "array", "description": "Sorted list of the 2 participant UIDs." },
+        "requesterUid": { "type": "string", "description": "UID of the user who initiated the friend request." },
+        "recipientUid": { "type": "string", "description": "UID of the user who received the friend request." },
+        "status": { "type": "string", "enum": ["PENDING", "ACCEPTED"] },
+        "user1Uid": { "type": "string" },
+        "user1Nickname": { "type": "string" },
+        "user1AvatarId": { "type": "string" },
+        "user1Points": { "type": "integer" },
+        "user2Uid": { "type": "string" },
+        "user2Nickname": { "type": "string" },
+        "user2AvatarId": { "type": "string" },
+        "user2Points": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "userIds", "requesterUid", "recipientUid", "status",
+        "user1Uid", "user1Nickname", "user1AvatarId", "user1Points",
+        "user2Uid", "user2Nickname", "user2AvatarId", "user2Points",
+        "createdAt", "updatedAt"
+      ]
+    },
+    "GameInvite": {
+      "title": "GameInvite",
+      "description": "Direct online match invitation sent to a friend for a 6-digit GameRoom.",
+      "type": "object",
+      "properties": {
+        "senderUid": { "type": "string" },
+        "senderNickname": { "type": "string" },
+        "senderAvatarId": { "type": "string" },
+        "recipientUid": { "type": "string" },
+        "recipientNickname": { "type": "string" },
+        "memberUids": { "type": "array", "description": "Participant UIDs [senderUid, recipientUid]." },
+        "roomCode": { "type": "string" },
+        "boardSize": { "type": "integer" },
+        "blockTwoEnds": { "type": "boolean" },
+        "status": { "type": "string", "enum": ["PENDING", "ACCEPTED", "DECLINED", "CANCELLED"] },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "senderUid", "senderNickname", "senderAvatarId",
+        "recipientUid", "recipientNickname", "memberUids",
+        "roomCode", "boardSize", "blockTwoEnds", "status",
+        "createdAt", "updatedAt"
+      ]
+    },
+    "PlayerPresence": {
+      "title": "PlayerPresence",
+      "description": "Lightweight online presence heartbeat per user, readable only by the owner and accepted friends.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Firebase Auth UID of the player." },
+        "online": { "type": "boolean", "description": "True when the app is actively in the foreground." },
+        "lastActiveAt": { "type": "string", "format": "date-time", "description": "Server timestamp of the latest foreground/offline heartbeat." }
+      },
+      "required": ["userId", "online", "lastActiveAt"]
     }
   },
   "firestore": {
@@ -154,6 +217,18 @@
     "/rooms/{roomId}/messages/{messageId}": {
       "schema": { "$ref": "#/entities/RoomChatMessage" },
       "description": "Realtime in-room chat messages restricted to room participants."
+    },
+    "/friendships/{friendshipId}": {
+      "schema": { "$ref": "#/entities/Friendship" },
+      "description": "Friendships and friend requests keyed by sorted '{minUid}_{maxUid}'."
+    },
+    "/game_invites/{inviteId}": {
+      "schema": { "$ref": "#/entities/GameInvite" },
+      "description": "Direct online match invitations between players."
+    },
+    "/presence/{userId}": {
+      "schema": { "$ref": "#/entities/PlayerPresence" },
+      "description": "Online presence heartbeat readable by owner and accepted friends."
     }
   }
 }

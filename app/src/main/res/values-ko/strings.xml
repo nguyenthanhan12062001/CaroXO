@@ -102,6 +102,7 @@
     <string name="result_online_finished">온라인 대국이 종료되었습니다.</string>
     <string name="result_offline_play_again_prompt">새 대국을 시작하시겠습니까?</string>
     <string name="action_play_again">새 게임</string>
+    <string name="action_continue">계속하기</string>
     <string name="action_back_home">홈으로</string>
 
     <string name="menu_quick_settings">빠른 설정</string>
@@ -301,6 +302,7 @@
     <string name="match_duration_sec">%1$d초</string>
 
     <!-- Onboarding & Feature Discovery -->
+    <string name="onboarding_tour_header">CaroXO 투어</string>
     <string name="onboarding_skip">건너뛰기</string>
     <string name="onboarding_next">다음</string>
     <string name="onboarding_start_discovery">탐색 시작</string>
@@ -308,18 +310,37 @@
     <string name="onboarding_slide1_title">CaroXO에 오신 것을 환영합니다</string>
     <string name="onboarding_slide1_subtitle">부드러운 Canvas 보드 엔진</string>
     <string name="onboarding_slide1_desc">직관적인 터치, 매끄러운 화면 이동, 1x~3x 핀치 줌 제스처와 다양한 보드 크기로 5목 대국을 즐겨보세요.</string>
+    <string name="onboarding_s1_h1">10×10 / 15×15 / 20×20</string>
+    <string name="onboarding_s1_h2">핀치 줌 1x–3x</string>
+    <string name="onboarding_s1_h3">양쪽 막힘 규칙</string>
 
     <string name="onboarding_slide2_title">다채로운 대국 모드</string>
-    <string name="onboarding_slide2_subtitle">2인 대전, 스마트 AI &amp; 온라인</string>
-    <string name="onboarding_slide2_desc">한 기기로 친구와 즐기는 2인 대전, 3단계 AI(쉬움부터 Minimax Alpha-Beta까지), 6자리 실시간 온라인 방 대결을 지원합니다.</string>
+    <string name="onboarding_slide2_subtitle">2인 대전, 스마트 AI &amp; 빠른 재대결</string>
+    <string name="onboarding_slide2_desc">한 기기로 즐기는 2인 대전, 3단계 AI(쉬움~Minimax Alpha-Beta), 6자리 실시간 온라인 방을 지원하며 대국 종료 후 바로 재대결하거나 홈으로 이동할 수 있습니다.</string>
+    <string name="onboarding_s2_h1">2인 대전 (1기기)</string>
+    <string name="onboarding_s2_h2">Minimax Alpha-Beta</string>
+    <string name="onboarding_s2_h3">원탭 재대결</string>
+
+    <string name="onboarding_slide_social_title">친구 &amp; 즉시 대국 초대</string>
+    <string name="onboarding_slide_social_subtitle">실시간 접속 표시 &amp; 팝업 초대</string>
+    <string name="onboarding_slide_social_desc">닉네임이나 플레이어 ID로 친구를 추가하고 초록색 점으로 온라인 친구를 확인하세요. 눈에 띄는 수락(✓) / 거절(✕) 팝업으로 즉시 대국과 재대결을 시작할 수 있습니다.</string>
+    <string name="onboarding_s_social_h1">초록색 온라인 점</string>
+    <string name="onboarding_s_social_h2">즉시 초대 팝업</string>
+    <string name="onboarding_s_social_h3">플레이어 ID 검색</string>
 
     <string name="onboarding_slide3_title">랭킹 및 VIP 말 스타일</string>
     <string name="onboarding_slide3_subtitle">Top 20 리더보드 도전</string>
-    <string name="onboarding_slide3_desc">승리 포인트를 모아 제왕 휘장을 획득하고 화려한 발광 효과의 VIP 말 스타일 3종을 잠금 해제하세요.</string>
+    <string name="onboarding_slide3_desc">승리 포인트를 모으고, 순위표에서 플레이어 ID를 확인해 동명이인을 구분하며, 제왕 휘장과 빛나는 VIP 말 스타일 3종을 잠금 해제하세요.</string>
+    <string name="onboarding_s3_h1">승리 +10 / 패배 -5</string>
+    <string name="onboarding_s3_h2">순위표 ID 표시</string>
+    <string name="onboarding_s3_h3">빛나는 VIP 스타일 3종</string>
 
     <string name="onboarding_slide4_title">소통 및 나만의 맞춤 설정</string>
     <string name="onboarding_slide4_subtitle">전체 채팅 &amp; 최근 대전 기록</string>
-    <string name="onboarding_slide4_desc">전 세계 유저와 실시간 로비 채팅을 나누고, 최근 10게임 전적을 확인하며, 클라우드 동기화로 아바타를 관리하세요.</string>
+    <string name="onboarding_slide4_desc">전체 및 방 채팅에서 실시간 소통하고, 인증된 관리자 배지가 있는 프로필과 최근 10게임 전적, 10가지 아바타를 클라우드로 동기화하세요.</string>
+    <string name="onboarding_s4_h1">전체 &amp; 방 채팅</string>
+    <string name="onboarding_s4_h2">아바타 10종</string>
+    <string name="onboarding_s4_h3">최근 10경기 기록</string>
 
     <string name="discovery_step_fmt">기능 안내 (%1$d/%2$d)</string>
     <string name="discovery_btn_got_it">확인</string>
@@ -333,24 +354,134 @@
     <string name="discovery_home_rules_desc">10×10, 15×15, 20×20 크기를 선택하고 양쪽 막힘 규칙을 켜거나 꺼서 전략을 겨뤄보세요.</string>
     <string name="discovery_home_modes_title">게임 모드 선택</string>
     <string name="discovery_home_modes_desc">한 폰으로 2명이 두는 Pass &amp; Play, 또는 Minimax Alpha-Beta가 적용된 3단계 AI에 도전하세요.</string>
-    <string name="discovery_home_online_title">실시간 온라인 방</string>
-    <string name="discovery_home_online_desc">로그인하여 6자리 방을 생성하거나 참가해 30초 턴 제한의 스릴 넘치는 온라인 대국을 즐기세요.</string>
+    <string name="discovery_home_online_title">실시간 온라인 방 &amp; 재대결</string>
+    <string name="discovery_home_online_desc">로그인해 30초 턴 제한의 6자리 방을 만들거나 참가하세요. 대국이 끝나면 계속하기를 눌러 바로 재대결을 신청할 수 있습니다.</string>
+    <string name="discovery_home_friends_title">친구 &amp; 즉시 초대 팝업</string>
+    <string name="discovery_home_friends_desc">상단 친구 아이콘을 눌러 온라인 친구(초록 점)를 보고, ID로 친구를 찾고, 대국 및 재대결 팝업을 주고받으세요.</string>
+    <string name="discovery_friends_title">온라인 친구 &amp; 대국 초대 팝업</string>
+    <string name="discovery_friends_desc">초록색 점은 현재 온라인인 친구를 뜻합니다. 초대를 보내면 상대방에게 수락(✓)과 거절(✕) 버튼이 돋보이는 팝업이 표시됩니다.</string>
 
     <string name="discovery_game_controls_title">Canvas 보드 조작법</string>
     <string name="discovery_game_controls_desc">칸을 터치해 착수 • 한 손가락으로 드래그 이동 • 두 손가락으로 줌 (1x~3x) • 힌트, 무르기, 빠른 설정을 사용하세요.</string>
 
-    <string name="discovery_lb_title">순위표 및 포인트 획득</string>
-    <string name="discovery_lb_desc">승리 시 +10점, 패배 시 -5점. Top 1~3위에 오르면 특별 명예 휘장과 VIP 말 스타일 3종이 열립니다.</string>
+    <string name="discovery_lb_title">순위표 및 플레이어 ID</string>
+    <string name="discovery_lb_desc">승리 시 +10점, 패배 시 -5점. 이름 아래의 고유 ID로 플레이어를 구분하고, 항목을 눌러 프로필을 확인하며 Top 1~3위 VIP 스타일을 여세요.</string>
 
     <string name="discovery_chat_title">로비 및 대국실 채팅</string>
-    <string name="discovery_chat_desc">전체 로비 채팅에서 대화를 나누거나 온라인 대국 중 방 전용 채팅으로 소통할 수 있습니다.</string>
+    <string name="discovery_chat_desc">전체 채팅이나 방 채팅에서 대화하고, 아바타를 눌러 프로필과 인증된 관리자 배지를 확인하세요.</string>
 
     <string name="discovery_profile_title">프로필 &amp; 대전 기록</string>
     <string name="discovery_profile_desc">아바타와 말 스타일을 변경하고, 역대 최고 순위 휘장과 최근 10게임 전적을 확인하세요.</string>
 
     <string name="settings_section_discovery">안내 및 탐색</string>
     <string name="settings_replay_onboarding_title">온보딩 소개 다시보기</string>
-    <string name="settings_replay_onboarding_desc">앱의 4단계 개요 소개를 다시 확인합니다</string>
+    <string name="settings_replay_onboarding_desc">앱의 5단계 개요 소개를 다시 확인합니다</string>
     <string name="settings_reset_discovery_title">기능 안내 팁 초기화</string>
     <string name="settings_reset_discovery_desc">앱을 탐색할 때 대화형 팁 카드를 다시 표시합니다</string>
+
+    <!-- Friends, Invites & Player Profile -->
+    <string name="friends_title">친구 및 초대</string>
+    <string name="friends_subtitle">친구 추가, 요청 관리, 프로필 보기 및 대국 초대</string>
+    <string name="cd_friends">친구 및 초대 열기</string>
+    <string name="btn_play_with_friends">친구 초대해 대국하기</string>
+    <string name="profile_friends_title">친구 및 요청</string>
+    <string name="profile_friends_desc">친구 목록, 받은 초대 확인 및 플레이어 검색</string>
+    <string name="profile_friends_badge_fmt">%1$d개 새 알림</string>
+
+    <string name="friends_tab_list">친구</string>
+    <string name="friends_tab_requests">요청</string>
+    <string name="friends_tab_find">플레이어 찾기</string>
+    <string name="friends_my_id_label">내 플레이어 ID</string>
+    <string name="friends_id_copied">플레이어 ID 복사됨: %1$s</string>
+    <string name="cd_copy_player_id">플레이어 ID 복사</string>
+
+    <string name="friends_section_game_invites">대국 초대</string>
+    <string name="friends_section_incoming_requests">받은 친구 요청</string>
+    <string name="friends_section_outgoing_requests">보낸 요청</string>
+    <string name="friends_section_accepted">친구 목록</string>
+
+    <string name="friends_empty_list">아직 친구가 없습니다. 닉네임이나 플레이어 ID로 검색해 친구를 추가해 보세요!</string>
+    <string name="friends_empty_requests">대기 중인 친구 요청이나 대국 초대가 없습니다.</string>
+    <string name="friends_search_hint">닉네임 또는 플레이어 ID로 검색</string>
+    <string name="friends_search_btn">검색</string>
+    <string name="friends_search_empty">일치하는 플레이어를 찾을 수 없습니다.</string>
+    <string name="friends_search_error">플레이어를 검색할 수 없습니다. 다시 시도해 주세요.</string>
+    <string name="friends_error_load">친구 목록을 불러올 수 없습니다.</string>
+
+    <string name="action_invite_play">초대</string>
+    <string name="action_view_profile">프로필</string>
+    <string name="action_add_friend">친구 추가</string>
+    <string name="action_accept">수락</string>
+    <string name="action_decline">거절</string>
+    <string name="action_cancel_request">요청 취소</string>
+    <string name="action_remove_friend">친구 삭제</string>
+    <string name="status_request_sent">요청됨</string>
+    <string name="status_already_friends">친구</string>
+
+    <string name="confirm_remove_friend_title">친구를 삭제할까요?</string>
+    <string name="confirm_remove_friend_message">%1$s님을 친구 목록에서 삭제하시겠습니까?</string>
+
+    <string name="friend_request_sent_toast">%1$s님에게 친구 요청을 보냈습니다!</string>
+    <string name="friend_request_accepted_toast">친구 요청을 수락했습니다!</string>
+    <string name="friend_request_declined_toast">친구 요청을 거절했습니다.</string>
+    <string name="friend_request_cancelled_toast">친구 요청을 취소했습니다.</string>
+    <string name="friend_removed_toast">친구 목록에서 삭제되었습니다.</string>
+    <string name="friend_error_already_friends">이미 이 플레이어와 친구입니다.</string>
+    <string name="friend_error_request_already_sent">이미 친구 요청을 보냈습니다.</string>
+    <string name="friend_error_add_self">자기 자신을 친구로 추가할 수 없습니다.</string>
+    <string name="friend_error_generic">친구 상태를 업데이트할 수 없습니다. 다시 시도해 주세요.</string>
+
+    <string name="invite_card_desc_fmt">방 #%1$s · %2$d×%2$d · %3$s</string>
+    <string name="invite_rule_block_on">양쪽 막힘</string>
+    <string name="invite_rule_block_off">자유 5목</string>
+    <string name="invite_sent_toast">%1$s님에게 대국 초대를 보냈습니다!</string>
+    <string name="invite_error_send">대국 초대를 보낼 수 없습니다.</string>
+    <string name="invite_room_expired">이 대국 방은 더 이상 유효하지 않습니다.</string>
+    <string name="invite_dialog_title">대국 초대!</string>
+    <string name="invite_dialog_message_fmt">%1$s님이 CaroXO 대국(%2$d×%2$d · %3$s)에 초대했습니다.</string>
+
+    <string name="player_profile_title">플레이어 프로필</string>
+    <string name="player_profile_loading">프로필 불러오는 중…</string>
+    <string name="player_profile_not_found">플레이어 프로필을 찾을 수 없습니다.</string>
+    <string name="player_profile_id_fmt">ID: %1$s</string>
+    <string name="player_profile_rank_fmt">순위 #%1$d</string>
+    <string name="player_profile_draws_label">무승부</string>
+    <string name="player_profile_winrate_label">승률</string>
+    <string name="player_profile_style_label">장착한 말 스타일</string>
+    <string name="leaderboard_player_id_fmt">ID: %1$s</string>
+    <string name="cd_friend_online">친구가 온라인입니다</string>
+    <string name="admin_badge_label">Admin</string>
+    <string name="cd_admin_verified">인증된 관리자</string>
+    <string name="cd_admin_clear_chat">전체 채팅 기록 삭제</string>
+    <string name="admin_clear_chat_title">전체 채팅을 삭제할까요?</string>
+    <string name="admin_clear_chat_message">전체 채팅의 모든 메시지를 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.</string>
+    <string name="admin_clear_chat_action">모두 삭제</string>
+    <string name="admin_chat_cleared_toast">전체 채팅 메시지 %1$d개를 삭제했습니다.</string>
+    <string name="admin_chat_already_empty_toast">전체 채팅이 이미 비어 있습니다.</string>
+    <string name="admin_chat_clear_error">전체 채팅 기록을 삭제할 수 없습니다.</string>
+    <string name="invite_popup_badge_match">대국 초대</string>
+    <string name="invite_popup_badge_rematch">재대결 초대</string>
+    <string name="invite_popup_headline_match">%1$s님이 대국에 초대합니다!</string>
+    <string name="invite_popup_headline_rematch">%1$s님이 재대결을 요청했습니다!</string>
+    <string name="rematch_invite_sent_toast">%1$s님에게 재대결 초대를 보냈습니다!</string>
+    <string name="rematch_declined_toast">%1$s님이 재대결을 거절했습니다.</string>
+    <string name="cd_invite_accept">대국 초대 수락</string>
+    <string name="cd_invite_decline">대국 초대 거절</string>
+    <string name="setting_impact_fx_title">착수 타격 효과</string>
+    <string name="setting_impact_fx_desc">돌을 놓을 때의 보드 반동, 충격파 링 및 파티클 효과</string>
+    <string name="setting_ad_privacy_title">광고 및 개인정보 보호 (GDPR)</string>
+    <string name="setting_ad_privacy_desc">맞춤형 광고 동의 및 개인정보 보호 설정 관리</string>
+    <string name="style_ad_storm_volt">Storm Volt (Lôi Đình)</string>
+    <string name="style_ad_frost_crystal">Frost Crystal (Băng Tinh)</string>
+    <string name="style_ad_void_singularity">Void Singularity (Hắc Tinh)</string>
+    <string name="style_ad_ink_gold">Ink &amp; Gold (Thủy Mặc Kim Long)</string>
+    <string name="ad_badge_timed">AD · 2H</string>
+    <string name="ad_style_unlock_title">2시간 동안 스타일 잠금 해제</string>
+    <string name="ad_style_unlock_message">짧은 동영상 광고를 시청하고 %1$s 스타일을 2시간 동안 이용하세요!</string>
+    <string name="btn_watch_ad">광고 시청</string>
+    <string name="ad_loading_try_again">광고를 로딩 중입니다. 잠시 후 다시 시도해 주세요.</string>
+    <string name="ad_reward_hints_title">힌트 소진!</string>
+    <string name="ad_reward_hints_message">무료 힌트 2개를 모두 사용했습니다. 광고를 시청하고 힌트 +3개를 받으시겠습니까?</string>
+    <string name="ad_reward_undos_title">무르기 소진!</string>
+    <string name="ad_reward_undos_message">무료 무르기 2회를 모두 사용했습니다. 광고를 시청하고 무르기 +3회를 받으시겠습니까?</string>
 </resources>

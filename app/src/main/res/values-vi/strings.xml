@@ -102,6 +102,7 @@
     <string name="result_online_finished">Trận đấu trực tuyến đã kết thúc.</string>
     <string name="result_offline_play_again_prompt">Bạn có muốn bắt đầu ván mới không?</string>
     <string name="action_play_again">Ván mới</string>
+    <string name="action_continue">Tiếp tục</string>
     <string name="action_back_home">Về trang chủ</string>
 
     <string name="menu_quick_settings">Cài đặt nhanh</string>
@@ -301,6 +302,7 @@
     <string name="match_duration_sec">%1$ds</string>
 
     <!-- Onboarding & Feature Discovery -->
+    <string name="onboarding_tour_header">Khám phá CaroXO</string>
     <string name="onboarding_skip">Bỏ qua</string>
     <string name="onboarding_next">Tiếp theo</string>
     <string name="onboarding_start_discovery">Bắt đầu khám phá</string>
@@ -308,18 +310,37 @@
     <string name="onboarding_slide1_title">Chào mừng đến với CaroXO</string>
     <string name="onboarding_slide1_subtitle">Bàn cờ Canvas siêu mượt</string>
     <string name="onboarding_slide1_desc">Trải nghiệm Cờ Caro 5 quân mượt mà với thao tác chạm, vuốt cuộn, phóng to thu nhỏ 1x–3x linh hoạt trên nhiều kích thước bàn cờ.</string>
+    <string name="onboarding_s1_h1">10×10 / 15×15 / 20×20</string>
+    <string name="onboarding_s1_h2">Thu phóng 1x–3x</string>
+    <string name="onboarding_s1_h3">Chặn 2 đầu</string>
 
     <string name="onboarding_slide2_title">Đa dạng chế độ chơi</string>
-    <string name="onboarding_slide2_subtitle">2 Người, AI thông minh &amp; Online</string>
-    <string name="onboarding_slide2_desc">So tài cùng bạn bè trên một máy, rèn luyện cùng AI 3 cấp độ (Dễ đến Minimax Alpha-Beta), hoặc tạo phòng 6 chữ số đấu Online thời gian thực.</string>
+    <string name="onboarding_slide2_subtitle">2 Người, AI &amp; Đấu lại nhanh</string>
+    <string name="onboarding_slide2_desc">So tài trên một máy, thử sức 3 cấp AI (từ Dễ đến Minimax Alpha-Beta), hoặc đấu Online phòng 6 số với lựa chọn Tiếp tục đấu lại hay Về trang chủ ngay khi hết ván.</string>
+    <string name="onboarding_s2_h1">2 Người (1 máy)</string>
+    <string name="onboarding_s2_h2">Minimax Alpha-Beta</string>
+    <string name="onboarding_s2_h3">Đấu lại 1 chạm</string>
+
+    <string name="onboarding_slide_social_title">Bạn bè &amp; Lời mời tức thì</string>
+    <string name="onboarding_slide_social_subtitle">Trạng thái Online &amp; Popup đấu</string>
+    <string name="onboarding_slide_social_desc">Kết bạn theo tên hoặc Mã ID, nhận biết bạn bè đang online qua chấm xanh và phản hồi lời mời thi đấu / đấu lại qua popup Đồng ý (✓) / Từ chối (✕) nổi bật.</string>
+    <string name="onboarding_s_social_h1">Chấm xanh Online</string>
+    <string name="onboarding_s_social_h2">Popup mời đấu</string>
+    <string name="onboarding_s_social_h3">Tìm theo Mã ID</string>
 
     <string name="onboarding_slide3_title">Bảng Xếp Hạng &amp; Style VIP</string>
     <string name="onboarding_slide3_subtitle">Ghi danh Top 20 Cao Thủ</string>
-    <string name="onboarding_slide3_desc">Chiến thắng nhận điểm xếp hạng, ghi danh Top 20 để mở khóa Danh hiệu Đế Vương, Dấu ấn Hoàng gia và 3 Style quân cờ VIP phát sáng tuyệt đẹp.</string>
+    <string name="onboarding_slide3_desc">Tích điểm khi thắng, xem Mã ID người chơi ngay trên Bảng xếp hạng để tránh trùng tên, nhận Dấu ấn Hoàng gia và mở khóa 3 Style quân cờ VIP phát sáng.</string>
+    <string name="onboarding_s3_h1">Thắng +10 / Thua -5</string>
+    <string name="onboarding_s3_h2">ID trên BXH</string>
+    <string name="onboarding_s3_h3">3 Style VIP phát sáng</string>
 
     <string name="onboarding_slide4_title">Kết nối &amp; Cá nhân hóa</string>
     <string name="onboarding_slide4_subtitle">Chat tổng &amp; Lịch sử trận đấu</string>
-    <string name="onboarding_slide4_desc">Trò chuyện trực tiếp cùng cộng đồng, theo dõi lịch sử 10 trận gần nhất và tự do lựa chọn Avatar phong cách cùng tính năng đồng bộ đám mây.</string>
+    <string name="onboarding_slide4_desc">Trò chuyện tại Kênh Chat Tổng và Chat phòng, xem hồ sơ kèm tích xanh Admin, theo dõi 10 trận gần nhất và tự do chọn 10 Avatar đồng bộ đám mây.</string>
+    <string name="onboarding_s4_h1">Chat Tổng &amp; Phòng</string>
+    <string name="onboarding_s4_h2">10 Avatar độc đáo</string>
+    <string name="onboarding_s4_h3">10 trận gần nhất</string>
 
     <string name="discovery_step_fmt">Khám phá tính năng (%1$d/%2$d)</string>
     <string name="discovery_btn_got_it">Đã hiểu</string>
@@ -333,24 +354,134 @@
     <string name="discovery_home_rules_desc">Chọn kích thước 10×10, 15×15, 20×20 và Bật/Tắt Luật Chặn 2 đầu để thử thách chiến thuật của bạn.</string>
     <string name="discovery_home_modes_title">Chế độ Chơi phong phú</string>
     <string name="discovery_home_modes_desc">Chọn 2 người trên 1 máy để đấu cùng bạn bè, hoặc thử sức với AI 3 cấp độ (Dễ, Trung bình, Khó với thuật toán Minimax Alpha-Beta).</string>
-    <string name="discovery_home_online_title">Phòng đấu Online Thời Gian Thực</string>
-    <string name="discovery_home_online_desc">Đăng nhập để tạo phòng 6 chữ số hoặc nhập mã phòng để so tài thời gian thực cùng đồng hồ đếm ngược 30 giây.</string>
+    <string name="discovery_home_online_title">Phòng Online &amp; Đấu lại</string>
+    <string name="discovery_home_online_desc">Đăng nhập để tạo hoặc vào phòng 6 chữ số với đồng hồ 30 giây. Kết thúc ván, bấm Tiếp tục để mời đối thủ đấu lại ngay hoặc Về trang chủ.</string>
+    <string name="discovery_home_friends_title">Bạn bè &amp; Lời mời tức thì</string>
+    <string name="discovery_home_friends_desc">Nhấn biểu tượng Bạn bè ở trên để xem ai đang online (chấm xanh), tìm theo Mã ID và gửi/nhận popup mời đấu hoặc đấu lại nhanh chóng.</string>
+    <string name="discovery_friends_title">Bạn bè Online &amp; Popup Mời đấu</string>
+    <string name="discovery_friends_desc">Chấm xanh hiển thị bạn bè đang online. Khi mời đấu, đối phương sẽ nhận popup nổi bật với nút Đồng ý (✓) và Từ chối (✕).</string>
 
     <string name="discovery_game_controls_title">Thao tác trên Bàn Cờ Canvas</string>
     <string name="discovery_game_controls_desc">Chạm ô để đặt quân • Vuốt 1 ngón để cuộn • Dùng 2 ngón tay thu phóng (Pinch 1x–3x) • Sử dụng nút Gợi ý (Hint), Đi lại (Undo) và Cài đặt nhanh.</string>
 
-    <string name="discovery_lb_title">Bảng Xếp Hạng &amp; Điểm Số</string>
-    <string name="discovery_lb_desc">Thắng +10 điểm, Thua -5 điểm. Lọt vào Top 1–3 để mở khóa Dấu ấn Hoàng gia và 3 Style quân cờ VIP đặc biệt.</string>
+    <string name="discovery_lb_title">Bảng Xếp Hạng &amp; Mã ID</string>
+    <string name="discovery_lb_desc">Thắng +10 điểm, Thua -5 điểm. Xem Mã ID dưới tên từng người chơi để tránh trùng tên, chạm vào để xem hồ sơ và lọt Top 1–3 mở khóa Style VIP.</string>
 
     <string name="discovery_chat_title">Trò chuyện Trực tuyến</string>
-    <string name="discovery_chat_desc">Trò chuyện thời gian thực tại Kênh Chat Tổng hoặc trong phòng đấu riêng khi đang so tài cùng đối thủ.</string>
+    <string name="discovery_chat_desc">Nhắn tin thời gian thực tại Chat Tổng hoặc Chat phòng khi đang thi đấu, chạm Avatar để xem hồ sơ và nhận diện huy hiệu Admin.</string>
 
     <string name="discovery_profile_title">Hồ sơ Cá nhân &amp; Lịch sử Đấu</string>
     <string name="discovery_profile_desc">Chọn Avatar yêu thích, Style quân cờ cá nhân, xem Dấu ấn Xếp hạng đỉnh cao và theo dõi Lịch sử 10 trận đấu gần nhất.</string>
 
     <string name="settings_section_discovery">Hướng dẫn &amp; Khám phá</string>
     <string name="settings_replay_onboarding_title">Xem lại Tour giới thiệu Onboarding</string>
-    <string name="settings_replay_onboarding_desc">Xem lại phần giới thiệu tổng quan 4 bước của ứng dụng</string>
+    <string name="settings_replay_onboarding_desc">Xem lại phần giới thiệu tổng quan 5 bước của ứng dụng</string>
     <string name="settings_reset_discovery_title">Đặt lại Hướng dẫn Khám phá</string>
     <string name="settings_reset_discovery_desc">Hiển thị lại các chỉ dẫn tính năng tương tác khi khám phá app</string>
+
+    <!-- Friends, Invites & Player Profile -->
+    <string name="friends_title">Bạn bè &amp; Lời mời</string>
+    <string name="friends_subtitle">Kết bạn, quản lý lời mời, xem hồ sơ và mời đấu trực tuyến</string>
+    <string name="cd_friends">Mở danh sách bạn bè và lời mời</string>
+    <string name="btn_play_with_friends">Mời Bạn bè Thi đấu</string>
+    <string name="profile_friends_title">Bạn bè &amp; Lời mời</string>
+    <string name="profile_friends_desc">Xem danh sách bạn bè, lời mời kết bạn và tìm người chơi</string>
+    <string name="profile_friends_badge_fmt">%1$d mới</string>
+
+    <string name="friends_tab_list">Bạn bè</string>
+    <string name="friends_tab_requests">Lời mời</string>
+    <string name="friends_tab_find">Tìm bạn</string>
+    <string name="friends_my_id_label">Mã ID của bạn</string>
+    <string name="friends_id_copied">Đã sao chép Mã ID: %1$s</string>
+    <string name="cd_copy_player_id">Sao chép Mã ID người chơi</string>
+
+    <string name="friends_section_game_invites">Lời mời Thi đấu</string>
+    <string name="friends_section_incoming_requests">Lời mời Kết bạn đến</string>
+    <string name="friends_section_outgoing_requests">Lời mời Đã gửi</string>
+    <string name="friends_section_accepted">Danh sách Bạn bè</string>
+
+    <string name="friends_empty_list">Chưa có bạn bè nào. Hãy tìm theo tên hoặc Mã ID để kết bạn!</string>
+    <string name="friends_empty_requests">Không có lời mời kết bạn hay lời mời đấu nào.</string>
+    <string name="friends_search_hint">Tìm theo Nickname hoặc Mã ID</string>
+    <string name="friends_search_btn">Tìm</string>
+    <string name="friends_search_empty">Không tìm thấy người chơi phù hợp.</string>
+    <string name="friends_search_error">Không thể tìm kiếm người chơi. Vui lòng thử lại.</string>
+    <string name="friends_error_load">Không thể tải danh sách bạn bè.</string>
+
+    <string name="action_invite_play">Mời đấu</string>
+    <string name="action_view_profile">Hồ sơ</string>
+    <string name="action_add_friend">Kết bạn</string>
+    <string name="action_accept">Đồng ý</string>
+    <string name="action_decline">Từ chối</string>
+    <string name="action_cancel_request">Hủy lời mời</string>
+    <string name="action_remove_friend">Xóa bạn</string>
+    <string name="status_request_sent">Đã gửi</string>
+    <string name="status_already_friends">Bạn bè</string>
+
+    <string name="confirm_remove_friend_title">Xóa bạn bè?</string>
+    <string name="confirm_remove_friend_message">Bạn có muốn xóa %1$s khỏi danh sách bạn bè không?</string>
+
+    <string name="friend_request_sent_toast">Đã gửi lời mời kết bạn tới %1$s!</string>
+    <string name="friend_request_accepted_toast">Đã chấp nhận lời mời kết bạn!</string>
+    <string name="friend_request_declined_toast">Đã từ chối lời mời kết bạn.</string>
+    <string name="friend_request_cancelled_toast">Đã hủy lời mời kết bạn.</string>
+    <string name="friend_removed_toast">Đã xóa khỏi danh sách bạn bè.</string>
+    <string name="friend_error_already_friends">Hai bạn đã là bạn bè.</string>
+    <string name="friend_error_request_already_sent">Bạn đã gửi lời mời kết bạn rồi.</string>
+    <string name="friend_error_add_self">Bạn không thể tự kết bạn với chính mình.</string>
+    <string name="friend_error_generic">Không thể cập nhật trạng thái bạn bè. Vui lòng thử lại.</string>
+
+    <string name="invite_card_desc_fmt">Phòng #%1$s · %2$d×%2$d · %3$s</string>
+    <string name="invite_rule_block_on">Chặn 2 đầu</string>
+    <string name="invite_rule_block_off">Tự do 5 quân</string>
+    <string name="invite_sent_toast">Đã gửi lời mời thi đấu tới %1$s!</string>
+    <string name="invite_error_send">Không thể gửi lời mời thi đấu.</string>
+    <string name="invite_room_expired">Phòng đấu này không còn khả dụng.</string>
+    <string name="invite_dialog_title">Lời mời Thi đấu!</string>
+    <string name="invite_dialog_message_fmt">%1$s mời bạn vào đấu CaroXO (%2$d×%2$d · %3$s).</string>
+
+    <string name="player_profile_title">Hồ sơ Người chơi</string>
+    <string name="player_profile_loading">Đang tải hồ sơ người chơi…</string>
+    <string name="player_profile_not_found">Không tìm thấy hồ sơ người chơi.</string>
+    <string name="player_profile_id_fmt">ID: %1$s</string>
+    <string name="player_profile_rank_fmt">Hạng #%1$d</string>
+    <string name="player_profile_draws_label">Hòa</string>
+    <string name="player_profile_winrate_label">Tỉ lệ thắng</string>
+    <string name="player_profile_style_label">Style Quân cờ đang dùng</string>
+    <string name="leaderboard_player_id_fmt">ID: %1$s</string>
+    <string name="cd_friend_online">Bạn bè đang online</string>
+    <string name="admin_badge_label">Admin</string>
+    <string name="cd_admin_verified">Admin đã xác minh</string>
+    <string name="cd_admin_clear_chat">Xóa lịch sử chat tổng</string>
+    <string name="admin_clear_chat_title">Xóa lịch sử chat tổng?</string>
+    <string name="admin_clear_chat_message">Bạn có chắc chắn muốn xóa toàn bộ tin nhắn trong Chat Tổng? Thao tác này không thể hoàn tác.</string>
+    <string name="admin_clear_chat_action">Xóa hết</string>
+    <string name="admin_chat_cleared_toast">Đã xóa %1$d tin nhắn chat tổng.</string>
+    <string name="admin_chat_already_empty_toast">Lịch sử chat tổng hiện đang trống.</string>
+    <string name="admin_chat_clear_error">Không thể xóa lịch sử chat tổng.</string>
+    <string name="invite_popup_badge_match">Lời mời thi đấu</string>
+    <string name="invite_popup_badge_rematch">Lời mời đấu lại</string>
+    <string name="invite_popup_headline_match">%1$s muốn mời bạn đấu!</string>
+    <string name="invite_popup_headline_rematch">%1$s mời bạn đấu lại!</string>
+    <string name="rematch_invite_sent_toast">Đã gửi lời mời đấu lại tới %1$s!</string>
+    <string name="rematch_declined_toast">%1$s đã từ chối đấu lại.</string>
+    <string name="cd_invite_accept">Đồng ý lời mời thi đấu</string>
+    <string name="cd_invite_decline">Từ chối lời mời thi đấu</string>
+    <string name="setting_impact_fx_title">Hiệu ứng lực đặt quân</string>
+    <string name="setting_impact_fx_desc">Hiệu ứng rung chấn, vòng lan tỏa và hạt khi đặt quân</string>
+    <string name="setting_ad_privacy_title">Quyền riêng tư &amp; Quảng cáo (GDPR)</string>
+    <string name="setting_ad_privacy_desc">Quản lý tùy chọn đồng ý quảng cáo và quyền riêng tư</string>
+    <string name="style_ad_storm_volt">Lôi Đình (Storm Volt)</string>
+    <string name="style_ad_frost_crystal">Băng Tinh (Frost Crystal)</string>
+    <string name="style_ad_void_singularity">Hắc Tinh (Void Singularity)</string>
+    <string name="style_ad_ink_gold">Thủy Mặc Kim Long (Ink &amp; Gold)</string>
+    <string name="ad_badge_timed">AD · 2H</string>
+    <string name="ad_style_unlock_title">Mở khóa Style trong 2 Giờ</string>
+    <string name="ad_style_unlock_message">Xem một quảng cáo ngắn để mở khóa style quân cờ %1$s trong 2 giờ!</string>
+    <string name="btn_watch_ad">Xem quảng cáo</string>
+    <string name="ad_loading_try_again">Đang tải quảng cáo, vui lòng thử lại sau giây lát.</string>
+    <string name="ad_reward_hints_title">Hết Gợi ý!</string>
+    <string name="ad_reward_hints_message">Bạn đã dùng hết 2 gợi ý miễn phí. Xem quảng cáo ngắn để nhận ngay +3 gợi ý cho ván này?</string>
+    <string name="ad_reward_undos_title">Hết Hoàn tác!</string>
+    <string name="ad_reward_undos_message">Bạn đã dùng hết 2 lần hoàn tác miễn phí. Xem quảng cáo ngắn để nhận ngay +3 lượt hoàn tác cho ván này?</string>
 </resources>

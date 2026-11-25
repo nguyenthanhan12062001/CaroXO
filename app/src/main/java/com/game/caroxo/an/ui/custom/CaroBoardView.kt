@@ -50,6 +50,7 @@ class CaroBoardView @JvmOverloads constructor(
     private var xPieceStyle: PieceStyle = PieceStyle.CLASSIC
     private var oPieceStyle: PieceStyle = PieceStyle.CLASSIC
     private var boardSurface: BoardSurface = BoardSurface.MINIMAL_CREAM
+    private var impactEffectsEnabled: Boolean = true
 
     // Zoom & Pan state
     private var scaleFactor = 1.0f
@@ -69,6 +70,12 @@ class CaroBoardView @JvmOverloads constructor(
     private var newestAnimatedPoint: BoardPoint? = null
     private var pieceAnimProgress = 1.0f
     private var pieceAnimator: ValueAnimator? = null
+
+    private var impactPoint: BoardPoint? = null
+    private var impactPiece: Piece = Piece.EMPTY
+    private var impactStyle: PieceStyle = PieceStyle.CLASSIC
+    private var impactProgress = 1.0f
+    private var impactAnimator: ValueAnimator? = null
 
     private var winLineProgress = 1.0f
     private var winAnimator: ValueAnimator? = null
@@ -127,6 +134,13 @@ class CaroBoardView @JvmOverloads constructor(
         style = Paint.Style.STROKE
         strokeCap = Paint.Cap.ROUND
         color = Color.WHITE
+    }
+    private val impactStrokePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.STROKE
+        strokeCap = Paint.Cap.ROUND
+    }
+    private val impactFillPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+        style = Paint.Style.FILL
     }
     private val tempPath = Path()
     private val tempRect = RectF()
@@ -223,7 +237,8 @@ class CaroBoardView @JvmOverloads constructor(
         xStyle: PieceStyle,
         oStyle: PieceStyle,
         surface: BoardSurface,
-        hint: BoardPoint?
+        hint: BoardPoint?,
+        impactFxEnabled: Boolean = true
     ) {
         val sizeChanged = boardSize != size
         boardSize = size
@@ -235,6 +250,7 @@ class CaroBoardView @JvmOverloads constructor(
         interactionEnabled = enabled
         xPieceStyle = xStyle
         oPieceStyle = oStyle
+        impactEffectsEnabled = impactFxEnabled
 
         if (boardSurface != surface) {
             boardSurface = surface
@@ -247,6 +263,15 @@ class CaroBoardView @JvmOverloads constructor(
 
         if (newMoveAppeared && lastMovePoint != null) {
             startPiecePlacementAnimation(lastMovePoint)
+            if (impactEffectsEnabled) {
+                val placedPiece = Piece.fromCode(board[lastMovePoint.row][lastMovePoint.col])
+                val placedStyle = if (placedPiece == Piece.X) xPieceStyle else oPieceStyle
+                startPlacementImpactAnimation(lastMovePoint, placedPiece, placedStyle)
+            } else {
+                impactAnimator?.cancel()
+                impactProgress = 1.0f
+                impactPoint = null
+            }
         }
 
         if (newWinLine.isNotEmpty() && newWinLine != winLine) {
@@ -292,6 +317,23 @@ class CaroBoardView @JvmOverloads constructor(
         }
     }
 
+    private fun startPlacementImpactAnimation(point: BoardPoint, piece: Piece, style: PieceStyle) {
+        impactPoint = point
+        impactPiece = piece
+        impactStyle = style
+        impactProgress = 0f
+        impactAnimator?.cancel()
+        impactAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
+            duration = 420L
+            interpolator = DecelerateInterpolator()
+            addUpdateListener {
+                impactProgress = it.animatedValue as Float
+                invalidate()
+            }
+            start()
+        }
+    }
+
     private fun startWinLineAnimation() {
         winAnimator?.cancel()
         winAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
@@ -320,8 +362,8 @@ class CaroBoardView @JvmOverloads constructor(
     }
 
     private fun syncVipAnimationState() {
-        val needsVipAnim = (xPieceStyle.isVip || oPieceStyle.isVip) && isAttachedToWindow
-        if (needsVipAnim) {
+        val needsAnim = (xPieceStyle.isAnimated || oPieceStyle.isAnimated) && isAttachedToWindow
+        if (needsAnim) {
             if (vipAnimator == null) {
                 vipAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
                     duration = 2200L
@@ -350,6 +392,7 @@ class CaroBoardView @JvmOverloads constructor(
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         pieceAnimator?.cancel()
+        impactAnimator?.cancel()
         winAnimator?.cancel()
         hintAnimator?.cancel()
         vipAnimator?.cancel()
@@ -460,24 +503,131 @@ class CaroBoardView @JvmOverloads constructor(
         val boardPx = min(width, height).toFloat()
         if (boardPx <= 0f) return
 
-        canvas.save()
-        canvas.translate(translateX, translateY)
-        canvas.scale(scaleFactor, scaleFactor)
-
-        drawBoardSurface(canvas, boardPx)
-
         val padding = boardPx * 0.025f
         val gridPx = boardPx - padding * 2f
         val cellSize = gridPx / boardSize
 
+        val recoilY = if (impactEffectsEnabled && impactProgress < 1.0f && impactPoint != null) {
+            val amp = cellSize * 0.09f
+            amp * sin(impactProgress * Math.PI * 2.5).toFloat() * (1f - impactProgress)
+        } else {
+            0f
+        }
+
+        canvas.save()
+        canvas.translate(translateX, translateY + recoilY)
+        canvas.scale(scaleFactor, scaleFactor)
+
+        drawBoardSurface(canvas, boardPx)
+
         drawGridLinesAndHoshi(canvas, padding, gridPx, cellSize)
         drawLastMoveHighlight(canvas, padding, cellSize)
         drawHintHighlight(canvas, padding, cellSize)
+        drawImpactEffect(canvas, padding, cellSize)
         drawPieces(canvas, padding, cellSize)
         drawGhostPreview(canvas, padding, cellSize)
         drawWinLine(canvas, padding, cellSize)
 
         canvas.restore()
+    }
+
+    private fun drawImpactEffect(canvas: Canvas, padding: Float, cellSize: Float) {
+        if (!impactEffectsEnabled || impactProgress >= 1.0f) return
+        val pt = impactPoint ?: return
+        if (impactPiece == Piece.EMPTY) return
+
+        val cx = padding + (pt.col + 0.5f) * cellSize
+        val cy = padding + (pt.row + 0.5f) * cellSize
+        val t = impactProgress.coerceIn(0f, 1f)
+        val fade = (1f - t) * (1f - t * 0.35f)
+
+        val (primaryColor, secondaryColor) = when (impactStyle) {
+            PieceStyle.AD_STORM_VOLT -> Color.parseColor("#38BDF8") to Color.parseColor("#FDE047")
+            PieceStyle.AD_FROST_CRYSTAL -> Color.parseColor("#7DD3FC") to Color.parseColor("#E0F2FE")
+            PieceStyle.AD_VOID_SINGULARITY -> Color.parseColor("#A855F7") to Color.parseColor("#FBBF24")
+            PieceStyle.AD_INK_GOLD -> Color.parseColor("#334155") to Color.parseColor("#F59E0B")
+            PieceStyle.VIP_CRIMSON_EMBER -> Color.parseColor("#FF6D00") to Color.parseColor("#FFD54F")
+            PieceStyle.VIP_PLASMA_VORTEX -> Color.parseColor("#00E5FF") to Color.parseColor("#A855F7")
+            PieceStyle.VIP_CELESTIAL_MONARCH -> Color.parseColor("#FBBF24") to Color.parseColor("#FEF08A")
+            PieceStyle.NEON_CYBER -> if (impactPiece == Piece.X) {
+                Color.parseColor("#D500F9") to Color.parseColor("#F8BBD0")
+            } else {
+                Color.parseColor("#00E5FF") to Color.parseColor("#E0F7FA")
+            }
+            PieceStyle.WOOD_CLASSIC -> if (impactPiece == Piece.X) {
+                Color.parseColor("#475569") to Color.parseColor("#94A3B8")
+            } else {
+                Color.parseColor("#B45309") to Color.parseColor("#FDE68A")
+            }
+            else -> if (impactPiece == Piece.X) {
+                Color.parseColor("#E53935") to Color.parseColor("#FCA5A5")
+            } else {
+                Color.parseColor("#1E88E5") to Color.parseColor("#93C5FD")
+            }
+        }
+
+        // Primary shockwave ring
+        val outerR = cellSize * (0.28f + 1.15f * t)
+        impactStrokePaint.color = primaryColor
+        impactStrokePaint.alpha = (210f * fade).toInt().coerceIn(0, 255)
+        impactStrokePaint.strokeWidth = max(2f, cellSize * 0.11f * (1f - t * 0.7f))
+        canvas.drawCircle(cx, cy, outerR, impactStrokePaint)
+
+        // Secondary crisp inner ring
+        val innerR = cellSize * (0.18f + 0.78f * t)
+        impactStrokePaint.color = secondaryColor
+        impactStrokePaint.alpha = (180f * fade).toInt().coerceIn(0, 255)
+        impactStrokePaint.strokeWidth = max(1.5f, cellSize * 0.06f * (1f - t * 0.6f))
+        canvas.drawCircle(cx, cy, innerR, impactStrokePaint)
+
+        // Radial particle bursts / style-specific impact marks
+        val count = when (impactStyle) {
+            PieceStyle.AD_STORM_VOLT,
+            PieceStyle.AD_FROST_CRYSTAL,
+            PieceStyle.AD_VOID_SINGULARITY,
+            PieceStyle.AD_INK_GOLD,
+            PieceStyle.VIP_CRIMSON_EMBER,
+            PieceStyle.VIP_PLASMA_VORTEX,
+            PieceStyle.VIP_CELESTIAL_MONARCH -> 8
+            else -> 6
+        }
+
+        val maxDist = cellSize * (0.38f + 0.92f * t)
+        val particleR = max(1.8f, cellSize * 0.065f * (1f - t * 0.55f))
+        for (i in 0 until count) {
+            val angle = i * (2.0 * Math.PI / count) + (if (i % 2 == 0) 0.15 else -0.1)
+            val dist = maxDist * (if (i % 2 == 0) 1.0f else 0.78f)
+            val px = cx + (cos(angle) * dist).toFloat()
+            val py = cy + (sin(angle) * dist).toFloat()
+
+            if (impactStyle == PieceStyle.AD_STORM_VOLT && i % 2 == 0) {
+                // Jagged bolt spark
+                val midDist = dist * 0.62f
+                val mx = cx + (cos(angle + 0.22) * midDist).toFloat()
+                val my = cy + (sin(angle + 0.22) * midDist).toFloat()
+                impactStrokePaint.color = secondaryColor
+                impactStrokePaint.alpha = (220f * fade).toInt().coerceIn(0, 255)
+                impactStrokePaint.strokeWidth = max(1.5f, cellSize * 0.045f)
+                canvas.drawLine(
+                    cx + (cos(angle) * cellSize * 0.25f).toFloat(),
+                    cy + (sin(angle) * cellSize * 0.25f).toFloat(),
+                    mx, my, impactStrokePaint
+                )
+                canvas.drawLine(mx, my, px, py, impactStrokePaint)
+            } else if (impactStyle == PieceStyle.AD_FROST_CRYSTAL) {
+                // Sharp crystal shard
+                impactStrokePaint.color = if (i % 2 == 0) primaryColor else secondaryColor
+                impactStrokePaint.alpha = (225f * fade).toInt().coerceIn(0, 255)
+                impactStrokePaint.strokeWidth = max(1.8f, cellSize * 0.055f * (1f - t * 0.4f))
+                val sx = cx + (cos(angle) * (dist * 0.65f)).toFloat()
+                val sy = cy + (sin(angle) * (dist * 0.65f)).toFloat()
+                canvas.drawLine(sx, sy, px, py, impactStrokePaint)
+            } else {
+                impactFillPaint.color = if (i % 2 == 0) primaryColor else secondaryColor
+                impactFillPaint.alpha = (220f * fade).toInt().coerceIn(0, 255)
+                canvas.drawCircle(px, py, particleR, impactFillPaint)
+            }
+        }
     }
 
     private fun drawBoardSurface(canvas: Canvas, boardPx: Float) {
@@ -1044,6 +1194,235 @@ class CaroBoardView @JvmOverloads constructor(
                         val gx = cx + (cos(theta) * r * 1.25f).toFloat()
                         val gy = cy + (sin(theta) * r * 1.25f).toFloat()
                         canvas.drawCircle(gx, gy, glintR, fillPaint)
+                    }
+                }
+
+                PieceStyle.AD_STORM_VOLT -> {
+                    val angleRad = animPhase * (2.0 * Math.PI)
+                    val pulse = 0.72f + 0.28f * abs(sin(angleRad * 3.0).toFloat())
+                    val r = cellSize * 0.35f * scale
+
+                    fillPaint.shader = RadialGradient(
+                        cx, cy, r * 1.42f,
+                        intArrayOf(
+                            Color.argb((alpha * 0.36f * pulse).toInt(), 56, 189, 248),
+                            Color.argb((alpha * 0.16f).toInt(), 2, 132, 199),
+                            Color.argb(0, 2, 132, 199)
+                        ),
+                        floatArrayOf(0f, 0.56f, 1f),
+                        Shader.TileMode.CLAMP
+                    )
+                    canvas.drawCircle(cx, cy, r * 1.42f, fillPaint)
+                    fillPaint.shader = null
+
+                    // Outer deep electric blue halo
+                    strokePaint.shader = null
+                    strokePaint.color = Color.parseColor("#0284C7")
+                    strokePaint.alpha = (alpha * 0.58f * pulse).toInt()
+                    strokePaint.strokeWidth = max(4f, cellSize * 0.26f * scale)
+                    drawPieceGeometry(canvas, piece, cx, cy, r, strokePaint)
+
+                    // Electric cyan body
+                    strokePaint.color = Color.parseColor("#38BDF8")
+                    strokePaint.alpha = alpha
+                    strokePaint.strokeWidth = max(2.4f, cellSize * 0.145f * scale)
+                    drawPieceGeometry(canvas, piece, cx, cy, r, strokePaint)
+
+                    // High-voltage white core
+                    strokePaint.color = Color.parseColor("#F0F9FF")
+                    strokePaint.alpha = alpha
+                    strokePaint.strokeWidth = max(1.3f, cellSize * 0.055f * scale)
+                    drawPieceGeometry(canvas, piece, cx, cy, r, strokePaint)
+
+                    // Rotating jagged lightning sparks
+                    strokePaint.color = Color.parseColor("#FDE047")
+                    strokePaint.alpha = (alpha * 0.9f).toInt()
+                    strokePaint.strokeWidth = max(1.2f, cellSize * 0.042f * scale)
+                    for (i in 0..2) {
+                        val theta = angleRad * 2.0 + i * (2.0 * Math.PI / 3.0)
+                        val r1 = r * 0.96f
+                        val r2 = r * 1.15f
+                        val r3 = r * 1.30f
+                        val x1 = cx + (cos(theta) * r1).toFloat()
+                        val y1 = cy + (sin(theta) * r1).toFloat()
+                        val x2 = cx + (cos(theta + 0.18) * r2).toFloat()
+                        val y2 = cy + (sin(theta + 0.18) * r2).toFloat()
+                        val x3 = cx + (cos(theta - 0.06) * r3).toFloat()
+                        val y3 = cy + (sin(theta - 0.06) * r3).toFloat()
+                        canvas.drawLine(x1, y1, x2, y2, strokePaint)
+                        canvas.drawLine(x2, y2, x3, y3, strokePaint)
+                    }
+                }
+
+                PieceStyle.AD_FROST_CRYSTAL -> {
+                    val angleRad = animPhase * (2.0 * Math.PI)
+                    val shimmer = 0.78f + 0.22f * sin(angleRad * 2.0).toFloat()
+                    val r = cellSize * 0.35f * scale
+
+                    fillPaint.shader = RadialGradient(
+                        cx, cy, r * 1.38f,
+                        intArrayOf(
+                            Color.argb((alpha * 0.35f * shimmer).toInt(), 186, 230, 253),
+                            Color.argb((alpha * 0.15f).toInt(), 14, 165, 233),
+                            Color.argb(0, 14, 165, 233)
+                        ),
+                        floatArrayOf(0f, 0.56f, 1f),
+                        Shader.TileMode.CLAMP
+                    )
+                    canvas.drawCircle(cx, cy, r * 1.38f, fillPaint)
+                    fillPaint.shader = null
+
+                    // Glacial outer border
+                    strokePaint.shader = null
+                    strokePaint.color = Color.parseColor("#0284C7")
+                    strokePaint.alpha = (alpha * 0.70f).toInt()
+                    strokePaint.strokeWidth = max(3.6f, cellSize * 0.23f * scale)
+                    drawPieceGeometry(canvas, piece, cx, cy, r, strokePaint)
+
+                    // Crystal cyan body
+                    strokePaint.color = Color.parseColor("#7DD3FC")
+                    strokePaint.alpha = alpha
+                    strokePaint.strokeWidth = max(2.2f, cellSize * 0.14f * scale)
+                    drawPieceGeometry(canvas, piece, cx, cy, r, strokePaint)
+
+                    // Frost snow core
+                    strokePaint.color = Color.parseColor("#F8FAFC")
+                    strokePaint.alpha = alpha
+                    strokePaint.strokeWidth = max(1.2f, cellSize * 0.055f * scale)
+                    drawPieceGeometry(canvas, piece, cx, cy, r, strokePaint)
+
+                    // Orbiting hexagonal ice crystals
+                    val shardR = max(2.0f, cellSize * 0.055f * scale)
+                    for (i in 0..5) {
+                        val theta = angleRad + i * (Math.PI / 3.0)
+                        val orbit = r * 1.18f
+                        val ix = cx + (cos(theta) * orbit).toFloat()
+                        val iy = cy + (sin(theta) * orbit).toFloat()
+                        path.reset()
+                        path.moveTo(ix, iy - shardR)
+                        path.lineTo(ix + shardR * 0.75f, iy)
+                        path.lineTo(ix, iy + shardR)
+                        path.lineTo(ix - shardR * 0.75f, iy)
+                        path.close()
+                        fillPaint.color = if (i % 2 == 0) {
+                            Color.argb((alpha * 0.92f).toInt(), 224, 242, 254)
+                        } else {
+                            Color.argb((alpha * 0.85f).toInt(), 56, 189, 248)
+                        }
+                        canvas.drawPath(path, fillPaint)
+                    }
+                }
+
+                PieceStyle.AD_VOID_SINGULARITY -> {
+                    val angleRad = animPhase * (2.0 * Math.PI)
+                    val pulse = 0.76f + 0.24f * sin(angleRad * 2.0).toFloat()
+                    val r = cellSize * 0.35f * scale
+
+                    fillPaint.shader = RadialGradient(
+                        cx, cy, r * 1.44f,
+                        intArrayOf(
+                            Color.argb((alpha * 0.38f * pulse).toInt(), 147, 51, 234),
+                            Color.argb((alpha * 0.18f).toInt(), 192, 38, 211),
+                            Color.argb(0, 88, 28, 135)
+                        ),
+                        floatArrayOf(0f, 0.56f, 1f),
+                        Shader.TileMode.CLAMP
+                    )
+                    canvas.drawCircle(cx, cy, r * 1.44f, fillPaint)
+                    fillPaint.shader = null
+
+                    // Outer magenta-violet gravitational lens
+                    strokePaint.shader = null
+                    strokePaint.color = Color.parseColor("#A855F7")
+                    strokePaint.alpha = (alpha * 0.72f * pulse).toInt()
+                    strokePaint.strokeWidth = max(4f, cellSize * 0.26f * scale)
+                    drawPieceGeometry(canvas, piece, cx, cy, r, strokePaint)
+
+                    // Deep obsidian event horizon body
+                    strokePaint.color = Color.parseColor("#1E1B4B")
+                    strokePaint.alpha = alpha
+                    strokePaint.strokeWidth = max(2.6f, cellSize * 0.16f * scale)
+                    drawPieceGeometry(canvas, piece, cx, cy, r, strokePaint)
+
+                    // Accretion gold rim
+                    strokePaint.color = Color.parseColor("#FDE68A")
+                    strokePaint.alpha = (alpha * 0.92f).toInt()
+                    strokePaint.strokeWidth = max(1.2f, cellSize * 0.052f * scale)
+                    drawPieceGeometry(canvas, piece, cx, cy, r, strokePaint)
+
+                    // Singularity core + orbiting accretion sparks
+                    if (piece == Piece.X) {
+                        fillPaint.color = Color.argb(alpha, 251, 191, 36)
+                        canvas.drawCircle(cx, cy, max(2.2f, r * 0.18f), fillPaint)
+                    } else {
+                        fillPaint.color = Color.argb((alpha * 0.72f).toInt(), 15, 23, 42)
+                        canvas.drawCircle(cx, cy, r * 0.52f, fillPaint)
+                    }
+
+                    val moteR = max(1.8f, cellSize * 0.048f * scale)
+                    for (i in 0..3) {
+                        val theta = -angleRad * 1.4 + i * (Math.PI / 2.0)
+                        val ox = cx + (cos(theta) * r * 1.18f).toFloat()
+                        val oy = cy + (sin(theta) * r * 1.18f).toFloat()
+                        fillPaint.color = if (i % 2 == 0) {
+                            Color.argb(alpha, 251, 191, 36)
+                        } else {
+                            Color.argb(alpha, 216, 180, 254)
+                        }
+                        canvas.drawCircle(ox, oy, moteR, fillPaint)
+                    }
+                }
+
+                PieceStyle.AD_INK_GOLD -> {
+                    val angleRad = animPhase * (2.0 * Math.PI)
+                    val shimmer = 0.80f + 0.20f * sin(angleRad * 2.0).toFloat()
+                    val r = cellSize * 0.35f * scale
+
+                    // Subtle golden leaf halo so dark sumi strokes stand out on Dark Slate too
+                    fillPaint.shader = RadialGradient(
+                        cx, cy, r * 1.38f,
+                        intArrayOf(
+                            Color.argb((alpha * 0.28f * shimmer).toInt(), 245, 158, 11),
+                            Color.argb((alpha * 0.12f).toInt(), 251, 191, 36),
+                            Color.argb(0, 245, 158, 11)
+                        ),
+                        floatArrayOf(0f, 0.58f, 1f),
+                        Shader.TileMode.CLAMP
+                    )
+                    canvas.drawCircle(cx, cy, r * 1.38f, fillPaint)
+                    fillPaint.shader = null
+
+                    // Warm gold outer brush border
+                    strokePaint.shader = null
+                    strokePaint.color = Color.parseColor("#F59E0B")
+                    strokePaint.alpha = (alpha * 0.82f).toInt()
+                    strokePaint.strokeWidth = max(3.6f, cellSize * 0.23f * scale)
+                    drawPieceGeometry(canvas, piece, cx, cy, r, strokePaint)
+
+                    // Deep Sumi ink brush core
+                    strokePaint.color = Color.parseColor("#1E293B")
+                    strokePaint.alpha = alpha
+                    strokePaint.strokeWidth = max(2.4f, cellSize * 0.145f * scale)
+                    drawPieceGeometry(canvas, piece, cx, cy, r, strokePaint)
+
+                    // Fine gold leaf calligraphy vein
+                    strokePaint.color = Color.parseColor("#FDE68A")
+                    strokePaint.alpha = (alpha * 0.90f * shimmer).toInt()
+                    strokePaint.strokeWidth = max(1.1f, cellSize * 0.044f * scale)
+                    drawPieceGeometry(canvas, piece, cx, cy, r, strokePaint)
+
+                    // Orbiting gold-leaf ink droplets
+                    val dropR = max(1.6f, cellSize * 0.045f * scale)
+                    for (i in 0..2) {
+                        val theta = angleRad + i * (2.0 * Math.PI / 3.0)
+                        val gx = cx + (cos(theta) * r * 1.15f).toFloat()
+                        val gy = cy + (sin(theta) * r * 1.15f).toFloat()
+                        fillPaint.color = if (i == 0) {
+                            Color.argb(alpha, 251, 191, 36)
+                        } else {
+                            Color.argb((alpha * 0.85f).toInt(), 51, 65, 85)
+                        }
+                        canvas.drawCircle(gx, gy, dropR, fillPaint)
                     }
                 }
             }

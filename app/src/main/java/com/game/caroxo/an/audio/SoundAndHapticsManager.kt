@@ -4,11 +4,15 @@ import android.content.Context
 import android.media.AudioAttributes
 import android.media.AudioFormat
 import android.media.AudioTrack
+import android.media.MediaPlayer
+import android.media.SoundPool
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
 import android.os.VibratorManager
+import com.game.caroxo.an.R
 import com.game.caroxo.an.data.PreferencesManager
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.Executors
 import kotlin.math.PI
 import kotlin.math.exp
@@ -23,7 +27,28 @@ class SoundAndHapticsManager(
 
     @Volatile
     private var musicRunning = false
-    private var musicThread: Thread? = null
+    private var mediaPlayer: MediaPlayer? = null
+
+    private val loadedSounds = ConcurrentHashMap.newKeySet<Int>()
+    private val soundPool: SoundPool = SoundPool.Builder()
+        .setMaxStreams(5)
+        .setAudioAttributes(
+            AudioAttributes.Builder()
+                .setUsage(AudioAttributes.USAGE_GAME)
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .build()
+        )
+        .build().apply {
+            setOnLoadCompleteListener { _, sampleId, status ->
+                if (status == 0) {
+                    loadedSounds.add(sampleId)
+                }
+            }
+        }
+
+    private val placePieceSoundId: Int = soundPool.load(appContext, R.raw.datquan, 1)
+    private val winSoundId: Int = soundPool.load(appContext, R.raw.win, 1)
+    private val loseSoundId: Int = soundPool.load(appContext, R.raw.lose, 1)
 
     private val vibrator: Vibrator? by lazy {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
@@ -36,10 +61,11 @@ class SoundAndHapticsManager(
     }
 
     fun playPlacePiece() {
-        if (preferencesManager.settings.value.sfxEnabled) {
-            playToneAsync(freqHz = 520.0, durationMs = 70, decay = 22.0, volume = 0.45)
+        val settings = preferencesManager.settings.value
+        if (settings.sfxEnabled) {
+            playSoundEffect(placePieceSoundId)
         }
-        vibrateTap()
+        vibrateTap(impact = settings.impactEffectsEnabled)
     }
 
     fun playUiClick() {
@@ -57,31 +83,33 @@ class SoundAndHapticsManager(
 
     fun playWin() {
         if (preferencesManager.settings.value.sfxEnabled) {
-            audioExecutor.execute {
-                playToneSync(523.25, 110, 10.0, 0.42) // C5
-                playToneSync(659.25, 110, 10.0, 0.42) // E5
-                playToneSync(783.99, 130, 8.0, 0.45)  // G5
-                playToneSync(1046.50, 260, 5.0, 0.50) // C6
-            }
+            playSoundEffect(winSoundId)
         }
         vibrateWin()
     }
 
     fun playLose() {
         if (preferencesManager.settings.value.sfxEnabled) {
-            audioExecutor.execute {
-                playToneSync(392.0, 130, 10.0, 0.38)
-                playToneSync(329.63, 140, 10.0, 0.38)
-                playToneSync(261.63, 240, 6.0, 0.40)
-            }
+            playSoundEffect(loseSoundId)
         }
         vibrateError()
     }
 
-    fun vibrateTap() {
+    private fun playSoundEffect(soundId: Int) {
+        if (soundId != 0 && loadedSounds.contains(soundId)) {
+            soundPool.play(soundId, 1f, 1f, 1, 0, 1f)
+        }
+    }
+
+    fun vibrateTap(impact: Boolean = false) {
         if (!preferencesManager.settings.value.hapticsEnabled) return
         try {
-            vibrator?.vibrate(VibrationEffect.createOneShot(18L, VibrationEffect.DEFAULT_AMPLITUDE))
+            val effect = if (impact) {
+                VibrationEffect.createOneShot(26L, 200)
+            } else {
+                VibrationEffect.createOneShot(18L, VibrationEffect.DEFAULT_AMPLITUDE)
+            }
+            vibrator?.vibrate(effect)
         } catch (_: Exception) {
         }
     }
@@ -114,73 +142,46 @@ class SoundAndHapticsManager(
     @Synchronized
     private fun startAmbientMusic() {
         if (musicRunning) return
-        musicRunning = true
-        musicThread = Thread {
-            val sampleRate = 22050
-            val notes = doubleArrayOf(261.63, 293.66, 329.63, 392.00, 440.00, 392.00, 329.63, 293.66)
-            var noteIndex = 0
-            val bufSamples = sampleRate // 1 second gentle pad per note
-            val pcm = ShortArray(bufSamples)
-            var track: AudioTrack? = null
-            try {
-                val minBuf = AudioTrack.getMinBufferSize(
-                    sampleRate,
-                    AudioFormat.CHANNEL_OUT_MONO,
-                    AudioFormat.ENCODING_PCM_16BIT
-                )
-                track = AudioTrack.Builder()
-                    .setAudioAttributes(
-                        AudioAttributes.Builder()
-                            .setUsage(AudioAttributes.USAGE_GAME)
-                            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                            .build()
-                    )
-                    .setAudioFormat(
-                        AudioFormat.Builder()
-                            .setEncoding(AudioFormat.ENCODING_PCM_16BIT)
-                            .setSampleRate(sampleRate)
-                            .setChannelMask(AudioFormat.CHANNEL_OUT_MONO)
-                            .build()
-                    )
-                    .setBufferSizeInBytes(maxOf(minBuf, bufSamples * 2))
-                    .setTransferMode(AudioTrack.MODE_STREAM)
-                    .build()
-                track.play()
-
-                while (musicRunning) {
-                    val freq = notes[noteIndex % notes.size]
-                    noteIndex++
-                    for (i in 0 until bufSamples) {
-                        val t = i.toDouble() / sampleRate
-                        val envelope = sin(PI * i / bufSamples)
-                        val wave = sin(2.0 * PI * freq * t) * 0.65 +
-                            sin(2.0 * PI * (freq * 1.5) * t) * 0.25
-                        val sample = (wave * envelope * 0.08 * Short.MAX_VALUE).toInt()
-                            .coerceIn(Short.MIN_VALUE.toInt(), Short.MAX_VALUE.toInt())
-                        pcm[i] = sample.toShort()
-                    }
-                    if (!musicRunning) break
-                    track.write(pcm, 0, pcm.size)
-                }
-            } catch (_: Exception) {
-            } finally {
+        try {
+            val player = MediaPlayer.create(appContext, R.raw.nhacnen) ?: return
+            player.isLooping = true
+            player.setVolume(0.45f, 0.45f)
+            player.setOnErrorListener { mp, _, _ ->
+                musicRunning = false
                 try {
-                    track?.stop()
-                    track?.release()
+                    mp.release()
                 } catch (_: Exception) {
                 }
+                if (mediaPlayer === mp) {
+                    mediaPlayer = null
+                }
+                true
             }
-        }.apply {
-            isDaemon = true
-            start()
+            player.start()
+            mediaPlayer = player
+            musicRunning = true
+        } catch (_: Exception) {
+            musicRunning = false
+            try {
+                mediaPlayer?.release()
+            } catch (_: Exception) {
+            }
+            mediaPlayer = null
         }
     }
 
     @Synchronized
     fun stopAmbientMusic() {
         musicRunning = false
-        musicThread?.interrupt()
-        musicThread = null
+        try {
+            mediaPlayer?.apply {
+                if (isPlaying) stop()
+                release()
+            }
+        } catch (_: Exception) {
+        } finally {
+            mediaPlayer = null
+        }
     }
 
     private fun playToneAsync(freqHz: Double, durationMs: Int, decay: Double, volume: Double) {

@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="CaroXO Tour"
+                android:text="@string/onboarding_tour_header"
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -57,7 +57,7 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/vp_onboarding"
         android:layout_width="match_parent"
-        android:layout_height="370dp" />
+        android:layout_height="396dp" />
 
     <!-- Page Indicator Dots -->
     <LinearLayout
@@ -95,6 +95,14 @@
 
         <View
             android:id="@+id/indicator_3"
+            android:layout_width="6dp"
+            android:layout_height="6dp"
+            android:layout_marginHorizontal="3dp"
+            android:background="@drawable/bg_pill"
+            android:backgroundTint="?attr/colorOutline" />
+
+        <View
+            android:id="@+id/indicator_4"
             android:layout_width="6dp"
             android:layout_height="6dp"
             android:layout_marginHorizontal="3dp"

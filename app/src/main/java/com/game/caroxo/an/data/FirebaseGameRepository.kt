@@ -2,6 +2,7 @@ package com.game.caroxo.an.data
 
 import android.content.Context
 import com.game.caroxo.an.R
+import com.game.caroxo.an.model.AdminConfig
 import com.game.caroxo.an.model.ChatMessage
 import com.game.caroxo.an.model.GameRoom
 import com.game.caroxo.an.model.LeaderboardEntry
@@ -322,17 +323,25 @@ class FirebaseGameRepository(
             val uid = requireUserId()
             val validSize = if (boardSize == 10 || boardSize == 15 || boardSize == 20) boardSize else 15
             var generatedCode = ""
-            repeat(5) {
-                val candidate = Random.nextInt(100000, 999999).toString()
+            for (attempt in 1..5) {
+                val candidate = Random.nextInt(100000, 1000000).toString()
                 val ref = db.collection("rooms").document(candidate)
-                val existing = ref.get().await()
-                if (!existing.exists()) {
+                val existing = try {
+                    ref.get().await()
+                } catch (e: FirebaseFirestoreException) {
+                    if (e.code == FirebaseFirestoreException.Code.PERMISSION_DENIED && attempt < 5) {
+                        null
+                    } else {
+                        throw e
+                    }
+                }
+                if (existing != null && !existing.exists()) {
                     generatedCode = candidate
-                    return@repeat
+                    break
                 }
             }
             if (generatedCode.isEmpty()) {
-                generatedCode = Random.nextInt(100000, 999999).toString()
+                generatedCode = Random.nextInt(100000, 1000000).toString()
             }
             val roomRef = db.collection("rooms").document(generatedCode)
             docPath = roomRef.path
@@ -345,8 +354,8 @@ class FirebaseGameRepository(
                 "status" to "WAITING",
                 "boardSize" to validSize,
                 "blockTwoEnds" to blockTwoEnds,
-                "hostNickname" to hostProfile.nickname.take(24).ifBlank { "Player X" },
-                "hostAvatarId" to hostProfile.avatarId.ifBlank { "ninja" },
+                "hostNickname" to hostProfile.nickname.trim().take(24).ifBlank { "Player X" },
+                "hostAvatarId" to hostProfile.avatarId.trim().take(32).ifBlank { "ninja" },
                 "hostStyle" to PieceStyle.fromKey(hostProfile.pieceStyle).key,
                 "guestNickname" to "",
                 "guestAvatarId" to "",
@@ -397,8 +406,8 @@ class FirebaseGameRepository(
                     throw IllegalStateException("ROOM_NOT_AVAILABLE")
                 }
 
-                val guestNick = guestProfile.nickname.take(24).ifBlank { "Player O" }
-                val guestAvatar = guestProfile.avatarId.ifBlank { "robot" }
+                val guestNick = guestProfile.nickname.trim().take(24).ifBlank { "Player O" }
+                val guestAvatar = guestProfile.avatarId.trim().take(32).ifBlank { "robot" }
                 val guestStyle = PieceStyle.fromKey(guestProfile.pieceStyle).key
 
                 tx.update(
@@ -573,6 +582,37 @@ class FirebaseGameRepository(
             throw e
         } catch (e: Exception) {
             handleFirestoreError(e, OperationType.CREATE, docPath)
+            Result.failure(e)
+        }
+    }
+
+    suspend fun clearGlobalChatHistory(): Result<Int> {
+        val path = "global_chat"
+        return try {
+            val uid = requireUserId()
+            if (!AdminConfig.isAdmin(uid)) {
+                return Result.failure(SecurityException("ADMIN_ONLY"))
+            }
+            var deletedCount = 0
+            while (true) {
+                val snap = db.collection(path)
+                    .whereEqualTo("publicChannel", true)
+                    .limit(200)
+                    .get()
+                    .await()
+                if (snap.isEmpty) break
+                db.runBatch { batch ->
+                    for (doc in snap.documents) {
+                        batch.delete(doc.reference)
+                    }
+                }.await()
+                deletedCount += snap.size()
+            }
+            Result.success(deletedCount)
+        } catch (e: CancellationException) {
+            throw e
+        } catch (e: Exception) {
+            handleFirestoreError(e, OperationType.DELETE, path)
             Result.failure(e)
         }
     }

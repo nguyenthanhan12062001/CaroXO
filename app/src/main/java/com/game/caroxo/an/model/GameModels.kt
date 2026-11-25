@@ -35,19 +35,35 @@ enum class GameMode {
 
 enum class PieceStyle(
     val key: String,
-    val requiredMaxRank: Int? = null
+    val requiredMaxRank: Int? = null,
+    val isAdRewarded: Boolean = false
 ) {
     CLASSIC("CLASSIC"),
     NEON_CYBER("NEON_CYBER"),
     WOOD_CLASSIC("WOOD_CLASSIC"),
     SYMBOL("SYMBOL"),
+    AD_STORM_VOLT("AD_STORM_VOLT", isAdRewarded = true),
+    AD_FROST_CRYSTAL("AD_FROST_CRYSTAL", isAdRewarded = true),
+    AD_VOID_SINGULARITY("AD_VOID_SINGULARITY", isAdRewarded = true),
+    AD_INK_GOLD("AD_INK_GOLD", isAdRewarded = true),
     VIP_CRIMSON_EMBER("VIP_CRIMSON_EMBER", requiredMaxRank = 3),
     VIP_PLASMA_VORTEX("VIP_PLASMA_VORTEX", requiredMaxRank = 2),
     VIP_CELESTIAL_MONARCH("VIP_CELESTIAL_MONARCH", requiredMaxRank = 1);
 
     val isVip: Boolean get() = requiredMaxRank != null
+    val isAnimated: Boolean get() = isVip || isAdRewarded
 
-    fun isUnlockedFor(isSignedIn: Boolean, currentRank: Int?): Boolean {
+    fun isUnlockedFor(
+        isSignedIn: Boolean,
+        currentRank: Int?,
+        isAdmin: Boolean = false,
+        adStyleUnlocks: Map<String, Long> = emptyMap(),
+        nowMs: Long = System.currentTimeMillis()
+    ): Boolean {
+        if (isSignedIn && isAdmin) return true
+        if (isAdRewarded) {
+            return (adStyleUnlocks[key] ?: 0L) > nowMs
+        }
         val maxRank = requiredMaxRank ?: return true
         if (!isSignedIn || currentRank == null || currentRank <= 0) return false
         return currentRank <= maxRank

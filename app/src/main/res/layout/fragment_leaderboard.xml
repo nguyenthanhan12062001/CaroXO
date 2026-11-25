@@ -250,5 +250,12 @@
             android:layout_weight="1"
             android:clipToPadding="false"
             android:paddingBottom="16dp" />
+
+        <FrameLayout
+            android:id="@+id/ad_banner_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:visibility="gone" />
     </LinearLayout>
 </LinearLayout>

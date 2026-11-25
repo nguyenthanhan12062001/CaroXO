@@ -57,6 +57,7 @@ class GameFragment : Fragment() {
     private var turnBlinkAnimator: ObjectAnimator? = null
     private var lastBlinkingTurn: Piece? = null
     private var lastShownFinishedState: GameStatus? = null
+    private var activeResultSheet: BottomSheetDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -395,6 +396,11 @@ class GameFragment : Fragment() {
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
+                            is GameEffect.RematchDeclinedExit -> {
+                                activeResultSheet?.dismiss()
+                                activeResultSheet = null
+                                (activity as? MainActivity)?.exitGameScreen()
+                            }
                         }
                     }
                 }
@@ -483,6 +489,8 @@ class GameFragment : Fragment() {
             }
         } else {
             lastShownFinishedState = null
+            activeResultSheet?.dismiss()
+            activeResultSheet = null
         }
     }
 
@@ -507,6 +515,9 @@ class GameFragment : Fragment() {
     }
 
     private fun showMatchResultDialog(state: GameUiState) {
+        activeResultSheet?.dismiss()
+        activeResultSheet = null
+
         val ctx = requireContext()
         val xName = state.playerXName.asString(ctx)
         val oName = state.playerOName.asString(ctx)
@@ -527,32 +538,50 @@ class GameFragment : Fragment() {
         sheetBinding.tvResultTitle.text = title
         sheetBinding.tvResultMessage.text = msg
 
+        sheetBinding.btnResultSecondary.visibility = View.VISIBLE
+        sheetBinding.btnResultSecondary.setText(R.string.action_back_home)
+
         if (state.mode != GameMode.ONLINE) {
-            sheetBinding.btnResultSecondary.visibility = View.VISIBLE
-            sheetBinding.btnResultSecondary.setText(R.string.action_back_home)
             sheetBinding.btnResultSecondary.setOnClickListener {
                 sheet.dismiss()
                 (activity as? MainActivity)?.exitGameScreen()
             }
-            sheetBinding.btnResultPrimary.setText(R.string.action_play_again)
+            sheetBinding.btnResultPrimary.visibility = View.VISIBLE
+            sheetBinding.btnResultPrimary.setText(R.string.action_continue)
             sheetBinding.btnResultPrimary.setOnClickListener {
                 sheet.dismiss()
                 gameViewModel.resetOfflineGame()
             }
         } else {
-            sheetBinding.btnResultSecondary.visibility = View.GONE
-            sheetBinding.btnResultPrimary.setText(R.string.action_back_home)
-            sheetBinding.btnResultPrimary.setOnClickListener {
+            sheetBinding.btnResultSecondary.setOnClickListener {
                 sheet.dismiss()
                 gameViewModel.cancelOnlineJobs()
                 (activity as? MainActivity)?.exitGameScreen()
             }
+            if (state.canRematch) {
+                sheetBinding.btnResultPrimary.visibility = View.VISIBLE
+                sheetBinding.btnResultPrimary.setText(R.string.action_continue)
+                sheetBinding.btnResultPrimary.setOnClickListener {
+                    sheet.dismiss()
+                    gameViewModel.requestOnlineRematch()
+                }
+            } else {
+                sheetBinding.btnResultPrimary.visibility = View.GONE
+            }
         }
+        sheet.setOnDismissListener {
+            if (activeResultSheet === sheet) {
+                activeResultSheet = null
+            }
+        }
+        activeResultSheet = sheet
         sheet.setContentView(sheetBinding.root)
         sheet.show()
     }
 
     override fun onDestroyView() {
+        activeResultSheet?.dismiss()
+        activeResultSheet = null
         turnBlinkAnimator?.cancel()
         turnBlinkAnimator = null
         lastBlinkingTurn = null

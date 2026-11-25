@@ -10,6 +10,10 @@ service cloud.firestore {
       return request.auth != null;
     }
 
+    function isAdmin() {
+      return isSignedIn() && request.auth.uid == 'cF1Caz5ksNUm67L6oNs3VbcEvDD2';
+    }
+
     function incoming() {
       return request.resource.data;
     }
@@ -25,6 +29,7 @@ service cloud.firestore {
     function isValidPieceStyle(style) {
       return style is string && style in [
         'CLASSIC', 'NEON_CYBER', 'WOOD_CLASSIC', 'SYMBOL',
+        'AD_STORM_VOLT', 'AD_FROST_CRYSTAL', 'AD_VOID_SINGULARITY', 'AD_INK_GOLD',
         'VIP_CRIMSON_EMBER', 'VIP_PLASMA_VORTEX', 'VIP_CELESTIAL_MONARCH'
       ];
     }
@@ -98,6 +103,65 @@ service cloud.firestore {
              data.roomCode is string && data.roomCode.size() == 6 && data.roomCode.matches('^[0-9]{6}$') &&
              data.memberUids is list && data.memberUids.size() >= 1 && data.memberUids.size() <= 2 &&
              data.memberUids[0] is string;
+    }
+
+    function isValidFriendship(data) {
+      return data.userIds is list && data.userIds.size() == 2 &&
+             data.userIds[0] is string && data.userIds[1] is string &&
+             data.userIds[0].size() >= 1 && data.userIds[0].size() <= 128 &&
+             data.userIds[1].size() >= 1 && data.userIds[1].size() <= 128 &&
+             data.userIds[0] < data.userIds[1] &&
+             data.requesterUid is string && data.requesterUid.size() >= 1 && data.requesterUid.size() <= 128 &&
+             data.recipientUid is string && data.recipientUid.size() >= 1 && data.recipientUid.size() <= 128 &&
+             data.requesterUid != data.recipientUid &&
+             data.requesterUid in data.userIds &&
+             data.recipientUid in data.userIds &&
+             data.status is string && data.status in ['PENDING', 'ACCEPTED'] &&
+             data.user1Uid == data.userIds[0] &&
+             data.user1Nickname is string && data.user1Nickname.size() >= 1 && data.user1Nickname.size() <= 24 &&
+             data.user1AvatarId is string && data.user1AvatarId.size() >= 1 && data.user1AvatarId.size() <= 32 &&
+             data.user1Points is int && data.user1Points >= 0 && data.user1Points <= 10000000 &&
+             data.user2Uid == data.userIds[1] &&
+             data.user2Nickname is string && data.user2Nickname.size() >= 1 && data.user2Nickname.size() <= 24 &&
+             data.user2AvatarId is string && data.user2AvatarId.size() >= 1 && data.user2AvatarId.size() <= 32 &&
+             data.user2Points is int && data.user2Points >= 0 && data.user2Points <= 10000000 &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    function isValidGameInvite(data) {
+      return data.senderUid is string && data.senderUid.size() >= 1 && data.senderUid.size() <= 128 &&
+             data.senderNickname is string && data.senderNickname.size() >= 1 && data.senderNickname.size() <= 24 &&
+             data.senderAvatarId is string && data.senderAvatarId.size() >= 1 && data.senderAvatarId.size() <= 32 &&
+             data.recipientUid is string && data.recipientUid.size() >= 1 && data.recipientUid.size() <= 128 &&
+             data.recipientUid != data.senderUid &&
+             data.recipientNickname is string && data.recipientNickname.size() >= 1 && data.recipientNickname.size() <= 24 &&
+             data.memberUids is list && data.memberUids.size() == 2 &&
+             data.memberUids[0] is string && data.memberUids[1] is string &&
+             data.senderUid in data.memberUids && data.recipientUid in data.memberUids &&
+             data.roomCode is string && data.roomCode.size() == 6 && data.roomCode.matches('^[0-9]{6}$') &&
+             data.boardSize is int && data.boardSize in [10, 15, 20] &&
+             data.blockTwoEnds is bool &&
+             data.status is string && data.status in ['PENDING', 'ACCEPTED', 'DECLINED', 'CANCELLED'] &&
+             data.createdAt is timestamp && data.createdAt <= request.time &&
+             data.updatedAt is timestamp && data.updatedAt <= request.time;
+    }
+
+    function isValidPresence(data, userId) {
+      return data.userId is string &&
+             data.userId == userId &&
+             data.online is bool &&
+             data.lastActiveAt is timestamp &&
+             data.lastActiveAt <= request.time;
+    }
+
+    function isAcceptedFriend(otherUid) {
+      return (request.auth.uid < otherUid &&
+              exists(/databases/$(database)/documents/friendships/$(request.auth.uid + '_' + otherUid)) &&
+              get(/databases/$(database)/documents/friendships/$(request.auth.uid + '_' + otherUid)).data.status == 'ACCEPTED') ||
+             (otherUid < request.auth.uid &&
+              exists(/databases/$(database)/documents/friendships/$(otherUid + '_' + request.auth.uid)) &&
+              get(/databases/$(database)/documents/friendships/$(otherUid + '_' + request.auth.uid)).data.status == 'ACCEPTED');
     }
 
     match /users/{userId} {
@@ -190,7 +254,11 @@ service cloud.firestore {
     match /rooms/{roomId} {
       allow get: if isSignedIn() &&
                     isValidId(roomId) &&
-                    (existing().status == 'WAITING' || request.auth.uid in existing().memberUids);
+                    (
+                      resource == null ||
+                      existing().status == 'WAITING' ||
+                      request.auth.uid in existing().memberUids
+                    );
 
       allow list: if isSignedIn() &&
                      (request.auth.uid in existing().memberUids || existing().status == 'WAITING');
@@ -365,7 +433,157 @@ service cloud.firestore {
                        ]) &&
                        isValidGlobalChatMessage(incoming());
 
-      allow update, delete: if false;
+      allow update: if false;
+      allow delete: if isAdmin() && isValidId(messageId);
+    }
+
+    match /friendships/{friendshipId} {
+      allow get: if isSignedIn() &&
+                    isValidId(friendshipId) &&
+                    (
+                      (resource == null &&
+                       (friendshipId.matches('^' + request.auth.uid + '_[a-zA-Z0-9_\\-]+$') ||
+                        friendshipId.matches('^[a-zA-Z0-9_\\-]+_' + request.auth.uid + '$'))) ||
+                      (resource != null && request.auth.uid in existing().userIds)
+                    );
+
+      allow list: if isSignedIn() &&
+                     request.auth.uid in existing().userIds;
+
+      allow create: if isSignedIn() &&
+                       isValidId(friendshipId) &&
+                       isValidFriendship(incoming()) &&
+                       friendshipId == incoming().userIds[0] + '_' + incoming().userIds[1] &&
+                       incoming().requesterUid == request.auth.uid &&
+                       incoming().status == 'PENDING' &&
+                       incoming().keys().hasAll([
+                         'userIds', 'requesterUid', 'recipientUid', 'status',
+                         'user1Uid', 'user1Nickname', 'user1AvatarId', 'user1Points',
+                         'user2Uid', 'user2Nickname', 'user2AvatarId', 'user2Points',
+                         'createdAt', 'updatedAt'
+                       ]) &&
+                       incoming().keys().hasOnly([
+                         'userIds', 'requesterUid', 'recipientUid', 'status',
+                         'user1Uid', 'user1Nickname', 'user1AvatarId', 'user1Points',
+                         'user2Uid', 'user2Nickname', 'user2AvatarId', 'user2Points',
+                         'createdAt', 'updatedAt'
+                       ]) &&
+                       exists(/databases/$(database)/documents/leaderboard/$(incoming().recipientUid));
+
+      allow update: if isSignedIn() &&
+                       isValidId(friendshipId) &&
+                       isValidFriendship(incoming()) &&
+                       request.auth.uid in existing().userIds &&
+                       incoming().userIds == existing().userIds &&
+                       incoming().requesterUid == existing().requesterUid &&
+                       incoming().recipientUid == existing().recipientUid &&
+                       incoming().user1Uid == existing().user1Uid &&
+                       incoming().user2Uid == existing().user2Uid &&
+                       incoming().createdAt == existing().createdAt &&
+                       (
+                         (
+                           existing().status == 'PENDING' &&
+                           request.auth.uid == existing().recipientUid &&
+                           incoming().status == 'ACCEPTED' &&
+                           incoming().diff(existing()).affectedKeys().hasOnly(['status', 'updatedAt'])
+                         ) ||
+                         (
+                           existing().status == 'ACCEPTED' &&
+                           incoming().status == 'ACCEPTED' &&
+                           (
+                             (request.auth.uid == existing().user1Uid &&
+                              incoming().diff(existing()).affectedKeys().hasOnly([
+                                'user1Nickname', 'user1AvatarId', 'user1Points', 'updatedAt'
+                              ])) ||
+                             (request.auth.uid == existing().user2Uid &&
+                              incoming().diff(existing()).affectedKeys().hasOnly([
+                                'user2Nickname', 'user2AvatarId', 'user2Points', 'updatedAt'
+                              ]))
+                           )
+                         )
+                       );
+
+      allow delete: if isSignedIn() &&
+                       isValidId(friendshipId) &&
+                       request.auth.uid in existing().userIds;
+    }
+
+    match /game_invites/{inviteId} {
+      allow get: if isSignedIn() &&
+                    isValidId(inviteId) &&
+                    (request.auth.uid == existing().senderUid || request.auth.uid == existing().recipientUid);
+
+      allow list: if isSignedIn() &&
+                     (request.auth.uid == existing().recipientUid || request.auth.uid == existing().senderUid);
+
+      allow create: if isSignedIn() &&
+                       isValidId(inviteId) &&
+                       isValidGameInvite(incoming()) &&
+                       incoming().senderUid == request.auth.uid &&
+                       incoming().status == 'PENDING' &&
+                       incoming().keys().hasAll([
+                         'senderUid', 'senderNickname', 'senderAvatarId',
+                         'recipientUid', 'recipientNickname', 'memberUids',
+                         'roomCode', 'boardSize', 'blockTwoEnds', 'status',
+                         'createdAt', 'updatedAt'
+                       ]) &&
+                       incoming().keys().hasOnly([
+                         'senderUid', 'senderNickname', 'senderAvatarId',
+                         'recipientUid', 'recipientNickname', 'memberUids',
+                         'roomCode', 'boardSize', 'blockTwoEnds', 'status',
+                         'createdAt', 'updatedAt'
+                       ]) &&
+                       exists(/databases/$(database)/documents/rooms/$(incoming().roomCode)) &&
+                       get(/databases/$(database)/documents/rooms/$(incoming().roomCode)).data.hostUid == request.auth.uid &&
+                       get(/databases/$(database)/documents/rooms/$(incoming().roomCode)).data.status == 'WAITING';
+
+      allow update: if isSignedIn() &&
+                       isValidId(inviteId) &&
+                       isValidGameInvite(incoming()) &&
+                       existing().status == 'PENDING' &&
+                       incoming().senderUid == existing().senderUid &&
+                       incoming().senderNickname == existing().senderNickname &&
+                       incoming().senderAvatarId == existing().senderAvatarId &&
+                       incoming().recipientUid == existing().recipientUid &&
+                       incoming().recipientNickname == existing().recipientNickname &&
+                       incoming().memberUids == existing().memberUids &&
+                       incoming().roomCode == existing().roomCode &&
+                       incoming().boardSize == existing().boardSize &&
+                       incoming().blockTwoEnds == existing().blockTwoEnds &&
+                       incoming().createdAt == existing().createdAt &&
+                       (
+                         (
+                           request.auth.uid == existing().recipientUid &&
+                           incoming().status in ['ACCEPTED', 'DECLINED'] &&
+                           incoming().diff(existing()).affectedKeys().hasOnly(['status', 'updatedAt'])
+                         ) ||
+                         (
+                           request.auth.uid == existing().senderUid &&
+                           incoming().status == 'CANCELLED' &&
+                           incoming().diff(existing()).affectedKeys().hasOnly(['status', 'updatedAt'])
+                         )
+                       );
+
+      allow delete: if isSignedIn() &&
+                       isValidId(inviteId) &&
+                       (request.auth.uid == existing().senderUid || request.auth.uid == existing().recipientUid);
+    }
+
+    match /presence/{userId} {
+      allow get: if isSignedIn() &&
+                    isValidId(userId) &&
+                    (request.auth.uid == userId || isAcceptedFriend(userId));
+
+      allow list: if false;
+
+      allow create, update: if isSignedIn() &&
+                               isValidId(userId) &&
+                               request.auth.uid == userId &&
+                               incoming().keys().hasAll(['userId', 'online', 'lastActiveAt']) &&
+                               incoming().keys().hasOnly(['userId', 'online', 'lastActiveAt']) &&
+                               isValidPresence(incoming(), userId);
+
+      allow delete: if isSignedIn() && isValidId(userId) && request.auth.uid == userId;
     }
   }
 }
