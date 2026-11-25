@@ -1,0 +1,159 @@
+{
+  "entities": {
+    "PlayerProfile": {
+      "title": "PlayerProfile",
+      "description": "Private owner-scoped profile and match statistics for CaroXO.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Firebase Auth UID of the player." },
+        "nickname": { "type": "string", "description": "Display nickname (1-24 chars)." },
+        "avatarId": { "type": "string", "description": "Client-side vector avatar key." },
+        "pieceStyle": {
+          "type": "string",
+          "enum": ["CLASSIC", "NEON_CYBER", "WOOD_CLASSIC", "SYMBOL", "VIP_CRIMSON_EMBER", "VIP_PLASMA_VORTEX", "VIP_CELESTIAL_MONARCH"],
+          "description": "Preferred piece rendering style."
+        },
+        "wins": { "type": "integer", "description": "Total wins count." },
+        "losses": { "type": "integer", "description": "Total losses count." },
+        "draws": { "type": "integer", "description": "Total draws count." },
+        "points": { "type": "integer", "description": "Ranking score (+10 win, -5 loss, min 0)." },
+        "bestRank": { "type": "integer", "description": "Highest leaderboard rank achieved (0 = unranked, 1 = #1)." },
+        "bestPoints": { "type": "integer", "description": "Highest ranking score ever achieved." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp on creation." },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "Server timestamp on update." }
+      },
+      "required": ["userId", "nickname", "avatarId", "pieceStyle", "wins", "losses", "draws", "points", "bestRank", "bestPoints", "createdAt", "updatedAt"]
+    },
+    "LeaderboardEntry": {
+      "title": "LeaderboardEntry",
+      "description": "Public non-PII leaderboard entry for Top 20 CaroXO rankings.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "Firebase Auth UID of the player." },
+        "nickname": { "type": "string", "description": "Public display nickname." },
+        "avatarId": { "type": "string", "description": "Client-side vector avatar key." },
+        "pieceStyle": {
+          "type": "string",
+          "enum": ["CLASSIC", "NEON_CYBER", "WOOD_CLASSIC", "SYMBOL", "VIP_CRIMSON_EMBER", "VIP_PLASMA_VORTEX", "VIP_CELESTIAL_MONARCH"]
+        },
+        "wins": { "type": "integer" },
+        "losses": { "type": "integer" },
+        "draws": { "type": "integer" },
+        "points": { "type": "integer" },
+        "publicEntry": { "type": "boolean", "description": "Always true for public leaderboard query alignment." },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "nickname", "avatarId", "pieceStyle", "wins", "losses", "draws", "points", "publicEntry", "createdAt", "updatedAt"]
+    },
+    "GameRoom": {
+      "title": "GameRoom",
+      "description": "Realtime CaroXO multiplayer room synchronized via Firestore snapshot listener.",
+      "type": "object",
+      "properties": {
+        "roomCode": { "type": "string", "description": "6-digit room code matching document ID." },
+        "hostUid": { "type": "string", "description": "UID of Player X (host)." },
+        "guestUid": { "type": "string", "description": "UID of Player O (guest), empty string while waiting." },
+        "memberUids": { "type": "array", "description": "Bounded list of participant UIDs (1 or 2)." },
+        "status": {
+          "type": "string",
+          "enum": ["WAITING", "PLAYING", "FINISHED"],
+          "description": "Current lifecycle state of the room."
+        },
+        "boardSize": { "type": "integer", "description": "10, 15, or 20." },
+        "blockTwoEnds": { "type": "boolean", "description": "Whether 5-in-a-row blocked on both ends is ignored." },
+        "hostNickname": { "type": "string" },
+        "hostAvatarId": { "type": "string" },
+        "hostStyle": { "type": "string", "enum": ["CLASSIC", "NEON_CYBER", "WOOD_CLASSIC", "SYMBOL", "VIP_CRIMSON_EMBER", "VIP_PLASMA_VORTEX", "VIP_CELESTIAL_MONARCH"] },
+        "guestNickname": { "type": "string" },
+        "guestAvatarId": { "type": "string" },
+        "guestStyle": { "type": "string", "enum": ["CLASSIC", "NEON_CYBER", "WOOD_CLASSIC", "SYMBOL", "VIP_CRIMSON_EMBER", "VIP_PLASMA_VORTEX", "VIP_CELESTIAL_MONARCH"] },
+        "currentTurn": { "type": "string", "enum": ["X", "O"] },
+        "moves": { "type": "array", "description": "Bounded list of encoded moves 'row,col,player' (max 400)." },
+        "lastMoveRow": { "type": "integer" },
+        "lastMoveCol": { "type": "integer" },
+        "winnerUid": { "type": "string", "description": "Winner UID, 'DRAW', 'CANCELLED', or empty string." },
+        "turnStartedAt": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": [
+        "roomCode", "hostUid", "guestUid", "memberUids", "status",
+        "boardSize", "blockTwoEnds",
+        "hostNickname", "hostAvatarId", "hostStyle",
+        "guestNickname", "guestAvatarId", "guestStyle",
+        "currentTurn", "moves", "lastMoveRow", "lastMoveCol", "winnerUid",
+        "turnStartedAt", "createdAt", "updatedAt"
+      ]
+    },
+    "GlobalChatMessage": {
+      "title": "GlobalChatMessage",
+      "description": "Public lobby chat message for signed-in CaroXO players.",
+      "type": "object",
+      "properties": {
+        "senderUid": { "type": "string", "description": "Firebase Auth UID of message author." },
+        "senderNickname": { "type": "string", "description": "Display nickname (1-24 chars)." },
+        "senderAvatarId": { "type": "string", "description": "Client-side vector avatar key (1-32 chars)." },
+        "text": { "type": "string", "description": "Chat message text (1-300 chars)." },
+        "publicChannel": { "type": "boolean", "description": "Always true for global chat query alignment." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp on creation." }
+      },
+      "required": ["senderUid", "senderNickname", "senderAvatarId", "text", "publicChannel", "createdAt"]
+    },
+    "RoomChatMessage": {
+      "title": "RoomChatMessage",
+      "description": "In-room chat message scoped to active participants of a multiplayer room.",
+      "type": "object",
+      "properties": {
+        "senderUid": { "type": "string", "description": "Firebase Auth UID of message author." },
+        "senderNickname": { "type": "string", "description": "Display nickname (1-24 chars)." },
+        "senderAvatarId": { "type": "string", "description": "Client-side vector avatar key (1-32 chars)." },
+        "text": { "type": "string", "description": "Chat message text (1-300 chars)." },
+        "roomCode": { "type": "string", "description": "6-digit parent roomCode." },
+        "memberUids": { "type": "array", "description": "Denormalized participant UIDs from parent room (1 or 2)." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Server timestamp on creation." }
+      },
+      "required": ["senderUid", "senderNickname", "senderAvatarId", "text", "roomCode", "memberUids", "createdAt"]
+    },
+    "MatchRecord": {
+      "title": "MatchRecord",
+      "description": "Owner-scoped match history record for CaroXO player.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "opponentNickname": { "type": "string" },
+        "result": { "type": "string", "enum": ["WIN", "LOSS", "DRAW"] },
+        "mode": { "type": "string" },
+        "durationSeconds": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "opponentNickname", "result", "mode", "durationSeconds", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/PlayerProfile" },
+      "description": "Owner-only player profile and stats."
+    },
+    "/users/{userId}/match_history/{matchId}": {
+      "schema": { "$ref": "#/entities/MatchRecord" },
+      "description": "Owner-only match history subcollection."
+    },
+    "/leaderboard/{userId}": {
+      "schema": { "$ref": "#/entities/LeaderboardEntry" },
+      "description": "Public Top 20 leaderboard entries (no PII)."
+    },
+    "/rooms/{roomId}": {
+      "schema": { "$ref": "#/entities/GameRoom" },
+      "description": "Realtime multiplayer rooms keyed by 6-digit roomCode."
+    },
+    "/global_chat/{messageId}": {
+      "schema": { "$ref": "#/entities/GlobalChatMessage" },
+      "description": "Realtime global chat messages for signed-in CaroXO players."
+    },
+    "/rooms/{roomId}/messages/{messageId}": {
+      "schema": { "$ref": "#/entities/RoomChatMessage" },
+      "description": "Realtime in-room chat messages restricted to room participants."
+    }
+  }
+}

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Modern Indigo / Electric Blue Dark Palette -->
+    <color name="caroxo_primary">#818CF8</color>
+    <color name="caroxo_on_primary">#0B1026</color>
+    <color name="caroxo_primary_container">#23205C</color>
+    <color name="caroxo_on_primary_container">#E0E7FF</color>
+
+    <color name="caroxo_secondary">#60A5FA</color>
+    <color name="caroxo_on_secondary">#081B38</color>
+    <color name="caroxo_secondary_container">#172554</color>
+    <color name="caroxo_on_secondary_container">#DBEAFE</color>
+
+    <color name="caroxo_tertiary">#FBBF24</color>
+    <color name="caroxo_on_tertiary">#1C1917</color>
+
+    <!-- Layered Slate-Obsidian Dark Surfaces -->
+    <color name="caroxo_background">#0B0F19</color>
+    <color name="caroxo_surface">#131926</color>
+    <color name="caroxo_surface_variant">#1C2436</color>
+    <color name="caroxo_surface_container">#161D2C</color>
+    <color name="caroxo_surface_container_high">#1E273B</color>
+    <color name="caroxo_on_surface">#F1F5F9</color>
+    <color name="caroxo_on_surface_variant">#94A3B8</color>
+    <color name="caroxo_outline">#293548</color>
+    <color name="caroxo_outline_variant">#1E2839</color>
+
+    <!-- Hero Gradient & Semantic Accents -->
+    <color name="caroxo_gradient_start">#4338CA</color>
+    <color name="caroxo_gradient_end">#1D4ED8</color>
+    <color name="caroxo_error">#F87171</color>
+    <color name="caroxo_on_error">#450A0A</color>
+    <color name="caroxo_error_container">#450A0A</color>
+    <color name="caroxo_on_error_container">#FEE2E2</color>
+
+    <color name="caroxo_x_accent">#FB7185</color>
+    <color name="caroxo_o_accent">#60A5FA</color>
+    <color name="caroxo_win_green">#34D399</color>
+    <color name="caroxo_rank_gold">#FBBF24</color>
+    <color name="caroxo_rank_silver">#CBD5E1</color>
+    <color name="caroxo_rank_bronze">#F59E0B</color>
+    <color name="caroxo_my_row_highlight">#1A2140</color>
+    <color name="caroxo_vip_crimson">#FB7185</color>
+    <color name="caroxo_vip_plasma">#22D3EE</color>
+    <color name="caroxo_vip_gold">#FBBF24</color>
+    <color name="caroxo_tier_legend">#C084FC</color>
+    <color name="caroxo_tier_grandmaster">#F87171</color>
+    <color name="caroxo_tier_master">#60A5FA</color>
+    <color name="caroxo_tier_tactician">#34D399</color>
+</resources>

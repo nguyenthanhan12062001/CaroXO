@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Modern Indigo / Electric Blue Light Palette -->
+    <color name="caroxo_primary">#4F46E5</color>
+    <color name="caroxo_on_primary">#FFFFFF</color>
+    <color name="caroxo_primary_container">#E0E7FF</color>
+    <color name="caroxo_on_primary_container">#1E1B4B</color>
+
+    <!-- Restrained Electric Blue Secondary Accent -->
+    <color name="caroxo_secondary">#2563EB</color>
+    <color name="caroxo_on_secondary">#FFFFFF</color>
+    <color name="caroxo_secondary_container">#DBEAFE</color>
+    <color name="caroxo_on_secondary_container">#1E3A8A</color>
+
+    <!-- Warm Amber Tertiary (Medals / Highlights) -->
+    <color name="caroxo_tertiary">#F59E0B</color>
+    <color name="caroxo_on_tertiary">#1C1917</color>
+
+    <!-- Neutral Layered Surfaces (Light) -->
+    <color name="caroxo_background">#F5F7FC</color>
+    <color name="caroxo_surface">#FFFFFF</color>
+    <color name="caroxo_surface_variant">#ECEFF7</color>
+    <color name="caroxo_surface_container">#FFFFFF</color>
+    <color name="caroxo_surface_container_high">#F1F4FA</color>
+    <color name="caroxo_on_surface">#0F172A</color>
+    <color name="caroxo_on_surface_variant">#475569</color>
+    <color name="caroxo_outline">#DCE3EF</color>
+    <color name="caroxo_outline_variant">#E8EDF5</color>
+
+    <!-- Hero Gradient & Semantic Accents -->
+    <color name="caroxo_gradient_start">#4F46E5</color>
+    <color name="caroxo_gradient_end">#2563EB</color>
+    <color name="caroxo_error">#DC2626</color>
+    <color name="caroxo_on_error">#FFFFFF</color>
+    <color name="caroxo_error_container">#FEE2E2</color>
+    <color name="caroxo_on_error_container">#7F1D1D</color>
+
+    <color name="caroxo_x_accent">#E11D48</color>
+    <color name="caroxo_o_accent">#2563EB</color>
+    <color name="caroxo_win_green">#059669</color>
+    <color name="caroxo_rank_gold">#F59E0B</color>
+    <color name="caroxo_rank_silver">#94A3B8</color>
+    <color name="caroxo_rank_bronze">#D97706</color>
+    <color name="caroxo_my_row_highlight">#EEF2FF</color>
+    <color name="caroxo_vip_crimson">#E11D48</color>
+    <color name="caroxo_vip_plasma">#0891B2</color>
+    <color name="caroxo_vip_gold">#D97706</color>
+    <color name="caroxo_tier_legend">#9333EA</color>
+    <color name="caroxo_tier_grandmaster">#DC2626</color>
+    <color name="caroxo_tier_master">#2563EB</color>
+    <color name="caroxo_tier_tactician">#059669</color>
+
+    <!-- AMOLED True-Black Tokens (used by Theme.CaroXO.Amoled) -->
+    <color name="caroxo_amoled_primary">#818CF8</color>
+    <color name="caroxo_amoled_on_primary">#0A0E24</color>
+    <color name="caroxo_amoled_primary_container">#1E1B4B</color>
+    <color name="caroxo_amoled_on_primary_container">#E0E7FF</color>
+    <color name="caroxo_amoled_secondary">#60A5FA</color>
+    <color name="caroxo_amoled_on_secondary">#081938</color>
+    <color name="caroxo_amoled_secondary_container">#172554</color>
+    <color name="caroxo_amoled_on_secondary_container">#DBEAFE</color>
+    <color name="caroxo_amoled_background">#000000</color>
+    <color name="caroxo_amoled_surface">#090C12</color>
+    <color name="caroxo_amoled_surface_variant">#121722</color>
+    <color name="caroxo_amoled_surface_container">#0D111A</color>
+    <color name="caroxo_amoled_surface_container_high">#151C2A</color>
+    <color name="caroxo_amoled_on_surface">#F8FAFC</color>
+    <color name="caroxo_amoled_on_surface_variant">#94A3B8</color>
+    <color name="caroxo_amoled_outline">#1F2937</color>
+    <color name="caroxo_amoled_outline_variant">#141C27</color>
+</resources>

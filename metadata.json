@@ -1,0 +1,6 @@
+{
+  "name": "CaroXO",
+  "description": "Game Cờ Caro (Five-in-a-Row) Android Native với AI 3 cấp độ, Custom Canvas View, Firebase Multiplayer & Bảng xếp hạng.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

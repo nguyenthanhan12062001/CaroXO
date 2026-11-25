@@ -1,0 +1,356 @@
+<resources>
+    <string name="app_name">CaroXO</string>
+    <string name="app_version_label">バージョン 1.0.0</string>
+    <string name="default_player_name">プレイヤー</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_play">プレイ</string>
+    <string name="nav_leaderboard">ランキング</string>
+    <string name="nav_profile">プロフィール</string>
+    <string name="nav_settings">設定</string>
+
+    <!-- Auth -->
+    <string name="sign_in_with_google">Google でログイン</string>
+    <string name="sign_out">ログアウト</string>
+    <string name="auth_banner_title">同期＆オンライン対戦</string>
+    <string name="auth_banner_subtitle">Google でログインしてオンラインルームを作成し、駒スタイルを同期して Top 20 ランキングに挑戦しましょう。</string>
+    <string name="auth_required_title">Google ログインが必要です</string>
+    <string name="auth_required_desc">オンライン対戦とランキングでは、対戦ルームの保護とスコア記録のために Google アカウントを使用します。</string>
+    <string name="auth_signing_in">ログイン中…</string>
+    <string name="auth_signed_in_as">ログイン中: %1$s</string>
+    <string name="auth_error_generic">ログインに失敗しました。もう一度お試しください。</string>
+    <string name="auth_error_missing_client_id">Google ログイン設定が見つかりません: default_web_client_id が未設定です。</string>
+    <string name="auth_error_unexpected_credential">無効な認証情報タイプです。</string>
+
+    <!-- Home / Mode Selection -->
+    <string name="home_subtitle">五目並べ Caro · 戦略とスピード</string>
+    <string name="section_board_rules">盤面ルール設定</string>
+    <string name="label_board_size">盤面サイズ</string>
+    <string name="size_10x10">10 × 10</string>
+    <string name="size_15x15">15 × 15</string>
+    <string name="size_20x20">20 × 20</string>
+    <string name="label_block_two_ends">両端ブロックルール</string>
+    <string name="desc_block_two_ends">両端を相手の駒で塞がれた5つ並びは勝利になりません</string>
+
+    <string name="section_offline_modes">オフラインモード</string>
+    <string name="mode_pass_play_title">2人対戦（1台の端末）</string>
+    <string name="mode_pass_play_desc">Pass &amp; Play · 友達と同じ端末で対戦</string>
+    <string name="mode_ai_title">AI 対戦</string>
+    <string name="mode_ai_desc">基本戦術から Minimax Alpha-Beta 探索まで難易度を選択</string>
+    <string name="ai_easy">初級</string>
+    <string name="ai_medium">中級</string>
+    <string name="ai_hard">上級</string>
+
+    <string name="section_online_modes">オンライン対戦</string>
+    <string name="home_online_desc">6桁のプライベートルームを作成するか、コードで友達とリアルタイム対戦</string>
+    <string name="btn_create_room">新しいルームを作成</string>
+    <string name="btn_join_room">コードで参加</string>
+    <string name="hint_room_code">6桁のルームコードを入力</string>
+    <string name="action_join">参加</string>
+    <string name="error_invalid_room_code">ルームコードは6桁の数字で入力してください。</string>
+    <string name="error_room_not_found">ルームが見つからないか満員です。</string>
+    <string name="error_cannot_join_own_room">自分のルームには参加できません。</string>
+    <string name="error_create_room">ルームを作成できませんでした。</string>
+    <string name="error_join_room">ルームに参加できませんでした。</string>
+    <string name="error_sign_in_before_room">ルームに入る前に Google でログインしてください。</string>
+    <string name="error_room_disconnected">対戦ルームから切断されました。</string>
+    <string name="error_submit_move">着手を送信できませんでした。もう一度お試しください。</string>
+
+    <!-- Game Screen -->
+    <string name="player_x_default">プレイヤー X</string>
+    <string name="player_o_default">プレイヤー O</string>
+    <string name="player_ai_name">Caro AI (%1$s)</string>
+    <string name="player_ai_easy">AI (初級)</string>
+    <string name="player_ai_medium">AI (中級)</string>
+    <string name="player_ai_hard">AI (上級)</string>
+    <string name="waiting_opponent">対戦相手を待っています…</string>
+    <string name="room_code_label">ルーム: %1$s</string>
+    <string name="room_code_copied">ルームコード %1$s をコピーしました</string>
+    <string name="match_badge_block_two_ends">%1$d×%1$d · 両端ブロック</string>
+    <string name="turn_x_label">X の番</string>
+    <string name="turn_o_label">O の番</string>
+    <string name="your_turn">あなたの番</string>
+    <string name="opponent_turn">相手の番</string>
+    <string name="timer_seconds">%1$d秒</string>
+    <string name="status_end">終了</string>
+    <string name="ai_thinking">AI が思考中…</string>
+
+    <string name="btn_undo">待った</string>
+    <string name="btn_hint">ヒント</string>
+    <string name="btn_reset">やり直す</string>
+    <string name="btn_menu">メニュー</string>
+    <string name="btn_zoom_reset">1x に戻す</string>
+
+    <string name="confirm_reset_title">最初からやり直しますか？</string>
+    <string name="confirm_reset_message">現在の対局は進行中です。盤面をクリアしてやり直しますか？</string>
+    <string name="confirm_exit_title">対局を終了しますか？</string>
+    <string name="confirm_exit_message">進行中の対局は終了します。ホーム画面に戻りますか？</string>
+    <string name="confirm_resign_title">投了して退出しますか？</string>
+    <string name="confirm_resign_message">進行中のオンライン対局から退出すると敗北扱いになります (-5 ポイント)。</string>
+    <string name="action_confirm">確認</string>
+    <string name="action_cancel">キャンセル</string>
+
+    <string name="result_x_wins">%1$s (X) の勝利！</string>
+    <string name="result_o_wins">%1$s (O) の勝利！</string>
+    <string name="result_draw">引き分け！盤面が埋まりました。</string>
+    <string name="result_timeout_win">30秒タイムアウト！%1$s の勝利！</string>
+    <string name="result_points_delta_win">+10 ランキングポイント</string>
+    <string name="result_points_delta_loss">-5 ランキングポイント</string>
+    <string name="result_points_delta_draw">引き分け (+0 ポイント)</string>
+    <string name="result_points_delta_win_fmt">+%1$d ランキングポイント</string>
+    <string name="result_points_delta_loss_fmt">%1$d ランキングポイント</string>
+    <string name="result_online_finished">オンライン対局が終了しました。</string>
+    <string name="result_offline_play_again_prompt">新しい対局を始めますか？</string>
+    <string name="action_play_again">もう一局</string>
+    <string name="action_back_home">ホームへ</string>
+
+    <string name="menu_quick_settings">クイック設定</string>
+    <string name="quick_settings_subtitle">対局中に盤面の背景やサウンドを調整できます</string>
+    <string name="menu_about">アプリ情報＆開発者</string>
+    <string name="menu_resign">投了</string>
+
+    <!-- Leaderboard -->
+    <string name="leaderboard_title">Top 20 ランキング</string>
+    <string name="leaderboard_subtitle">勝利 +10 pt · 敗北 -5 pt</string>
+    <string name="leaderboard_loading">ランキングを読み込み中…</string>
+    <string name="leaderboard_error_title">ランキングを読み込めません</string>
+    <string name="leaderboard_empty">ランキングデータがありません。最初のオンライン対局を完了しましょう!</string>
+    <string name="leaderboard_me_badge">あなた</string>
+    <string name="leaderboard_record_format">%1$d勝 · %2$d敗</string>
+    <string name="leaderboard_points_format">%1$d pt</string>
+    <string name="error_leaderboard_load">ランキングを読み込めませんでした。</string>
+
+    <!-- Profile & Styles -->
+    <string name="profile_title">プロフィール＆スタイル</string>
+    <string name="label_nickname">表示名（ニックネーム）</string>
+    <string name="hint_nickname">名前を入力（1〜24文字）</string>
+    <string name="btn_save_profile">プロフィールを保存</string>
+    <string name="profile_saved">プロフィールとスタイルを同期しました！</string>
+    <string name="profile_saved_local">プロフィールをローカルに保存しました！</string>
+    <string name="profile_nickname_error">表示名は1〜24文字で入力してください。</string>
+    <string name="error_sync_profile">プロフィールを同期できませんでした (%1$s)。</string>
+    <string name="label_choose_avatar">アバターを選択</string>
+    <string name="label_choose_piece_style">個人駒スタイル</string>
+
+    <string name="style_classic">クラシック (赤 / 青)</string>
+    <string name="style_neon_cyber">ネオンサイバー (発光)</string>
+    <string name="style_wood_classic">古典 / 碁石</string>
+    <string name="style_symbol">シンボル (剣 / 盾)</string>
+
+    <string name="avatar_ninja">忍者</string>
+    <string name="avatar_robot">ロボット</string>
+    <string name="avatar_cat">ネコ</string>
+    <string name="avatar_knight">騎士</string>
+    <string name="avatar_wizard">魔法使い</string>
+    <string name="avatar_panda">パンダ</string>
+    <string name="avatar_fox">キツネ</string>
+    <string name="avatar_astronaut">宇宙飛行士</string>
+    <string name="avatar_samurai">侍</string>
+    <string name="avatar_dragon">ドラゴン</string>
+
+    <string name="stats_wins">勝</string>
+    <string name="stats_losses">敗</string>
+    <string name="stats_points">ポイント</string>
+
+    <!-- Settings -->
+    <string name="settings_title">設定</string>
+    <string name="settings_audio_haptics">サウンド＆バイブ</string>
+    <string name="setting_sfx_title">効果音 (SFX)</string>
+    <string name="setting_sfx_desc">着手、勝敗、ボタン操作の効果音</string>
+    <string name="setting_music_title">BGM</string>
+    <string name="setting_music_desc">プレイ中の穏やかなメロディ</string>
+    <string name="setting_haptics_title">触覚フィードバック</string>
+    <string name="setting_haptics_desc">着手時や対局終了時の微細な振動</string>
+
+    <string name="settings_board_surface">盤面の背景</string>
+    <string name="surface_minimal_cream">ミニマルクリーム</string>
+    <string name="surface_warm_wood">ウォームウッド</string>
+    <string name="surface_emerald_grid">エメラルドグリッド</string>
+    <string name="surface_dark_slate">ダークスレート</string>
+
+    <string name="settings_theme">外観モード</string>
+    <string name="theme_system">システム設定</string>
+    <string name="theme_light">ライト</string>
+    <string name="theme_dark">ダーク</string>
+    <string name="theme_amoled">AMOLED</string>
+
+    <string name="settings_language">言語</string>
+    <string name="sheet_language_subtitle">アプリの表示言語を選択してください</string>
+    <string name="action_change">変更</string>
+    <string name="lang_system">システム設定</string>
+    <string name="lang_vietnamese">Tiếng Việt</string>
+    <string name="lang_english">English</string>
+    <string name="lang_chinese">简体中文</string>
+    <string name="lang_indonesian">Bahasa Indonesia</string>
+    <string name="lang_korean">한국어</string>
+    <string name="lang_japanese">日本語</string>
+
+    <string name="settings_about_btn">アプリ情報＆開発者</string>
+
+    <!-- About -->
+    <string name="about_title">CaroXO について</string>
+    <string name="about_description">CaroXO は滑らかな Custom Canvas 盤面、3段階 AI エンジン、リアルタイムオンライン対戦を備えたネイティブ Android 五目並べアプリです。</string>
+    <string name="about_developer_label">開発者 / 作者</string>
+    <string name="about_developer_name">Nguyen Thanh An Developer</string>
+    <string name="about_role_label">役割＆連絡先</string>
+    <string name="about_role_value">Android Native Developer · Thanhann224@gmail.com</string>
+    <string name="about_libraries_label">技術スタック＆ライブラリ</string>
+    <string name="about_libraries_value">• Android SDK &amp; Material Components 3\n• Custom Canvas View (ScaleGestureDetector &amp; ValueAnimator)\n• Kotlin Coroutines, StateFlow &amp; MVVM\n• Firebase Authentication &amp; Cloud Firestore\n• Jetpack Credential Manager (Google Sign-In)</string>
+    <string name="action_close">閉じる</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_player_avatar">プレイヤーのアバター</string>
+    <string name="cd_copy_room_code">ルームコードをコピー</string>
+    <string name="cd_back">戻る</string>
+    <string name="cd_about">アプリについて</string>
+    <string name="cd_board">CaroXO 盤面</string>
+
+    <!-- Chat (Global & Room) -->
+    <string name="nav_chat">チャット</string>
+    <string name="chat_global_title">全体ロビーチャット</string>
+    <string name="chat_global_subtitle">世界中の CaroXO プレイヤーとリアルタイムで会話</string>
+    <string name="chat_room_title">ルームチャット</string>
+    <string name="chat_room_subtitle">ルーム #%1$s · 対局プライベートチャット</string>
+    <string name="chat_loading">メッセージを読み込み中…</string>
+    <string name="chat_empty">まだメッセージがありません。挨拶してみましょう！</string>
+    <string name="chat_error_title">メッセージを読み込めません</string>
+    <string name="chat_input_hint">メッセージを入力…</string>
+    <string name="chat_empty_input">送信する前にメッセージを入力してください。</string>
+    <string name="chat_too_long">メッセージは 300 文字以内で入力してください。</string>
+    <string name="chat_error_send">メッセージの送信に失敗しました。もう一度お試しください。</string>
+    <string name="chat_waiting_hint">対局中はいつでもここでチャットできます。</string>
+    <string name="btn_room_chat">チャット</string>
+    <string name="cd_chat_send">メッセージを送信</string>
+    <string name="cd_room_chat">ルームチャットを開く</string>
+
+    <!-- Email & Password Authentication -->
+    <string name="sign_in_with_email">メールでログイン / 登録</string>
+    <string name="email_auth_title_sign_in">メールでログイン</string>
+    <string name="email_auth_title_sign_up">CaroXO アカウント作成</string>
+    <string name="email_auth_subtitle">メールとパスワードで戦績同期・チャット・オンライン対戦を利用できます</string>
+    <string name="email_auth_tab_sign_in">ログイン</string>
+    <string name="email_auth_tab_sign_up">新規登録</string>
+    <string name="hint_email">メールアドレス</string>
+    <string name="hint_password">パスワード（6文字以上）</string>
+    <string name="hint_confirm_password">パスワード確認</string>
+    <string name="hint_auth_nickname">表示ニックネーム</string>
+    <string name="btn_forgot_password">パスワードをお忘れですか？</string>
+    <string name="btn_email_submit_sign_in">ログイン</string>
+    <string name="btn_email_submit_sign_up">アカウント作成</string>
+    <string name="auth_reset_sent">パスワード再設定メールを送信しました。受信トレイをご確認ください。</string>
+    <string name="auth_account_created">ようこそ、%1$s さん！アカウントを作成しました。</string>
+    <string name="auth_error_invalid_email">有効なメールアドレスを入力してください。</string>
+    <string name="auth_error_short_password">パスワードは 6 文字以上で入力してください。</string>
+    <string name="auth_error_password_mismatch">パスワードが一致しません。</string>
+    <string name="auth_error_nickname_required">ニックネームは 1〜24 文字で入力してください。</string>
+    <string name="auth_error_user_not_found">このメールアドレスのアカウントが見つかりません。</string>
+    <string name="auth_error_invalid_credentials">メールアドレスまたはパスワードが正しくありません。</string>
+    <string name="auth_error_email_in_use">このメールアドレスは既に登録されています。</string>
+    <string name="auth_error_weak_password">パスワードが弱すぎます。6 文字以上を設定してください。</string>
+    <string name="auth_error_email_provider_disabled">Firebase Console でメール/パスワード認証がまだ有効になっていません。</string>
+    <string name="auth_error_network">ネットワークエラーです。接続を確認してください。</string>
+    <string name="auth_error_reset_failed">パスワード再設定メールを送信できませんでした。</string>
+
+    <!-- VIP Piece Styles -->
+    <string name="style_vip_crimson_ember">紅蓮の炎</string>
+    <string name="style_vip_plasma_vortex">プラズマ渦</string>
+    <string name="style_vip_celestial_monarch">天帝ゴールド</string>
+    <string name="vip_badge_top1">VIP • TOP 1</string>
+    <string name="vip_badge_top2">VIP • TOP 2+</string>
+    <string name="vip_badge_top3">VIP • TOP 3+</string>
+    <string name="vip_style_status_unlocked">VIP 解放済み</string>
+    <string name="vip_style_status_sign_in">ログイン必要</string>
+    <string name="vip_style_status_top_fmt">Top %1$d 必要</string>
+    <string name="vip_style_locked_sign_in">ログインしてランキング Top 1〜3 に入ると VIP 駒スタイルが解放されます。</string>
+    <string name="vip_style_locked_rank_fmt">ロック中！ランキング Top %1$d に入賞するとこの VIP スタイルが解放されます。</string>
+    <string name="cd_vip_lock">ロックされた VIP 駒スタイル</string>
+
+    <!-- Rank Titles -->
+    <string name="rank_title_top1">棋界覇王</string>
+    <string name="rank_title_top2">無双戦神</string>
+    <string name="rank_title_top3">神威先鋒</string>
+    <string name="rank_title_legend">伝説</string>
+    <string name="rank_title_grandmaster">グランドマスター</string>
+    <string name="rank_title_master">マスター</string>
+    <string name="rank_title_tactician">戦術家</string>
+    <string name="rank_title_apprentice">棋士</string>
+    <string name="rank_title_novice">初心者</string>
+
+    <!-- Profile Peak Rank & Special Hallmark -->
+    <string name="profile_peak_section_title">最高ランク栄誉記録</string>
+    <string name="profile_current_title_fmt">称号: %1$s</string>
+    <string name="profile_peak_rank_label">最高順位</string>
+    <string name="profile_current_rank_label">現在順位</string>
+    <string name="profile_peak_points_label">最高スコア</string>
+    <string name="profile_rank_value_fmt">#%1$d</string>
+    <string name="profile_rank_unranked">--</string>
+    <string name="hallmark_top1_title">Top 1 覇王の証</string>
+    <string name="hallmark_top2_title">Top 2 戦神の証</string>
+    <string name="hallmark_top3_title">Top 3 先鋒の証</string>
+    <string name="hallmark_status_active">現在保持中 · VIP 解放済み</string>
+    <string name="hallmark_status_peak">歴代最高ランク栄誉記録</string>
+    <string name="hallmark_locked_hint">ランキング Top 1〜3 に入賞して特別栄誉バッジと VIP 駒スタイル 3 種を獲得しましょう。</string>
+    <string name="profile_match_history_title">対局履歴（直近10試合）</string>
+    <string name="match_history_empty">対局履歴がありません。最初の対局を完了しましょう！</string>
+    <string name="match_history_win">勝利</string>
+    <string name="match_history_loss">敗北</string>
+    <string name="match_history_draw">引分</string>
+    <string name="match_history_vs_fmt">vs %1$s</string>
+    <string name="match_history_mode_duration_fmt">%1$s · %2$s</string>
+    <string name="match_duration_min_sec">%1$d分 %2$d秒</string>
+    <string name="match_duration_sec">%1$d秒</string>
+
+    <!-- Onboarding & Feature Discovery -->
+    <string name="onboarding_skip">スキップ</string>
+    <string name="onboarding_next">次へ</string>
+    <string name="onboarding_start_discovery">探索を開始</string>
+
+    <string name="onboarding_slide1_title">CaroXO へようこそ</string>
+    <string name="onboarding_slide1_subtitle">超滑らかな Canvas 盤面エンジン</string>
+    <string name="onboarding_slide1_desc">快適なタッチ、滑らかなパン操作、1x〜3xのピンチズームで多様な盤面サイズの五目並べを楽しめます。</string>
+
+    <string name="onboarding_slide2_title">多彩な対局モード</string>
+    <string name="onboarding_slide2_subtitle">2人対戦、スマートAI、オンライン</string>
+    <string name="onboarding_slide2_desc">1台の端末での対面2人対戦、3段階のAI（初級からMinimax Alpha-Betaまで）、6桁コードによるリアルタイムオンライン対戦に対応。</string>
+
+    <string name="onboarding_slide3_title">ランキング＆VIP駒スタイル</string>
+    <string name="onboarding_slide3_subtitle">Top 20 ランキングへの挑戦</string>
+    <string name="onboarding_slide3_desc">対局に勝利してポイントを獲得し、Top 1〜3位に入賞して栄誉の覇王バッジと光り輝く3種のVIP駒スタイルを解放しましょう。</string>
+
+    <string name="onboarding_slide4_title">交流＆カスタム設定</string>
+    <string name="onboarding_slide4_subtitle">全体チャット＆対局履歴</string>
+    <string name="onboarding_slide4_desc">全体ロビーチャットで世界中の棋友と交流し、直近10試合の対局履歴を確認し、クラウド同期でアバターを自在に設定できます。</string>
+
+    <string name="discovery_step_fmt">機能ガイド (%1$d/%2$d)</string>
+    <string name="discovery_btn_got_it">了解</string>
+    <string name="discovery_btn_next">次のヒント</string>
+    <string name="discovery_btn_skip_all">すべてスキップ</string>
+    <string name="discovery_toast_started">機能ガイドモードが開始されました！</string>
+    <string name="discovery_toast_completed">ガイドをスキップしました。「設定」からいつでも再表示できます。</string>
+    <string name="discovery_toast_reset">機能ガイドをリセットしました！アプリを探索してみましょう。</string>
+
+    <string name="discovery_home_rules_title">盤面サイズとルール設定</string>
+    <string name="discovery_home_rules_desc">10×10、15×15、20×20 の盤面サイズを選択し、「両端ブロックルール」のオン/オフで戦略を深めましょう。</string>
+    <string name="discovery_home_modes_title">対局モード選択</string>
+    <string name="discovery_home_modes_desc">1台で2人で指す Pass &amp; Play、または Minimax Alpha-Beta 搭載の3段階AIに対局を挑めます。</string>
+    <string name="discovery_home_online_title">オンライン対戦ルーム</string>
+    <string name="discovery_home_online_desc">ログインして6桁のルームコードを作成するか、コードを入力して参加し、30秒カウントダウンの対戦を楽しめます。</string>
+
+    <string name="discovery_game_controls_title">Canvas 盤面の操作方法</string>
+    <string name="discovery_game_controls_desc">マスをタップして着手 • 1本指ドラッグで移動 • 2本指ピンチで拡大縮小 (1x–3x) • ヒント、待った、クイック設定を活用しましょう。</string>
+
+    <string name="discovery_lb_title">ランキングとポイント獲得</string>
+    <string name="discovery_lb_desc">勝利で +10 pt、敗北で -5 pt。Top 1〜3位に到達すると特別栄誉バッジと VIP 駒スタイル 3 種がアンロックされます。</string>
+
+    <string name="discovery_chat_title">ロビー＆ルームチャット</string>
+    <string name="discovery_chat_desc">全体ロビーチャットで発言したり、対戦中に専用のルームチャットで相手とメッセージを交わせます。</string>
+
+    <string name="discovery_profile_title">プロフィール＆対局履歴</string>
+    <string name="discovery_profile_desc">アバターや駒スタイルを選び、最高位の栄誉バッジと直近10試合の対局戦績を確認できます。</string>
+
+    <string name="settings_section_discovery">チュートリアルと機能ガイド</string>
+    <string name="settings_replay_onboarding_title">オンボーディング紹介を再確認</string>
+    <string name="settings_replay_onboarding_desc">アプリの4ステップの全景紹介をもう一度表示します</string>
+    <string name="settings_reset_discovery_title">機能ガイドをリセット</string>
+    <string name="settings_reset_discovery_desc">画面を移動する際にインタラクティブな機能ヒントを再度表示します</string>
+</resources>

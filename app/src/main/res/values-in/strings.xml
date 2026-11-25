@@ -1,0 +1,356 @@
+<resources>
+    <string name="app_name">CaroXO</string>
+    <string name="app_version_label">Versi 1.0.0</string>
+    <string name="default_player_name">Pemain</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_play">Main</string>
+    <string name="nav_leaderboard">Peringkat</string>
+    <string name="nav_profile">Profil</string>
+    <string name="nav_settings">Setelan</string>
+
+    <!-- Auth -->
+    <string name="sign_in_with_google">Masuk dengan Google</string>
+    <string name="sign_out">Keluar</string>
+    <string name="auth_banner_title">Sinkronisasi &amp; Laga Online</string>
+    <string name="auth_banner_subtitle">Masuk dengan Google untuk membuat ruang online, menyinkronkan gaya bidak, dan masuk Top 20 Papan Peringkat.</string>
+    <string name="auth_required_title">Perlu Masuk Google</string>
+    <string name="auth_required_desc">Multiplayer Online dan Papan Peringkat menggunakan akun Google Anda untuk keamanan ruang pertandingan dan poin peringkat.</string>
+    <string name="auth_signing_in">Sedang masuk…</string>
+    <string name="auth_signed_in_as">Masuk sebagai: %1$s</string>
+    <string name="auth_error_generic">Gagal masuk. Silakan coba lagi.</string>
+    <string name="auth_error_missing_client_id">Konfigurasi Google Sign-In tidak ditemukan: default_web_client_id tidak ada.</string>
+    <string name="auth_error_unexpected_credential">Tipe kredensial tidak valid.</string>
+
+    <!-- Home / Mode Selection -->
+    <string name="home_subtitle">Caro 5-Sejajar · Strategi &amp; Kecepatan</string>
+    <string name="section_board_rules">Konfigurasi Papan</string>
+    <string name="label_board_size">Ukuran papan</string>
+    <string name="size_10x10">10 × 10</string>
+    <string name="size_15x15">15 × 15</string>
+    <string name="size_20x20">20 × 20</string>
+    <string name="label_block_two_ends">Aturan Blokir 2 Ujung</string>
+    <string name="desc_block_two_ends">Deretan 5 bidak yang terblokir di kedua ujung oleh lawan tidak dihitung menang</string>
+
+    <string name="section_offline_modes">Mode Offline</string>
+    <string name="mode_pass_play_title">2 Pemain (1 Perangkat)</string>
+    <string name="mode_pass_play_desc">Pass &amp; Play · Main langsung bersama teman</string>
+    <string name="mode_ai_title">Lawan AI</string>
+    <string name="mode_ai_desc">Pilih tingkat kecerdasan AI hingga Minimax Alpha-Beta</string>
+    <string name="ai_easy">Mudah</string>
+    <string name="ai_medium">Sedang</string>
+    <string name="ai_hard">Sulit</string>
+
+    <string name="section_online_modes">Multiplayer Online</string>
+    <string name="home_online_desc">Buat ruang pribadi 6 digit atau gabung dengan kode secara real-time</string>
+    <string name="btn_create_room">Buat Ruang Baru</string>
+    <string name="btn_join_room">Gabung dengan Kode</string>
+    <string name="hint_room_code">Masukkan kode ruang 6 digit</string>
+    <string name="action_join">Gabung</string>
+    <string name="error_invalid_room_code">Kode ruang harus tepat 6 digit angka.</string>
+    <string name="error_room_not_found">Ruang tidak ditemukan atau sudah penuh.</string>
+    <string name="error_cannot_join_own_room">Anda tidak bisa masuk ke ruang sendiri.</string>
+    <string name="error_create_room">Gagal membuat ruang.</string>
+    <string name="error_join_room">Gagal bergabung ke ruang.</string>
+    <string name="error_sign_in_before_room">Silakan masuk dengan Google sebelum masuk ruang.</string>
+    <string name="error_room_disconnected">Koneksi ke ruang pertandingan terputus.</string>
+    <string name="error_submit_move">Gagal mengirim langkah, silakan coba lagi.</string>
+
+    <!-- Game Screen -->
+    <string name="player_x_default">Pemain X</string>
+    <string name="player_o_default">Pemain O</string>
+    <string name="player_ai_name">AI Caro (%1$s)</string>
+    <string name="player_ai_easy">AI (Mudah)</string>
+    <string name="player_ai_medium">AI (Sedang)</string>
+    <string name="player_ai_hard">AI (Sulit)</string>
+    <string name="waiting_opponent">Menunggu lawan…</string>
+    <string name="room_code_label">Ruang: %1$s</string>
+    <string name="room_code_copied">Kode ruang %1$s disalin</string>
+    <string name="match_badge_block_two_ends">%1$d×%1$d · Blok 2 ujung</string>
+    <string name="turn_x_label">Giliran X</string>
+    <string name="turn_o_label">Giliran O</string>
+    <string name="your_turn">Giliran Anda</string>
+    <string name="opponent_turn">Giliran lawan</string>
+    <string name="timer_seconds">%1$dd</string>
+    <string name="status_end">SELESAI</string>
+    <string name="ai_thinking">AI sedang berpikir…</string>
+
+    <string name="btn_undo">Urung</string>
+    <string name="btn_hint">Saran</string>
+    <string name="btn_reset">Ulang</string>
+    <string name="btn_menu">Menu</string>
+    <string name="btn_zoom_reset">Reset 1x</string>
+
+    <string name="confirm_reset_title">Mulai ulang permainan?</string>
+    <string name="confirm_reset_message">Pertandingan sedang berlangsung. Yakin ingin mengosongkan papan dan mengulang?</string>
+    <string name="confirm_exit_title">Keluar dari permainan?</string>
+    <string name="confirm_exit_message">Pertandingan yang sedang berlangsung akan berakhir. Kembali ke beranda?</string>
+    <string name="confirm_resign_title">Menyerah &amp; Keluar Ruang?</string>
+    <string name="confirm_resign_message">Keluar saat laga online berlangsung dihitung kalah (-5 poin).</string>
+    <string name="action_confirm">Konfirmasi</string>
+    <string name="action_cancel">Batal</string>
+
+    <string name="result_x_wins">%1$s (X) Menang!</string>
+    <string name="result_o_wins">%1$s (O) Menang!</string>
+    <string name="result_draw">Seri! Papan sudah penuh.</string>
+    <string name="result_timeout_win">Waktu 30 detik habis! %1$s menang!</string>
+    <string name="result_points_delta_win">+10 poin peringkat</string>
+    <string name="result_points_delta_loss">-5 poin peringkat</string>
+    <string name="result_points_delta_draw">Seri (+0 poin)</string>
+    <string name="result_points_delta_win_fmt">+%1$d poin peringkat</string>
+    <string name="result_points_delta_loss_fmt">%1$d poin peringkat</string>
+    <string name="result_online_finished">Pertandingan online telah berakhir.</string>
+    <string name="result_offline_play_again_prompt">Apakah Anda ingin memulai pertandingan baru?</string>
+    <string name="action_play_again">Main Lagi</string>
+    <string name="action_back_home">Ke Beranda</string>
+
+    <string name="menu_quick_settings">Setelan Cepat</string>
+    <string name="quick_settings_subtitle">Sesuaikan permukaan papan dan audio selama pertandingan</string>
+    <string name="menu_about">Tentang &amp; Pengembang</string>
+    <string name="menu_resign">Menyerah</string>
+
+    <!-- Leaderboard -->
+    <string name="leaderboard_title">Papan Peringkat Top 20</string>
+    <string name="leaderboard_subtitle">Menang +10 poin · Kalah -5 poin</string>
+    <string name="leaderboard_loading">Memuat papan peringkat…</string>
+    <string name="leaderboard_error_title">Gagal memuat peringkat</string>
+    <string name="leaderboard_empty">Belum ada data peringkat. Selesaikan laga online pertama Anda!</string>
+    <string name="leaderboard_me_badge">ANDA</string>
+    <string name="leaderboard_record_format">%1$dM · %2$dK</string>
+    <string name="leaderboard_points_format">%1$d poin</string>
+    <string name="error_leaderboard_load">Gagal memuat papan peringkat.</string>
+
+    <!-- Profile & Styles -->
+    <string name="profile_title">Profil &amp; Gaya</string>
+    <string name="label_nickname">Nama Tampilan (Nickname)</string>
+    <string name="hint_nickname">Masukkan nama Anda (1–24 karakter)</string>
+    <string name="btn_save_profile">Simpan Profil</string>
+    <string name="profile_saved">Profil &amp; gaya bidak disinkronkan!</string>
+    <string name="profile_saved_local">Profil disimpan secara lokal!</string>
+    <string name="profile_nickname_error">Nama tampilan harus 1 sampai 24 karakter.</string>
+    <string name="error_sync_profile">Gagal menyinkronkan profil (%1$s).</string>
+    <string name="label_choose_avatar">Pilih Avatar</string>
+    <string name="label_choose_piece_style">Gaya Bidak Pribadi</string>
+
+    <string name="style_classic">Klasik (Merah / Biru)</string>
+    <string name="style_neon_cyber">Neon Cyber (Bercahaya)</string>
+    <string name="style_wood_classic">Klasik / Batu Go</string>
+    <string name="style_symbol">Simbol (Pedang / Perisai)</string>
+
+    <string name="avatar_ninja">Ninja</string>
+    <string name="avatar_robot">Robot</string>
+    <string name="avatar_cat">Kucing</string>
+    <string name="avatar_knight">Kesatria</string>
+    <string name="avatar_wizard">Penyihir</string>
+    <string name="avatar_panda">Panda</string>
+    <string name="avatar_fox">Rubah</string>
+    <string name="avatar_astronaut">Astronot</string>
+    <string name="avatar_samurai">Samurai</string>
+    <string name="avatar_dragon">Naga</string>
+
+    <string name="stats_wins">Menang</string>
+    <string name="stats_losses">Kalah</string>
+    <string name="stats_points">Poin</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Setelan</string>
+    <string name="settings_audio_haptics">Audio &amp; Getaran</string>
+    <string name="setting_sfx_title">Efek Suara (SFX)</string>
+    <string name="setting_sfx_desc">Suara bidak, menang/kalah, dan tombol</string>
+    <string name="setting_music_title">Musik Latar Santai</string>
+    <string name="setting_music_desc">Melodi latar lembut saat bermain</string>
+    <string name="setting_haptics_title">Umpan Balik Haptik</string>
+    <string name="setting_haptics_desc">Getaran halus saat meletakkan bidak</string>
+
+    <string name="settings_board_surface">Permukaan Papan</string>
+    <string name="surface_minimal_cream">Krem Minimalis</string>
+    <string name="surface_warm_wood">Kayu Hangat</string>
+    <string name="surface_emerald_grid">Grid Zamrud</string>
+    <string name="surface_dark_slate">Batu Gelap</string>
+
+    <string name="settings_theme">Mode Tampilan</string>
+    <string name="theme_system">Ikuti Sistem</string>
+    <string name="theme_light">Terang</string>
+    <string name="theme_dark">Gelap</string>
+    <string name="theme_amoled">AMOLED</string>
+
+    <string name="settings_language">Bahasa</string>
+    <string name="sheet_language_subtitle">Pilih bahasa tampilan aplikasi</string>
+    <string name="action_change">Ubah</string>
+    <string name="lang_system">Ikuti Sistem</string>
+    <string name="lang_vietnamese">Tiếng Việt</string>
+    <string name="lang_english">English</string>
+    <string name="lang_chinese">简体中文</string>
+    <string name="lang_indonesian">Bahasa Indonesia</string>
+    <string name="lang_korean">한국어</string>
+    <string name="lang_japanese">日本語</string>
+
+    <string name="settings_about_btn">Tentang &amp; Pengembang</string>
+
+    <!-- About -->
+    <string name="about_title">Tentang CaroXO</string>
+    <string name="about_description">CaroXO adalah gim Cờ Caro 5-Sejajar Android Native dengan papan Custom Canvas yang mulus, mesin AI 3 tingkat, dan multiplayer online real-time.</string>
+    <string name="about_developer_label">Pengembang / Penulis</string>
+    <string name="about_developer_name">Nguyen Thanh An Developer</string>
+    <string name="about_role_label">Peran &amp; Kontak</string>
+    <string name="about_role_value">Android Native Developer · Thanhann224@gmail.com</string>
+    <string name="about_libraries_label">Teknologi &amp; Pustaka</string>
+    <string name="about_libraries_value">• Android SDK &amp; Material Components 3\n• Custom Canvas View (ScaleGestureDetector &amp; ValueAnimator)\n• Kotlin Coroutines, StateFlow &amp; MVVM\n• Firebase Authentication &amp; Cloud Firestore\n• Jetpack Credential Manager (Google Sign-In)</string>
+    <string name="action_close">Tutup</string>
+
+    <!-- Content Descriptions -->
+    <string name="cd_player_avatar">Avatar pemain</string>
+    <string name="cd_copy_room_code">Salin kode ruang</string>
+    <string name="cd_back">Kembali</string>
+    <string name="cd_about">Tentang aplikasi</string>
+    <string name="cd_board">Papan CaroXO</string>
+
+    <!-- Chat (Global & Room) -->
+    <string name="nav_chat">Obrolan</string>
+    <string name="chat_global_title">Obrolan Global</string>
+    <string name="chat_global_subtitle">Mengobrol langsung dengan pemain CaroXO di seluruh dunia</string>
+    <string name="chat_room_title">Obrolan Ruang</string>
+    <string name="chat_room_subtitle">Ruang #%1$s · Obrolan privat pertandingan</string>
+    <string name="chat_loading">Memuat pesan…</string>
+    <string name="chat_empty">Belum ada pesan. Sapa pemain lain terlebih dahulu!</string>
+    <string name="chat_error_title">Gagal memuat pesan</string>
+    <string name="chat_input_hint">Ketik pesan…</string>
+    <string name="chat_empty_input">Masukkan pesan sebelum mengirim.</string>
+    <string name="chat_too_long">Pesan maksimal 300 karakter.</string>
+    <string name="chat_error_send">Gagal mengirim pesan. Silakan coba lagi.</string>
+    <string name="chat_waiting_hint">Kirim pesan kapan saja selama pertandingan.</string>
+    <string name="btn_room_chat">Obrolan</string>
+    <string name="cd_chat_send">Kirim pesan</string>
+    <string name="cd_room_chat">Buka obrolan ruang</string>
+
+    <!-- Email & Password Authentication -->
+    <string name="sign_in_with_email">Masuk / Daftar dengan Email</string>
+    <string name="email_auth_title_sign_in">Masuk dengan Email</string>
+    <string name="email_auth_title_sign_up">Buat Akun CaroXO</string>
+    <string name="email_auth_subtitle">Gunakan email dan kata sandi untuk sinkronisasi statistik, obrolan, dan duel online</string>
+    <string name="email_auth_tab_sign_in">Masuk</string>
+    <string name="email_auth_tab_sign_up">Daftar</string>
+    <string name="hint_email">Alamat Email</string>
+    <string name="hint_password">Kata sandi (min 6 karakter)</string>
+    <string name="hint_confirm_password">Konfirmasi kata sandi</string>
+    <string name="hint_auth_nickname">Nama tampilan</string>
+    <string name="btn_forgot_password">Lupa kata sandi?</string>
+    <string name="btn_email_submit_sign_in">Masuk</string>
+    <string name="btn_email_submit_sign_up">Buat Akun</string>
+    <string name="auth_reset_sent">Email atur ulang kata sandi telah dikirim. Periksa kotak masuk Anda.</string>
+    <string name="auth_account_created">Selamat datang, %1$s! Akun berhasil dibuat.</string>
+    <string name="auth_error_invalid_email">Masukkan alamat email yang valid.</string>
+    <string name="auth_error_short_password">Kata sandi minimal harus 6 karakter.</string>
+    <string name="auth_error_password_mismatch">Kata sandi tidak cocok.</string>
+    <string name="auth_error_nickname_required">Nama tampilan harus 1 hingga 24 karakter.</string>
+    <string name="auth_error_user_not_found">Akun dengan email ini tidak ditemukan.</string>
+    <string name="auth_error_invalid_credentials">Email atau kata sandi salah.</string>
+    <string name="auth_error_email_in_use">Email ini sudah terdaftar.</string>
+    <string name="auth_error_weak_password">Kata sandi terlalu lemah. Gunakan minimal 6 karakter.</string>
+    <string name="auth_error_email_provider_disabled">Login Email/Kata Sandi belum diaktifkan di Firebase Console.</string>
+    <string name="auth_error_network">Kesalahan jaringan. Periksa koneksi Anda.</string>
+    <string name="auth_error_reset_failed">Gagal mengirim email atur ulang kata sandi.</string>
+
+    <!-- VIP Piece Styles -->
+    <string name="style_vip_crimson_ember">Bara Api</string>
+    <string name="style_vip_plasma_vortex">Pusaran Kuantum</string>
+    <string name="style_vip_celestial_monarch">Raja Langit</string>
+    <string name="vip_badge_top1">VIP • TOP 1</string>
+    <string name="vip_badge_top2">VIP • TOP 2+</string>
+    <string name="vip_badge_top3">VIP • TOP 3+</string>
+    <string name="vip_style_status_unlocked">VIP Terbuka</string>
+    <string name="vip_style_status_sign_in">Perlu masuk</string>
+    <string name="vip_style_status_top_fmt">Perlu Top %1$d</string>
+    <string name="vip_style_locked_sign_in">Masuk dan raih Top 1–3 Papan Peringkat untuk membuka gaya bidak VIP.</string>
+    <string name="vip_style_locked_rank_fmt">Terkunci! Raih Top %1$d di Papan Peringkat untuk membuka gaya VIP ini.</string>
+    <string name="cd_vip_lock">Gaya bidak VIP terkunci</string>
+
+    <!-- Rank Titles -->
+    <string name="rank_title_top1">Raja Tertinggi</string>
+    <string name="rank_title_top2">Panglima Agung</string>
+    <string name="rank_title_top3">Garda Mitos</string>
+    <string name="rank_title_legend">Legenda</string>
+    <string name="rank_title_grandmaster">Grandmaster</string>
+    <string name="rank_title_master">Master</string>
+    <string name="rank_title_tactician">Ahli Strategi</string>
+    <string name="rank_title_apprentice">Ksatria</string>
+    <string name="rank_title_novice">Pemula</string>
+
+    <!-- Profile Peak Rank & Special Hallmark -->
+    <string name="profile_peak_section_title">Jejak Peringkat Tertinggi</string>
+    <string name="profile_current_title_fmt">Gelar: %1$s</string>
+    <string name="profile_peak_rank_label">Peringkat Terbaik</string>
+    <string name="profile_current_rank_label">Peringkat Kini</string>
+    <string name="profile_peak_points_label">Skor Tertinggi</string>
+    <string name="profile_rank_value_fmt">#%1$d</string>
+    <string name="profile_rank_unranked">--</string>
+    <string name="hallmark_top1_title">Lencana Puncak Top 1</string>
+    <string name="hallmark_top2_title">Lencana Agung Top 2</string>
+    <string name="hallmark_top3_title">Lencana Mitos Top 3</string>
+    <string name="hallmark_status_active">Aktif Sekarang · VIP Terbuka</string>
+    <string name="hallmark_status_peak">Rekor Puncak Sepanjang Masa</string>
+    <string name="hallmark_locked_hint">Capai Top 1–3 di Papan Peringkat untuk meraih Lencana Khusus dan membuka 3 gaya bidak VIP.</string>
+    <string name="profile_match_history_title">Riwayat Pertandingan (10 Terakhir)</string>
+    <string name="match_history_empty">Belum ada pertandingan. Selesaikan laga pertama Anda!</string>
+    <string name="match_history_win">MENANG</string>
+    <string name="match_history_loss">KALAH</string>
+    <string name="match_history_draw">SERI</string>
+    <string name="match_history_vs_fmt">vs %1$s</string>
+    <string name="match_history_mode_duration_fmt">%1$s · %2$s</string>
+    <string name="match_duration_min_sec">%1$dm %2$dd</string>
+    <string name="match_duration_sec">%1$dd</string>
+
+    <!-- Onboarding & Feature Discovery -->
+    <string name="onboarding_skip">Lewati</string>
+    <string name="onboarding_next">Lanjut</string>
+    <string name="onboarding_start_discovery">Mulai Jelajah</string>
+
+    <string name="onboarding_slide1_title">Selamat Datang di CaroXO</string>
+    <string name="onboarding_slide1_subtitle">Mesin Papan Canvas Mulus</string>
+    <string name="onboarding_slide1_desc">Nikmati serunya catur Caro 5-sejajar dengan sentuhan halus, geser lancar, dan cubit zoom 1x–3x pada beragam ukuran papan.</string>
+
+    <string name="onboarding_slide2_title">Pilihan Mode Beragam</string>
+    <string name="onboarding_slide2_subtitle">Pass &amp; Play, AI Cerdas &amp; Online</string>
+    <string name="onboarding_slide2_desc">Ajak teman main berdua di satu HP, asah taktik melawan 3 tingkat AI (Mudah hingga Minimax Alpha-Beta), atau buat ruang 6 digit online real-time.</string>
+
+    <string name="onboarding_slide3_title">Peringkat &amp; Gaya Bidak VIP</string>
+    <string name="onboarding_slide3_subtitle">Raih Posisi Top 20</string>
+    <string name="onboarding_slide3_desc">Kumpulkan poin kemenangan, raih Lencana Khusus Raja, dan buka 3 gaya bidak VIP bercahaya yang keren.</string>
+
+    <string name="onboarding_slide4_title">Interaksi &amp; Personalisasi</string>
+    <string name="onboarding_slide4_subtitle">Obrolan Global &amp; Riwayat Laga</string>
+    <string name="onboarding_slide4_desc">Mengobrol langsung dengan pemain dunia, pantau 10 laga terakhir, dan pilih Avatar favorit dengan sinkronisasi awan.</string>
+
+    <string name="discovery_step_fmt">Panduan Fitur (%1$d/%2$d)</string>
+    <string name="discovery_btn_got_it">Mengerti</string>
+    <string name="discovery_btn_next">Berikutnya</string>
+    <string name="discovery_btn_skip_all">Lewati semua tip</string>
+    <string name="discovery_toast_started">Mode Panduan Interaktif aktif!</string>
+    <string name="discovery_toast_completed">Panduan dilewati. Anda dapat mengaktifkannya kembali di Setelan.</string>
+    <string name="discovery_toast_reset">Panduan fitur diatur ulang! Jelajahi aplikasi untuk melihatnya.</string>
+
+    <string name="discovery_home_rules_title">Konfigurasi Papan &amp; Aturan</string>
+    <string name="discovery_home_rules_desc">Ganti ukuran papan 10×10, 15×15, 20×20 dan aktifkan \'Aturan Blokir 2 Ujung\' untuk taktik lebih mendalam.</string>
+    <string name="discovery_home_modes_title">Mode Permainan</string>
+    <string name="discovery_home_modes_desc">Pilih Pass &amp; Play untuk duel 2 pemain di satu HP, atau tantang AI dengan 3 tingkat termasuk Minimax Alpha-Beta.</string>
+    <string name="discovery_home_online_title">Ruang Online Real-time</string>
+    <string name="discovery_home_online_desc">Masuk untuk membuat kode ruang 6 digit atau bergabung dengan teman untuk duel seru berbatas waktu 30 detik.</string>
+
+    <string name="discovery_game_controls_title">Kontrol Papan Canvas</string>
+    <string name="discovery_game_controls_desc">Sentuh kotak untuk meletakkan bidak • Geser 1 jari untuk geser • Cubit 2 jari untuk zoom (1x–3x) • Gunakan Saran, Urung &amp; Setelan Cepat.</string>
+
+    <string name="discovery_lb_title">Papan Peringkat &amp; Poin</string>
+    <string name="discovery_lb_desc">Menang +10 poin, kalah -5 poin. Masuk Top 1–3 untuk membuka Lencana Khusus dan 3 gaya bidak VIP spesial.</string>
+
+    <string name="discovery_chat_title">Obrolan Lobi &amp; Ruang</string>
+    <string name="discovery_chat_desc">Kirim pesan real-time di Obrolan Global atau obrolan privat selama pertandingan online berlangsung.</string>
+
+    <string name="discovery_profile_title">Profil &amp; Riwayat Laga</string>
+    <string name="discovery_profile_desc">Pilih Avatar dan Gaya Bidak favorit, pantau Lencana Puncak Anda, dan tinjau 10 pertandingan terakhir.</string>
+
+    <string name="settings_section_discovery">Panduan &amp; Penjelajahan</string>
+    <string name="settings_replay_onboarding_title">Tonton Ulang Tur Onboarding</string>
+    <string name="settings_replay_onboarding_desc">Lihat kembali ringkasan pengenalan 4 langkah aplikasi</string>
+    <string name="settings_reset_discovery_title">Atur Ulang Panduan Fitur</string>
+    <string name="settings_reset_discovery_desc">Tampilkan kembali kartu panduan interaktif saat menjelajah</string>
+</resources>

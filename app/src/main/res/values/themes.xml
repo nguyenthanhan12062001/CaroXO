@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.CaroXO" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/caroxo_primary</item>
+        <item name="colorOnPrimary">@color/caroxo_on_primary</item>
+        <item name="colorPrimaryContainer">@color/caroxo_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/caroxo_on_primary_container</item>
+
+        <item name="colorSecondary">@color/caroxo_secondary</item>
+        <item name="colorOnSecondary">@color/caroxo_on_secondary</item>
+        <item name="colorSecondaryContainer">@color/caroxo_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/caroxo_on_secondary_container</item>
+
+        <item name="colorTertiary">@color/caroxo_tertiary</item>
+        <item name="colorOnTertiary">@color/caroxo_on_tertiary</item>
+
+        <item name="android:colorBackground">@color/caroxo_background</item>
+        <item name="colorSurface">@color/caroxo_surface</item>
+        <item name="colorSurfaceVariant">@color/caroxo_surface_variant</item>
+        <item name="colorSurfaceContainerLowest">@color/caroxo_background</item>
+        <item name="colorSurfaceContainerLow">@color/caroxo_surface</item>
+        <item name="colorSurfaceContainer">@color/caroxo_surface_container</item>
+        <item name="colorSurfaceContainerHigh">@color/caroxo_surface_container_high</item>
+        <item name="colorOnSurface">@color/caroxo_on_surface</item>
+        <item name="colorOnSurfaceVariant">@color/caroxo_on_surface_variant</item>
+        <item name="colorOutline">@color/caroxo_outline</item>
+        <item name="colorOutlineVariant">@color/caroxo_outline_variant</item>
+
+        <item name="colorError">@color/caroxo_error</item>
+        <item name="colorOnError">@color/caroxo_on_error</item>
+        <item name="colorErrorContainer">@color/caroxo_error_container</item>
+        <item name="colorOnErrorContainer">@color/caroxo_on_error_container</item>
+
+        <item name="android:fontFamily">@font/plus_jakarta_sans</item>
+        <item name="fontFamily">@font/plus_jakarta_sans</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.CaroXO.BottomSheetDialog</item>
+        <item name="materialAlertDialogTheme">@style/ThemeOverlay.CaroXO.AlertDialog</item>
+        <item name="textInputOutlinedStyle">@style/Widget.CaroXO.TextInputLayout</item>
+    </style>
+
+    <!-- Pure-black AMOLED Dark Mode Theme -->
+    <style name="Theme.CaroXO.Amoled" parent="Theme.CaroXO">
+        <item name="colorPrimary">@color/caroxo_amoled_primary</item>
+        <item name="colorOnPrimary">@color/caroxo_amoled_on_primary</item>
+        <item name="colorPrimaryContainer">@color/caroxo_amoled_primary_container</item>
+        <item name="colorOnPrimaryContainer">@color/caroxo_amoled_on_primary_container</item>
+
+        <item name="colorSecondary">@color/caroxo_amoled_secondary</item>
+        <item name="colorOnSecondary">@color/caroxo_amoled_on_secondary</item>
+        <item name="colorSecondaryContainer">@color/caroxo_amoled_secondary_container</item>
+        <item name="colorOnSecondaryContainer">@color/caroxo_amoled_on_secondary_container</item>
+
+        <item name="android:colorBackground">@color/caroxo_amoled_background</item>
+        <item name="colorSurface">@color/caroxo_amoled_surface</item>
+        <item name="colorSurfaceVariant">@color/caroxo_amoled_surface_variant</item>
+        <item name="colorSurfaceContainerLowest">@color/caroxo_amoled_background</item>
+        <item name="colorSurfaceContainerLow">@color/caroxo_amoled_surface</item>
+        <item name="colorSurfaceContainer">@color/caroxo_amoled_surface_container</item>
+        <item name="colorSurfaceContainerHigh">@color/caroxo_amoled_surface_container_high</item>
+        <item name="colorOnSurface">@color/caroxo_amoled_on_surface</item>
+        <item name="colorOnSurfaceVariant">@color/caroxo_amoled_on_surface_variant</item>
+        <item name="colorOutline">@color/caroxo_amoled_outline</item>
+        <item name="colorOutlineVariant">@color/caroxo_amoled_outline_variant</item>
+    </style>
+</resources>

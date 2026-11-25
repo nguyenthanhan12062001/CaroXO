@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "927860128488",
+    "project_id": "gamecare-637d8",
+    "storage_bucket": "gamecare-637d8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:927860128488:android:0bd3dcbc96d20def12275d",
+        "android_client_info": {
+          "package_name": "com.game.caroxo.an"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "927860128488-v8dkrqdn353e6kk5mhf9fgnc351h151f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.game.caroxo.an",
+            "certificate_hash": "46d8f81da7256dc7eefa4f47cc6373c19a8714a5"
+          }
+        },
+        {
+          "client_id": "927860128488-72j9vul1f5epfeobfar4bfrhbkhb8r9v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBP_QTbPAGFXCm1sMZKepeMOiEI13jEr8g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "927860128488-72j9vul1f5epfeobfar4bfrhbkhb8r9v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
